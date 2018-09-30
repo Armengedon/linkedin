@@ -1,15 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-<<<<<<< Updated upstream
-    "\\src"
-  ],
-  "SelectedNode": "\\src\\images",
-=======
     "\\src",
     "\\src\\app"
   ],
   "SelectedNode": "\\src\\index.html",
->>>>>>> Stashed changes
   "PreviewInSolutionExplorer": true
 }
