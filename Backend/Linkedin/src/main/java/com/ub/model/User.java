@@ -17,15 +17,18 @@ public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private long id;
+	
+	
 	private String name;
 	
 	public User() {
+		
 	}
 	
-	public User(long id, String name) {
-		super();
-		this.id = id;
+	
+	public User(String name) {
 		this.name = name;
+		this.id=23;
 	}
 
 	public String getName() {

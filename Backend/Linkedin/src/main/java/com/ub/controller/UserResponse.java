@@ -31,10 +31,14 @@ public class UserResponse {
 //	private UserService userservice;
 	
 	@GetMapping(path="/add")
-	public @ResponseBody String addNewUser(@RequestParam String name, @RequestParam String email) {
+	public @ResponseBody String addNewUser(@RequestParam String name) {
+		
 		User n = new User();
 		n.setName(name);
+		
 		userRepository.save(n);
+		//userRepository.save("");
+		
 		return "Saved";
 	}	
 	
