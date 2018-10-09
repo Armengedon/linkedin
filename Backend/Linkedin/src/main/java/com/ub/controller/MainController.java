@@ -1,19 +1,37 @@
 package com.ub.controller;
 
 import java.security.Principal;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.ub.model.AppUser;
+import com.ub.model.Role;
+import com.ub.model.UserRole;
+import com.ub.repository.RoleRepository;
+import com.ub.repository.UserRepository;
+import com.ub.repository.UserRoleRepository;
+import com.ub.utils.EncrytedPasswordUtils;
 import com.ub.utils.WebUtils;
 
 @Controller
 public class MainController {
+	
+	@Autowired
+	private UserRepository userRepository;
+	
+	@Autowired
+	private RoleRepository roleRepository;
+	
+	@Autowired
+	private UserRoleRepository userRoleRepository;
 	
 //	@GetMapping(path="/")
 //	public RedirectView index() {
@@ -37,6 +55,43 @@ public class MainController {
          
         return "adminPage";
     }
+    
+ // Show Register page.
+    @RequestMapping(value = "/register", method = RequestMethod.GET)
+    public String viewRegister(Model model) {
+    	AppUser appUser = new AppUser();
+	
+    	model.addAttribute("appUser", appUser);
+    
+    	return "register";
+    }
+    
+	@PostMapping("/register")
+	public String createUser(AppUser appUser) {
+		appUser.setId(Long.MAX_VALUE);
+		appUser.setPassword(EncrytedPasswordUtils.encrytePassword(appUser.getPassword()));
+		AppUser savedUser = null;
+		int i = 0;
+		while (true) {
+			try {
+				savedUser = userRepository.save(appUser);
+			} catch (Exception e) {
+				i++;
+				if (i == 5) break;
+			}
+		}
+
+		Optional<Role> role = roleRepository.findById(2L);
+		UserRole userRole = new UserRole();
+		userRole.setId(Long.MAX_VALUE);
+		userRole.setAppUser(savedUser);
+		userRole.setAppRole(role.get());
+		userRoleRepository.save(userRole);
+
+		return "loginPage";
+	}
+  
+ 
  
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage(Model model) {
