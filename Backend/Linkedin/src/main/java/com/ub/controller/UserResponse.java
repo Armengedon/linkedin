@@ -63,15 +63,14 @@ public class UserResponse {
 	}
 	
 	@PostMapping("/users")
-	public ResponseEntity<Object> createUser(@RequestBody User user) {
-		User savedUser = userRepository.save(user);
+    public ResponseEntity<Object> createUser(@RequestBody User user) {
+        User savedUser = userRepository.save(user);
 
-		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
-				.buildAndExpand(savedUser.getId()).toUri();
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(savedUser.getId()).toUri();
 
-		return ResponseEntity.created(location).build();
-
-	}
+        return ResponseEntity.created(location).build();
+    }
 	
 	@PutMapping("/users/{id}")
 	public ResponseEntity<Object> updateUser(@RequestBody User user, @PathVariable long id) {
