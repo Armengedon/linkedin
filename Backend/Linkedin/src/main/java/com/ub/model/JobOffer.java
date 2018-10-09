@@ -11,7 +11,7 @@ public class JobOffer {
 	}
 	
 	private String jobTitle;
-	private User jobAnnouncer;
+	private AppUser jobAnnouncer;
 	private Enterprise enterprise;
 	private String location;
 	private Date publicationDate;

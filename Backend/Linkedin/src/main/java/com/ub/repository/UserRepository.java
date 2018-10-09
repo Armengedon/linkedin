@@ -2,10 +2,10 @@ package com.ub.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.ub.model.User;
+import com.ub.model.AppUser;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<AppUser, Long> {
     
-	User findByUserName(String userName);
+	AppUser findByUserName(String userName);
 
 }

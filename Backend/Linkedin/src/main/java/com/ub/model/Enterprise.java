@@ -13,7 +13,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 //@EntityListeners(AuditingEntityListener.class)
 public class Enterprise {
 	
-	private Set<User> employees;
+	private Set<AppUser> employees;
 	private Set<JobOffer> jobOffers;
 	
 }

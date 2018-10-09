@@ -6,7 +6,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
-import com.ub.model.User;
+import com.ub.model.AppUser;
 import com.ub.service.UserService;
 
 @Component
@@ -16,11 +16,11 @@ public class UserValidator implements Validator {
     private UserService userService;
 
     public boolean supports(Class<?> aClass) {
-        return User.class.equals(aClass);
+        return AppUser.class.equals(aClass);
     }
 
     public void validate(Object o, Errors errors) {
-        User user = (User) o;
+        AppUser user = (AppUser) o;
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
         
@@ -37,8 +37,8 @@ public class UserValidator implements Validator {
             errors.rejectValue("password", "Size.userForm.password");
         }
 
-        if (!user.getPasswordConfirm().equals(user.getPassword())) {
-            errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm");
-        }
+//        if (!user.getPassword().equals(user.getPassword())) {
+//            errors.rejectValue("passwordConfirm", "Diff.userForm.passwordConfirm");
+//        }
     }
 }

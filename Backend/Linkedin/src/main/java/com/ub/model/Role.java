@@ -1,23 +1,26 @@
 package com.ub.model;
 
-import java.util.Set;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name = "role")
+@Table(name = "App_Role", //
+uniqueConstraints = { //
+        @UniqueConstraint(name = "APP_ROLE_UK", columnNames = "Role_Name") })
 public class Role {
-    private Long id;
-    private String name;
-    private Set<User> users;
+	
+	@Id
+    @GeneratedValue    
+    @Column(name = "Role_Id", nullable = false)
+	private long id;
+	
+    @Column(name = "Role_Name", length = 30, nullable = false)
+    private String roleName;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getId() {
         return id;
     }
@@ -26,20 +29,12 @@ public class Role {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getRoleName() {
+        return roleName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setRoleName(String roleName) {
+        this.roleName = roleName;
     }
 
-    @ManyToMany(mappedBy = "roles")
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
 }

@@ -3,18 +3,18 @@ package com.ub.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import com.ub.repository.RoleRepository;
 import com.ub.repository.UserRepository;
-import com.ub.model.Role;
-import com.ub.model.User;
+import com.ub.model.AppUser;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService{
@@ -22,15 +22,34 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	@Autowired
     private UserRepository userRepository;
 
-    @Transactional(readOnly = true)
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        User user = userRepository.findByUserName(userName);
-
-        Set<GrantedAuthority> grantedAuthorities = new HashSet<GrantedAuthority>();
-        for (Role role : user.getRoles()){
-            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName()));
+	@Autowired
+	private RoleRepository roleRepository;
+	
+	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        AppUser user = userRepository.findByUserName(userName);
+ 
+        if (user == null) {
+            System.out.println("User not found! " + userName);
+            throw new UsernameNotFoundException("User " + userName + " was not found in the database");
         }
-
-        return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), grantedAuthorities);
+ 
+        System.out.println("Found User: " + user);
+ 
+        // [ROLE_USER, ROLE_ADMIN,..]
+        List<String> roleNames = roleRepository.getRoleNames(user.getId());
+        System.out.println(roleNames);
+        List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
+        if (roleNames != null) {
+            for (String role : roleNames) {
+                // ROLE_USER, ROLE_ADMIN,..
+                GrantedAuthority authority = new SimpleGrantedAuthority(role);
+                grantList.add(authority);
+            }
+        }
+ 
+        UserDetails userDetails = (UserDetails) new User(user.getUserName(), //
+                user.getPassword(), grantList);
+ 
+        return userDetails;
     }
 }
