@@ -1,5 +1,6 @@
 package com.ub.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
@@ -16,16 +17,22 @@ public class User {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long id;
+	@Column(name = "userId", unique = true, nullable = false)
+	private long userId;
 	private String name;
+	private String email;
+	private String password;
+	private String passwordConfirm;
 	
 	public User() {
 	}
 	
-	public User(long id, String name) {
-		super();
-		this.id = id;
+	public User( String name, String email, String password, String passwordConfirm) {
+//		this.id = id;
 		this.name = name;
+		this.email = email;
+		this.password = password;
+		this.passwordConfirm = passwordConfirm;
 	}
 
 	public String getName() {
@@ -37,11 +44,35 @@ public class User {
 	}
 	
 	public long getId() {
-		return id;
+		return userId;
 	}
 	
 	public void setId(long id) {
-		this.id = id;
+		this.userId = id;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getPasswordConfirm() {
+		return passwordConfirm;
+	}
+
+	public void setPasswordConfirm(String passwordConfirm) {
+		this.passwordConfirm = passwordConfirm;
 	}
 	
 }

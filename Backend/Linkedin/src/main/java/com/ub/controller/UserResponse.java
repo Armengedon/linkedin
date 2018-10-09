@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.ub.bbdd.UserRepository;
 import com.ub.model.User;
@@ -29,14 +30,12 @@ public class UserResponse {
 	private UserRepository userRepository;
 
 //	private UserService userservice;
+	@GetMapping(path="/")
+	public RedirectView index() {
+		return new RedirectView("/index.html");
+	}
 	
-	@GetMapping(path="/add")
-	public @ResponseBody String addNewUser(@RequestParam String name, @RequestParam String email) {
-		User n = new User();
-		n.setName(name);
-		userRepository.save(n);
-		return "Saved";
-	}	
+
 	
 	@GetMapping("/users")
 	public List<User> retrieveAllUsers() {
@@ -66,7 +65,6 @@ public class UserResponse {
 				.buildAndExpand(savedUser.getId()).toUri();
 
 		return ResponseEntity.created(location).build();
-
 	}
 	
 	@PutMapping("/users/{id}")
