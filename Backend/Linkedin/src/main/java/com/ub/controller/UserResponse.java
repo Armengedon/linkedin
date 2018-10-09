@@ -31,16 +31,27 @@ public class UserResponse {
 //	private UserService userservice;
 	
 	@GetMapping(path="/add")
-	public @ResponseBody String addNewUser(@RequestParam String name) {
-		
+	public @ResponseBody String addNewUser(@RequestParam String name) throws Exception {
+
 		User n = new User();
+
 		n.setName(name);
+		int i = 0;
+		while(true) {
+			try {
+				userRepository.save(n);
+				return "Saved";
+			} catch (Exception e) {
+				i++;
+				if (i ==5) throw e;
+			}
+		}
 		
-		userRepository.save(n);
 		//userRepository.save("");
 		
-		return "Saved";
+		
 	}	
+
 	
 	@GetMapping("/users")
 	public List<User> retrieveAllUsers() {
@@ -64,6 +75,7 @@ public class UserResponse {
 	
 	@PostMapping("/users")
     public ResponseEntity<Object> createUser(@RequestBody User user) {
+		
         User savedUser = userRepository.save(user);
 
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")

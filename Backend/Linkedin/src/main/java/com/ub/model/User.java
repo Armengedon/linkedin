@@ -28,8 +28,9 @@ public class User {
 	
 	public User(String name) {
 		this.name = name;
-		this.id=23;
+		this.id = id;
 	}
+	
 
 	public String getName() {
 		return name;
