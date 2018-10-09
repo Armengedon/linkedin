@@ -1,11 +1,15 @@
 package com.ub.model;
 
-import javax.persistence.Column;
+import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -13,36 +17,36 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 @Table(name="User")
 @EntityListeners(AuditingEntityListener.class)
-public class User {
+public class User extends org.springframework.security.core.userdetails.User {
 	
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name = "userId", unique = true, nullable = false)
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private long userId;
-	private String name;
 	private String email;
-	private String password;
-	private String passwordConfirm;
+	private Set<Role> roles;
 	
 	public User() {
 	}
 	
-	public User( String name, String email, String password, String passwordConfirm) {
-//		this.id = id;
-		this.name = name;
+	
+	public User(String userName, String email, String password,) {
+		super(userName, password, arg2)
+		this.userName = userName;
 		this.email = email;
-		this.password = password;
-		this.passwordConfirm = passwordConfirm;
 	}
 
-	public String getName() {
-		return name;
+	public String getUserName() {
+		return userName;
 	}
 	
-	public void setName(String name) {
-		this.name = name;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	public long getId() {
 		return userId;
 	}
@@ -74,5 +78,17 @@ public class User {
 	public void setPasswordConfirm(String passwordConfirm) {
 		this.passwordConfirm = passwordConfirm;
 	}
+	
+	@ManyToMany
+    @JoinTable(name = "user_role",
+    joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "role_id"))
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
 	
 }
