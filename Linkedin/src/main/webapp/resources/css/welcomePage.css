@@ -65,7 +65,7 @@ a{
 }
 
 /* Full-width input fields */
-input[type=textregister], input[type=passwordregister] {
+input[type=textregister]{
   width: 100%;
   padding-top: 0px;
   padding-right: 8px;
@@ -79,7 +79,7 @@ input[type=textregister], input[type=passwordregister] {
   border: 1px solid rgba(0,0,0,0.15);
 }
 
-input[type=textregister]:focus, input[type=passwordregister]:focus {
+input[type=textregister]:focus{
   background-color: #fff;
   padding-top: 0px;
   padding-right: 8px;
@@ -87,6 +87,12 @@ input[type=textregister]:focus, input[type=passwordregister]:focus {
   padding-left: 8px;
   outline: none;
   border:1px solid rgba(0,0,0,0.15);
+}
+
+input[name=password]{
+  width: 100%;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.15);
 }
 
 /* Overwrite default styles of hr */

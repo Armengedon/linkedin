@@ -44,6 +44,12 @@ public class MainController {
         model.addAttribute("message", "This is welcome page!");
         return "welcomePage";
     }
+
+    @RequestMapping(value = {"/register_1" }, method = RequestMethod.GET)
+    public String register_1(Model model) {
+        return "register_1";
+    }
+
  
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String adminPage(Model model, Principal principal) {
