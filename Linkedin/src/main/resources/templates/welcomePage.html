@@ -27,7 +27,7 @@
         <nav class="navbar navbar-light bg-light static-top">
           <div class="container">
             <img class="lazy-loaded" alt="LinkedIn" src="/resources/images/linkedin.png">
-            <form action="" method="post">
+            <form action="" method="POST">
     
               <label hidden for="email">Correo electrónico:</label>
               <input type="text" name="session_mail" class="login-email" autocapitalize="off" tabindex="1" id="login-email" placeholder="Correo electrónico" autofocus="autofocus" required>
@@ -35,7 +35,7 @@
               <label hidden for="password">Contraseña:</label>
               <input type="password" name="session_password" class="login-password" autocapitalize="off" tabindex="1"  id="login-password" placeholder="Contraseña" autofocus="autofocus" required>
               
-              <button type="button" class="btn btn-outline-light">Inicia sesión</button>
+              <button type="submit" class="btn btn-outline-light">Inicia sesión</button>
     
               <a href="#">¿Has olvidado tu contraseña?</a>
     
@@ -51,7 +51,7 @@
             <div class="row">
               <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
     
-                <form action="action_page.php">
+                <form action="/register" method="POST">
                   <div class="container2" >
                     
                     <h1 class="title">Destaca en lo que haces</h1>
@@ -59,21 +59,22 @@
                     
                     <section class="form-body">
                       <label for="Nombre"> <b>Nombre</b></label>
-                      <input type="textregister" name="nombre" required>
+                      <input type="textregister" name="userName" required>
     
                       <label for="Apellidos"> <b>Apellidos</b></label>
-                      <input type="textregister" name="apellidos" required>
+                      <input type="textregister" name="surName" required>
                   
                       <label for="email"><b>Correo electrónic</b></label>
                       <input type="textregister" name="email" required>
                   
                       <label for="psw"><b>Contraseña (6 o más caracteres)</b></label>
-                      <input type="passwordregister" name="psw" required>
+                      <input type="password" name="password" required>
                   
                       <p>Al hacer clic en unirte, aceptas las <a href="#">Condiciones de uso</a>, 
                         la <a href="#">Política de privacidad</a> y la 
                         <a href="#">Política de cookies de Linkedin</a>.</p>
-                      <button type="button" class="btn btn-primary btn-lg btn-block">Únete ahora</button>
+                      
+                      <button type="submit" class="btn btn-primary btn-lg btn-block">Únete ahora</button>
     
                     </section>
     
@@ -107,25 +108,6 @@
                   </li>
                 </ul>
                 <p class="text-muted small mb-4 mb-lg-0">&copy; Your Website 2018. All Rights Reserved.</p>
-              </div>
-              <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
-                <ul class="list-inline mb-0">
-                  <li class="list-inline-item mr-3">
-                    <a href="#">
-                      <i class="fab fa-facebook fa-2x fa-fw"></i>
-                    </a>
-                  </li>
-                  <li class="list-inline-item mr-3">
-                    <a href="#">
-                      <i class="fab fa-twitter-square fa-2x fa-fw"></i>
-                    </a>
-                  </li>
-                  <li class="list-inline-item">
-                    <a href="#">
-                      <i class="fab fa-instagram fa-2x fa-fw"></i>
-                    </a>
-                  </li>
-                </ul>
               </div>
             </div>
           </div>
