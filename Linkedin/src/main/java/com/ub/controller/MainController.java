@@ -50,6 +50,16 @@ public class MainController {
         return "register_1";
     }
 
+    @RequestMapping(value = {"/register_2" }, method = RequestMethod.GET)
+    public String register_2(Model model) {
+        return "register_2";
+    }
+
+    @RequestMapping(value = {"/register_5" }, method = RequestMethod.GET)
+    public String register_5(Model model) {
+        return "register_5";
+    }
+
  
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String adminPage(Model model, Principal principal) {

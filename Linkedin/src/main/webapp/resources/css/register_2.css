@@ -63,6 +63,36 @@
     background: white;
 }
 
+.subtitle{
+    font-size: 1rem;
+    line-height: 1.5;
+    font-weight: 400;
+    color: rgba(0,0,0,0.9);
+    position: relative;
+    background: #F6F8FA;
+    text-align: center;
+    padding-top: 0px;
+    padding-right: 8px;
+    padding-bottom: 6px;
+    padding-left: 8px;
+    background: white;
+}
+
+.subtitle2{
+    font-size: 0.8rem;
+    line-height: 1.5;
+    font-weight: 400;
+    color: rgba(0,0,0,0.9);
+    position: relative;
+    background: #F6F8FA;
+    text-align: center;
+    padding-top: 8px;
+    padding-right: 8px;
+    padding-bottom: 6px;
+    padding-left: 8px;
+    background: white;
+}
+
 b{
     color: gray;
     font-size: 0.9rem;
@@ -109,7 +139,7 @@ p{
  }
 
  .button {
-    background-color: #4CAF50; /* Green */
+    background-color:white; /* Green */
     border: none;
     color: white;
     padding: 15px 32px;
@@ -122,9 +152,37 @@ p{
 }
 
 .button4 {
-    background-color: white;
     color: black;
     border: none;
     margin-left: 40%;
     
+}
+
+.button_image{
+    padding: 21px 75px;
+    background: url(../images/android-download.png);
+}
+
+.button_image1{
+    padding: 21px 75px;
+    background: url(../images/apple-download.png);
+}
+
+
+.container4{
+    float: left;
+    width: 228px;
+    padding-top: 0px;
+    padding-right: 0px;
+    padding-bottom: 2px;
+    padding-left: 0px;
+    margin-left: 10%;
+}
+.container5{
+    float: right;
+    width: calc(100%-228px);
+    padding-top: 0px;
+    padding-right: 0px;
+    padding-bottom: 2px;
+    padding-left: 0px;
 }
