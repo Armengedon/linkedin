@@ -87,23 +87,13 @@ public class MainController {
 		appUser.setId(Long.MAX_VALUE);
 		appUser.setPassword(EncrytedPasswordUtils.encrytePassword(appUser.getPassword()));
 		AppUser savedUser = null;
-		int i = 0;
-		while (true) {
-			try {
-				savedUser = userRepository.save(appUser);
-			} catch (Exception e) {
-				i++;
-				if (i == 5) break;
-			}
-		}
-
+		savedUser = userRepository.save(appUser);
 		Optional<Role> role = roleRepository.findById(2L);
 		UserRole userRole = new UserRole();
 		userRole.setId(Long.MAX_VALUE);
 		userRole.setAppUser(savedUser);
 		userRole.setAppRole(role.get());
 		userRoleRepository.save(userRole);
-
 		return "loginPage";
 	}
   
@@ -112,7 +102,7 @@ public class MainController {
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage(Model model) {
  
-        return "loginPage";
+        return "userInfoPage";
     }
  
     @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
