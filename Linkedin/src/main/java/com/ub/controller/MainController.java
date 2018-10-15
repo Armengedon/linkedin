@@ -60,6 +60,10 @@ public class MainController {
         return "register_5";
     }
 
+    @RequestMapping(value = {"/feed" }, method = RequestMethod.GET)
+    public String mainPage(Model model) {
+        return "mainPage";
+    }
  
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String adminPage(Model model, Principal principal) {
