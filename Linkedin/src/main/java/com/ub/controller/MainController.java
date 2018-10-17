@@ -86,14 +86,13 @@ public class MainController {
 
 	// @PostMapping("/register")
 	@RequestMapping(value = "/register", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
-	@ResponseBody
-	public AppUser createUser(@RequestBody AppUser appUser) {
+	public String createUser(@RequestBody AppUser appUser) {
 		appUser.setId(Long.MAX_VALUE);
 		appUser.setPassword(EncrytedPasswordUtils.encrytePassword(appUser.getPassword()));
 		AppUser savedUser = null;
 		savedUser = userRepository.save(appUser);
 		if (savedUser == null) {
-			return null;
+			return "403Page";
 		} else {
 			Optional<Role> role = roleRepository.findById(2L);
 			UserRole userRole = new UserRole();
@@ -102,7 +101,7 @@ public class MainController {
 			userRole.setAppRole(role.get());
 			userRoleRepository.save(userRole);
 			// return "loginPage";
-			return savedUser;
+			return "loginPage";
 		}
 	}
 
