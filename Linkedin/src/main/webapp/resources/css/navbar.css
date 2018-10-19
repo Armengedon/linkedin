@@ -2,18 +2,3 @@
     background-color: #013d4f !important;
     height: 52px;
 }
-
-a.logo_to_main{
-    margin-top: 0px;
-    margin-right: 0px;
-    margin-bottom: 0px;
-    margin-left: 0px;
-    padding-top: 0px;
-    padding-right: 0px;
-    padding-bottom: 0px;
-    padding-left: 0px;
-
-    -webkit-appearance: button;
-    -moz-appearance: button;
-    appearance: button;
-}
