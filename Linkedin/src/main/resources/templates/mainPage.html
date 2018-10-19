@@ -22,5 +22,11 @@
 
 <body>
     <!-- Include _navbar.html -->
+    <script type='text/javascript' src='/resources/js/navbar.js'></script>
+    <script type="text/javascript">
+      window.onload = function() {
+          home();
+      };
+    </script>
     <th:block th:include="_navbar"></th:block>
 </body>
