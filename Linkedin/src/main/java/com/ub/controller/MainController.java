@@ -61,7 +61,7 @@ public class MainController {
     }
 
     @RequestMapping(value = {"/register_4" }, method = RequestMethod.GET)
-    public String register_3(Model model) {
+    public String register_4(Model model) {
         return "register_4";
     }
 
