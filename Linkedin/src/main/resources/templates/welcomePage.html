@@ -19,6 +19,11 @@
         <!-- Custom styles for this template -->
         <link href="/resources/css/startbootstrap-landing-page-gh-pages/css/landing-page.min.css" rel="stylesheet">
         <link rel="stylesheet" href="/resources/css/welcomePage.css"> 
+        
+        <!--  Add JS -->
+        <script type="application/script" src="./lib/generatorJson.js"></script>
+        <script type="application/script" src="/app/user.service.js"></script>
+        <script type="application/script" src="/app/general.controller.js"></script>
    </head>
 
    <body>
@@ -51,7 +56,7 @@
             <div class="row">
               <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
     
-                <form action="/register" method="POST">
+                <form id="register1" action="/register" method="POST">
                   <div class="container2" >
                     
                     <h1 class="title">Destaca en lo que haces</h1>
@@ -59,16 +64,16 @@
                     
                     <section class="form-body">
                       <label for="Nombre"> <b>Nombre</b></label>
-                      <input type="textregister" name="userName" required>
+                      <input type="textregister" id="firstName" name="firstName" required>
     
                       <label for="Apellidos"> <b>Apellidos</b></label>
-                      <input type="textregister" name="surName" required>
+                      <input type="textregister" id="secondName" name="secondName" required>
                   
                       <label for="email"><b>Correo electrónic</b></label>
-                      <input type="textregister" name="email" required>
+                      <input type="textregister" id="email" name="email" required>
                   
                       <label for="psw"><b>Contraseña (6 o más caracteres)</b></label>
-                      <input type="password" name="password" required>
+                      <input type="password" id="password"  name="password" required>
                   
                       <p>Al hacer clic en unirte, aceptas las <a href="#">Condiciones de uso</a>, 
                         la <a href="#">Política de privacidad</a> y la 
@@ -80,11 +85,11 @@
     
                   </div>
                 </form> 
+                <pre hidden id="output"> </pre>
               </div>
             </div> 
           </div>
         </header>
-    
         <!-- Footer -->
         <footer class="footer bg-light">
           <div class="container">
@@ -113,6 +118,40 @@
           </div>
         </footer>
      </body>
-    
 </html>
+
+
+<script>
+(function() {
+	function toJSONString ( form ){
+		var obj = {};
+		var elements = form.querySelectorAll("input, select, textarea" );
+	
+		for (var i = 0; i < elements.length; ++i ){
+			var element = elements[i]
+			var name = element.name;
+			var value = element.value;
+			
+			if (name ) {
+				obj[name] = value;
+			}
+		}
+		console.log(JSON.stringify(obj));
+		return JSON.stringify(obj);
+		
+	}
+	
+	document.addEventListener( "DOMContentLoaded", function() {
+		var form = document.getElementById("register1");
+		var output = document.getElementById("output");
+		
+		form.addEventListener("submit", function(e){
+			e.preventDefault();
+			var json = toJSONString(this);
+			output.innerHTML = json
+		}, false);
+	});
+})();
+
+</script>
 
