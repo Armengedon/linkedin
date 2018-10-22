@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ub.model.AppUser;
@@ -82,6 +83,32 @@ public class UserController {
 			return "loginPage";
 		}
 	}
+
+	@RequestMapping(value = "/register/{phase}",method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public String updateUser(@RequestBody AppUser appUser , @PathVariable("phase") int phase) {
+		
+		//Optional<AppUser> userOptional = userRepository.findByEmail(appUser.getEmail());
+
+		AppUser savedUser = null;
+		savedUser = userRepository.save(appUser);
+		if (savedUser == null) {
+			return "403Page";
+		} else {
+			
+			if (phase == 1) {
+				return "resgister_1";
+			}
+			else if (phase ==2) {
+				return "resgister_2";
+			}
+			else if (phase ==3) {
+				return "resgister_3";
+			}
+			
+		}
+		return null;
+	}
+
 
 	@GetMapping("/{id}")
 	public AppUser retrieveUser(@PathVariable long id) {
