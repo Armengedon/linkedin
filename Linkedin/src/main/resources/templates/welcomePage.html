@@ -166,7 +166,7 @@
 				console.log(json);
 				
 				$.ajax({
-					  url:"/register",
+					  url:"/users/register",
 					  type:"POST",
 					  data:json,
 					  contentType:"application/json; charset=utf-8",
@@ -175,12 +175,13 @@
 							$.post("/users/register ", json, function(data, status) {
 								alert("Data: " + data + "\nStatus: " + status);
 							});
+							window.location.href = "/registerSuccessfull";
 					  }
 					})
 
 
 				output.innerHTML = json
-				//window.location.href = "/users/register";
+				
 			}, false);
 			
 			form2.addEventListener("submit", function(e) {
@@ -189,10 +190,20 @@
 
 				console.log(json);
 
-				$.post("/users/login ", json, function(data, status) {
-					alert("Data: " + data + "\nStatus: " + status);
-				});
-
+				$.ajax({
+					  url:"/users/login",
+					  type:"POST",
+					  data:json,
+					  contentType:"application/json; charset=utf-8",
+					  dataType:"json",
+					  success: function(){
+							$.post("/users/login ", json, function(data, status) {
+								alert("Data: " + data + "\nStatus: " + status);
+								window.location.href = "/registerSuccessfull";
+							});
+					  }
+					})
+				
 				output.innerHTML = json
 			}, false);
 		});
