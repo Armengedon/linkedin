@@ -69,6 +69,11 @@ public class MainController {
     public String networkPage(Model model) {
         return "networkPage";
     }
+
+    @RequestMapping(value = {"/errorLogin" }, method = RequestMethod.GET)
+    public String errorLogin(Model model) {
+        return "errorLogin";
+    }
  
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String adminPage(Model model, Principal principal) {
