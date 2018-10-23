@@ -175,7 +175,7 @@
 							$.post("/users/register ", json, function(data, status) {
 								alert("Data: " + data + "\nStatus: " + status);
 							});
-							window.location.href = "/registerSuccessfull";
+							window.location.href = "/register1";
 					  }
 					})
 
@@ -199,7 +199,7 @@
 					  success: function(){
 							$.post("/users/login ", json, function(data, status) {
 								alert("Data: " + data + "\nStatus: " + status);
-								window.location.href = "/registerSuccessfull";
+								window.location.href = "#";
 							});
 					  }
 					})
