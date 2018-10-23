@@ -74,7 +74,7 @@
 			<div class="row">
 				<div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
 
-					<form id="register1" action="" method="POST">
+					<form id="register1" action="/users/register" method="POST">
 						<div class="container2">
 
 							<h1 class="title">Destaca en lo que haces</h1>
@@ -164,12 +164,23 @@
 				var json = toJSONString(this);
 
 				console.log(json);
+				
+				$.ajax({
+					  url:"/register",
+					  type:"POST",
+					  data:json,
+					  contentType:"application/json; charset=utf-8",
+					  dataType:"json",
+					  success: function(){
+							$.post("/users/register ", json, function(data, status) {
+								alert("Data: " + data + "\nStatus: " + status);
+							});
+					  }
+					})
 
-				$.post("/users/register ", json, function(data, status) {
-					alert("Data: " + data + "\nStatus: " + status);
-				});
 
 				output.innerHTML = json
+				//window.location.href = "/users/register";
 			}, false);
 			
 			form2.addEventListener("submit", function(e) {
