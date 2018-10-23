@@ -21,6 +21,13 @@ import com.ub.repository.UserRoleRepository;
 import com.ub.utils.EncrytedPasswordUtils;
 import com.ub.utils.WebUtils;
 
+/**
+ * Main controller of the webApp, it is not a rest controller
+ * so it is bound to disappear. It routes the requests from the client
+ * to the database model
+ * @author Jordi
+ *
+ */
 @Controller
 public class MainController {
 	
@@ -32,11 +39,6 @@ public class MainController {
 	
 	@Autowired
 	private UserRoleRepository userRoleRepository;
-	
-//	@GetMapping(path="/")
-//	public RedirectView index() {
-//		return new RedirectView("/index.html");
-//	}
 	
 	@RequestMapping(value = { "/", "/welcome" }, method = RequestMethod.GET)
     public String welcomePage(Model model) {
@@ -72,7 +74,11 @@ public class MainController {
         return "adminPage";
     }
     
- // Show Register page.
+    /**
+     * Load register page
+     * @param model
+     * @return route to the html file
+     */
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String viewRegister(Model model) {
     	AppUser appUser = new AppUser();
@@ -82,6 +88,11 @@ public class MainController {
     	return "register";
     }
     
+    /**
+     * Function to receive posts from /register
+     * @param appUser {@link AppUser} to register
+     * @return
+     */
 	@PostMapping("/register")
 	public String createUser(AppUser appUser) {
 		appUser.setId(Long.MAX_VALUE);
@@ -127,6 +138,12 @@ public class MainController {
         return "userInfoPage";
     }
  
+    /**
+     * 
+     * @param model
+     * @param principal
+     * @return
+     */
     @RequestMapping(value = "/403", method = RequestMethod.GET)
     public String accessDenied(Model model, Principal principal) {
  

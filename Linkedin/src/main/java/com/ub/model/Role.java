@@ -7,6 +7,12 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
+/**
+ * This class provides a database for user roles, every
+ * role has an id and a name.
+ * @author Jordi
+ *
+ */
 @Entity
 @Table(name = "App_Role", //
 uniqueConstraints = { //
