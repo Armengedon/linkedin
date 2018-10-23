@@ -84,14 +84,15 @@ public class UserController {
     
 	@RequestMapping(value = "/performlogin", method = RequestMethod.POST, produces = {
             MediaType.APPLICATION_JSON_VALUE })
-    public AppUser performlogin(@RequestBody AppUser appUser, Model model) {
+    public String performlogin(@RequestBody AppUser appUser) {
         AppUser userPrincipal = null;
         userPrincipal = userRepository.findByEmail(appUser.getEmail());
         if (passwordEncoder.matches(appUser.getPassword(), userPrincipal.getPassword())) {
-        	return userPrincipal; 
+        	return "mainPage";
+        	//return userPrincipal; 
         }else {
         	//QUe vol frontend
-        	return null;
+        	return "errorLogin";
         }
         	
         // model.addAttribute(userPrincipal);
