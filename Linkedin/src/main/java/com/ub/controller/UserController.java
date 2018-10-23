@@ -63,15 +63,15 @@ public class UserController {
 		return "register";
 	}
 
-	// @PostMapping("/register")
+	
 	@RequestMapping(value = "/register", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
-	public String createUser(@RequestBody AppUser appUser) {
+	public ResponseEntity<Object> createUser(@RequestBody AppUser appUser) {
 		appUser.setId(Long.MAX_VALUE);
 		appUser.setPassword(EncrytedPasswordUtils.encrytePassword(appUser.getPassword()));
 		AppUser savedUser = null;
 		savedUser = userRepository.save(appUser);
 		if (savedUser == null) {
-			return "403Page";
+			return ResponseEntity.notFound().build();
 		} else {
 			Optional<Role> role = roleRepository.findById(2L);
 			UserRole userRole = new UserRole();
@@ -80,7 +80,7 @@ public class UserController {
 			userRole.setAppRole(role.get());
 			userRoleRepository.save(userRole);
 			// return "loginPage";
-			return "loginPage";
+			return ResponseEntity.noContent().build();
 		}
 	}
 
