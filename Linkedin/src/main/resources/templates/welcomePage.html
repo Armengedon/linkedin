@@ -53,8 +53,8 @@
 					placeholder="Correo electrónico" autofocus="autofocus" required>
 
 				<label hidden for="password">Contraseña:</label> <input
-					type="password" name="session_password" class="login-password"
-					autocapitalize="off" tabindex="1" id="login-password"
+					type="password" name="password" class="login-password"
+					autocapitalize="off" tabindex="1" id="password"
 					placeholder="Contraseña" autofocus="autofocus" required>
 
 				<button type="submit" class="btn btn-outline-light">Inicia
@@ -82,7 +82,7 @@
 
 							<section class="form-body">
 								<label for="Nombre"> <b>Nombre</b></label> <input
-									type="textregister" id="firstName" name="firstName" required>
+									type="textregister" id="userName" name="userName" required>
 
 								<label for="Apellidos"> <b>Apellidos</b></label> <input
 									type="textregister" id="secondName" name="secondName" required>
@@ -175,7 +175,7 @@
 							$.post("/users/register ", json, function(data, status) {
 								alert("Data: " + data + "\nStatus: " + status);
 							});
-							window.location.href = "/register1";
+							window.location.href = "/register_1";
 					  }
 					})
 
@@ -191,16 +191,16 @@
 				console.log(json);
 
 				$.ajax({
-					  url:"/users/login",
+					  url:"/users/performlogin",
 					  type:"POST",
 					  data:json,
 					  contentType:"application/json; charset=utf-8",
 					  dataType:"json",
 					  success: function(){
-							$.post("/users/login ", json, function(data, status) {
+							$.post("/users/performlogin ", json, function(data, status) {
 								alert("Data: " + data + "\nStatus: " + status);
-								window.location.href = "#";
 							});
+							window.location.href = "/users/";
 					  }
 					})
 				

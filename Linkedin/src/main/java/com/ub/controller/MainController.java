@@ -89,29 +89,6 @@ public class MainController {
         return "adminPage";
     }
     
-	// @PostMapping("/register")
-	@RequestMapping(value = "/register", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
-	public String createUser(@RequestBody AppUser appUser) {
-		appUser.setId(Long.MAX_VALUE);
-		appUser.setPassword(EncrytedPasswordUtils.encrytePassword(appUser.getPassword()));
-		AppUser savedUser = null;
-		savedUser = userRepository.save(appUser);
-		if (savedUser == null) {
-			return "403Page";
-		} else {
-			Optional<Role> role = roleRepository.findById(2L);
-			UserRole userRole = new UserRole();
-			userRole.setId(Long.MAX_VALUE);
-			userRole.setAppUser(savedUser);
-			userRole.setAppRole(role.get());
-			userRoleRepository.save(userRole);
-			// return "loginPage";
-			return "loginPage";
-		}
-	}
-    
-
-
  
     @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage(Model model, Principal principal) {
