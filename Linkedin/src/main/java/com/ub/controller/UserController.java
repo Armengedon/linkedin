@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,9 +28,9 @@ import com.ub.repository.UserRoleRepository;
 import com.ub.utils.EncrytedPasswordUtils;
 
 @RestController
-@RequestMapping(value = "/users")
+@RequestMapping(value ="/users")
 public class UserController {
-
+	
 	@Autowired
 	private RoleRepository roleRepository;
 
@@ -37,7 +39,9 @@ public class UserController {
 
 	@Autowired
 	private UserRepository userRepository;
-
+	
+	PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	
 //	@PostMapping("/register")
 //	public ResponseEntity<Object> createUser(@RequestBody User user) {
 //		User savedUser = userRepository.save(user);
@@ -47,11 +51,6 @@ public class UserController {
 //
 //		return ResponseEntity.created(location).build();
 //	}
-
-	@GetMapping(value = { "", "/" })
-	public List<AppUser> retrieveAllUsers() {
-		return userRepository.findAll();
-	}
 
 	// Show Register page.
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -76,6 +75,7 @@ public class UserController {
 			Optional<Role> role = roleRepository.findById(2L);
 			UserRole userRole = new UserRole();
 			userRole.setId(Long.MAX_VALUE);
+			String a = "";
 			userRole.setAppUser(savedUser);
 			userRole.setAppRole(role.get());
 			userRoleRepository.save(userRole);
@@ -104,27 +104,50 @@ public class UserController {
 			else if (phase ==3) {
 				return "resgister_3";
 			}
-			
 		}
 		return null;
 	}
+   
+	@RequestMapping(value = "/performlogin", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE })
+    public String performlogin(@RequestBody AppUser appUser) {
+        AppUser userPrincipal = null;
+        userPrincipal = userRepository.findByEmail(appUser.getEmail());
+        if (passwordEncoder.matches(appUser.getPassword(), userPrincipal.getPassword())) {
+        	return "mainPage";
+        	//return userPrincipal; 
+        }else {
+        	//QUe vol frontend
+        	return "errorLogin";
+        }
+        	
+        // model.addAttribute(userPrincipal);
 
+//        String userName = userPrincipal.getUserName();
+//        String loginedUser = userPrincipal.toString();
+
+        //model.addAttribute("userInfo", loginedUser);
+    }
+	
+	@GetMapping(value = { "","/"})
+	public List<AppUser> retrieveAllUsers() {
+		return userRepository.findAll();
+	}
 
 	@GetMapping("/{id}")
 	public AppUser retrieveUser(@PathVariable long id) {
 		Optional<AppUser> foundUser = userRepository.findById(id);
 
 		if (!foundUser.isPresent())
-			System.out.println("id-" + id + " not found");
+			System.out.println("id-" + id+ " not found");
 
 		return foundUser.get();
 	}
-
+	
 	@DeleteMapping("/{id}")
 	public void deleteUser(@PathVariable long id) {
 		userRepository.deleteById(id);
 	}
-
+	
 	@PutMapping("/{id}")
 	public ResponseEntity<Object> updateUser(@RequestBody AppUser user, @PathVariable long id) {
 
@@ -134,10 +157,10 @@ public class UserController {
 			return ResponseEntity.notFound().build();
 
 		user.setId(id);
-
+		
 		userRepository.save(user);
 
 		return ResponseEntity.noContent().build();
 	}
-
+	
 }
