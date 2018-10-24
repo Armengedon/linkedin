@@ -1,0 +1,184 @@
+.navbar {
+    background-color: #013d4f !important;
+    height: 52px;
+}
+
+input[type=text], input[type=password]{
+    font-size: 0.8rem;
+    line-height: 1.33333;
+    font-weight: 600;
+    color: rgba(0,0,0,0.9);
+    display: inline-block;
+    width: 216px;
+    height: 32px;
+    margin-top: 10px;
+    margin-right: 8px;
+    margin-bottom: 10px;
+    margin-left: 0px;
+    padding-top: 0px;
+    padding-right: 10px;
+    padding-bottom: 0px;
+    padding-left: 10px;
+    background: #f3f6f8;
+    border: 1px solid #b3b6b9;
+}
+
+a{
+  font-size: 0.8rem;
+  margin-left: 10px;
+  color: #96999c;
+}
+
+.lazy-loaded{
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+}
+
+* {box-sizing: border-box}
+
+/* Add padding to containers */
+.container2 {
+  padding-top: 0px;
+  padding-right: 0px;
+  padding-bottom: 2px;
+  padding-left: 0px;
+  width: 400px;
+  background: #EDF0F3;
+  margin: 0 auto;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  overflow: hidden;
+}
+
+.form-body{
+    border: 1px solid rgba(0,0,0,0.15);
+    padding-top: 0px;
+    padding-right: 24px;
+    padding-bottom: 0px;
+    padding-left: 24px;
+}
+
+/* Full-width input fields */
+input[type=textregister]{
+  width: 100%;
+  padding-top: 0px;
+  padding-right: 8px;
+  padding-bottom: 0px;
+  padding-left: 8px;
+  height: 32px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.15);
+}
+
+input[type=textregister]:focus{
+  background-color: #fff;
+  padding-top: 0px;
+  padding-right: 8px;
+  padding-bottom: 0px;
+  padding-left: 8px;
+  outline: none;
+  border:1px solid rgba(0,0,0,0.15);
+}
+
+input[name=passwordLogin]{
+  width: 100%;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.15);
+}
+
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for the submit/register button */
+.registerbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.registerbtn:hover {
+  opacity:1;
+}
+
+/* Add a blue text color to links */
+a {
+  color: dodgerblue;
+}
+
+/* Set a grey background color and center the text of the "sign in" section */
+.signin {
+  background-color: #f1f1f1;
+  text-align: center;
+}
+
+.title{
+    font-size: 1.6rem;
+    line-height: 1.3333;
+    font-weight: 450;
+    color:rgba(0,0,0,0.9);
+    background: #F6F8FA;
+    text-align: center;
+    padding-top: 16px;
+    padding-right: 32px;
+    padding-bottom: 8px;
+    padding-left: 32px;
+    background: white;
+}
+
+.subtitle{
+    font-size: 1rem;
+    line-height: 1.5;
+    font-weight: 400;
+    color: rgba(0,0,0,0.9);
+    position: relative;
+    background: #F6F8FA;
+    text-align: center;
+    padding-top: 0px;
+    padding-right: 8px;
+    padding-bottom: 6px;
+    padding-left: 8px;
+    background: white;
+}
+
+b{
+    color: black;
+    font-size: 0.9rem;
+    line-height: 1.42857;
+    font-weight: 450;
+    color: rgba(0,0,0,0.9);
+    
+}
+
+header{
+    background:url(/resources/images/background.jpg);
+}
+
+ label{
+    margin-right: 0px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+    margin-top: 0px;
+ }
+
+ p{
+    font-size: 0.8rem;
+    line-height: 1.33333;
+    font-weight: 200;
+ }
