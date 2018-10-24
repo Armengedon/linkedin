@@ -21,15 +21,12 @@ import com.ub.repository.UserRoleRepository;
 import com.ub.utils.EncrytedPasswordUtils;
 import com.ub.utils.WebUtils;
 
-/**
- * Main controller of the webApp, it is not a rest controller
- * so it is bound to disappear. It routes the requests from the client
- * to the database model
- * @author Jordi
- *
- */
 @Controller
 public class MainController {
+	
+
+
+	 
 	
 	@Autowired
 	private UserRepository userRepository;
@@ -47,7 +44,7 @@ public class MainController {
         return "welcomePage";
     }
 
-    @RequestMapping(value = {"/register_1" }, method = RequestMethod.GET)
+	@RequestMapping(value = {"/register_1" }, method = RequestMethod.GET)
     public String register_1(Model model) {
         return "register_1";
     }
@@ -86,6 +83,7 @@ public class MainController {
     public String errorLogin(Model model) {
         return "errorLogin";
     }
+
  
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String adminPage(Model model, Principal principal) {
@@ -98,43 +96,6 @@ public class MainController {
         return "adminPage";
     }
     
-    /**
-     * Load register page
-     * @param model
-     * @return route to the html file
-     */
-    @RequestMapping(value = "/register", method = RequestMethod.GET)
-    public String viewRegister(Model model) {
-    	AppUser appUser = new AppUser();
-	
-    	model.addAttribute("appUser", appUser);
-    
-    	return "register";
-    }
-    
-    /**
-     * Function to receive posts from /register
-     * @param appUser {@link AppUser} to register
-     * @return
-     */
-	@PostMapping("/register")
-	public String createUser(AppUser appUser) {
-		appUser.setId(Long.MAX_VALUE);
-		appUser.setPassword(EncrytedPasswordUtils.encrytePassword(appUser.getPassword()));
-		AppUser savedUser = null;
-		savedUser = userRepository.save(appUser);
-		Optional<Role> role = roleRepository.findById(2L);
-		UserRole userRole = new UserRole();
-		userRole.setId(Long.MAX_VALUE);
-		userRole.setAppUser(savedUser);
-		userRole.setAppRole(role.get());
-		userRoleRepository.save(userRole);
-		return "loginPage";
-	}
-  
- 
- 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
     public String loginPage(Model model) {
  
         return "userInfoPage";
@@ -162,12 +123,6 @@ public class MainController {
         return "userInfoPage";
     }
  
-    /**
-     * 
-     * @param model
-     * @param principal
-     * @return
-     */
     @RequestMapping(value = "/403", method = RequestMethod.GET)
     public String accessDenied(Model model, Principal principal) {
  

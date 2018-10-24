@@ -10,12 +10,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-/**
- * Class that relates to a relation table between
- * User and role, it should disapear soon
- * @author Jordi
- *
- */
 @Entity
 @Table(name = "User_Role", //
         uniqueConstraints = { //

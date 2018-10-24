@@ -13,11 +13,6 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 
 import com.ub.service.UserDetailsServiceImpl;
 
-/**
- * This class extends the default configuration of spring boot
- * @author Jordi
- *
- */
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -25,6 +20,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
     private UserDetailsServiceImpl userDetailsService;
  
+    //@Autowired
+    //private DataSource dataSource;
     
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {

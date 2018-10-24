@@ -32,6 +32,81 @@ public class UserController {
 //
 //		return ResponseEntity.created(location).build();
 //	}
+
+	// Show Register page.
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public String viewRegister(Model model) {
+		AppUser appUser = new AppUser();
+
+		model.addAttribute("appUser", appUser);
+
+		return "register";
+	}
+
+	@RequestMapping(value = "/register", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public ResponseEntity<Object> createUser(@RequestBody AppUser appUser) {
+		appUser.setId(Long.MAX_VALUE);
+		appUser.setPassword(EncrytedPasswordUtils.encrytePassword(appUser.getPassword()));
+		AppUser savedUser = null;
+		savedUser = userRepository.save(appUser);
+		if (savedUser == null) {
+			return ResponseEntity.notFound().build();
+		} else {
+			Optional<Role> role = roleRepository.findById(2L);
+			UserRole userRole = new UserRole();
+			userRole.setId(Long.MAX_VALUE);
+			String a = "";
+			userRole.setAppUser(savedUser);
+			userRole.setAppRole(role.get());
+			userRoleRepository.save(userRole);
+			// return "loginPage";
+			return ResponseEntity.noContent().build();
+		}
+	}
+
+	@RequestMapping(value = "/register/{phase}",method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public String updateUser(@RequestBody AppUser appUser , @PathVariable("phase") int phase) {
+		
+		//Optional<AppUser> userOptional = userRepository.findByEmail(appUser.getEmail());
+
+		AppUser savedUser = null;
+		savedUser = userRepository.save(appUser);
+		if (savedUser == null) {
+			return "403Page";
+		} else {
+			
+			if (phase == 1) {
+				return "resgister_1";
+			}
+			else if (phase ==2) {
+				return "resgister_2";
+			}
+			else if (phase ==3) {
+				return "resgister_3";
+			}
+		}
+		return null;
+	}
+   
+	@RequestMapping(value = "/performlogin", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE })
+    public ResponseEntity<Object> performlogin(@RequestBody AppUser appUser) {
+        AppUser userPrincipal = null;
+        userPrincipal = userRepository.findByEmail(appUser.getEmail());
+        if (passwordEncoder.matches(appUser.getPassword(), userPrincipal.getPassword())) {
+        	return ResponseEntity.noContent().build();
+        	//return userPrincipal; 
+        }else {
+        	//QUe vol frontend
+        	return ResponseEntity.notFound().build();
+        }
+        	
+        // model.addAttribute(userPrincipal);
+
+//        String userName = userPrincipal.getUserName();
+//        String loginedUser = userPrincipal.toString();
+
+        //model.addAttribute("userInfo", loginedUser);
+    }
 	
 	@GetMapping(value = { "","/"})
 	public List<AppUser> retrieveAllUsers() {
