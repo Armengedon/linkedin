@@ -31,23 +31,7 @@ import com.ub.validator.UserValidator;
 @Controller
 public class MainController {
 	
-	@Autowired
-	private UserRepository userRepository;
-	
-	@Autowired
-	private RoleRepository roleRepository;
-	
-	@Autowired
-	private UserRoleRepository userRoleRepository;
-	
-	@Autowired
-    private UserService userService;
-	
-	@Autowired
-    private UserValidator userValidator;
-	
-	
-	private SecurityService sec;
+
 	 
 	
 //	@GetMapping(path="/")
@@ -62,7 +46,7 @@ public class MainController {
         return "welcomePage";
     }
 
-    @RequestMapping(value = {"/register_1" }, method = RequestMethod.GET)
+	@RequestMapping(value = {"/register_1" }, method = RequestMethod.GET)
     public String register_1(Model model) {
         return "register_1";
     }
@@ -72,9 +56,34 @@ public class MainController {
         return "register_2";
     }
 
+    @RequestMapping(value = {"/register_3" }, method = RequestMethod.GET)
+    public String register_3(Model model) {
+        return "register_3";
+    }
+
+    @RequestMapping(value = {"/register_4" }, method = RequestMethod.GET)
+    public String register_4(Model model) {
+        return "register_4";
+    }
+
     @RequestMapping(value = {"/register_5" }, method = RequestMethod.GET)
     public String register_5(Model model) {
         return "register_5";
+    }
+
+    @RequestMapping(value = {"/feed" }, method = RequestMethod.GET)
+    public String mainPage(Model model) {
+        return "mainPage";
+    }
+
+    @RequestMapping(value = {"/mynetwork" }, method = RequestMethod.GET)
+    public String networkPage(Model model) {
+        return "networkPage";
+    }
+
+    @RequestMapping(value = {"/errorLogin" }, method = RequestMethod.GET)
+    public String errorLogin(Model model) {
+        return "errorLogin";
     }
 
  
