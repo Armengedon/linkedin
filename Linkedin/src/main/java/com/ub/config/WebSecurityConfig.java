@@ -63,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // Config for Login Form
         http.authorizeRequests().and().formLogin()//
                 // Submit URL of login page.
-                .loginProcessingUrl("/j_spring_security_check") // Submit URL
+                .loginProcessingUrl("/perfromlogin}") // Submit URL
                 .loginPage("/login")//
                 .defaultSuccessUrl("/userInfo")//
                 .failureUrl("/login?error=true")//

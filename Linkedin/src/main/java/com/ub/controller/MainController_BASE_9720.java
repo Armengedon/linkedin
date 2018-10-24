@@ -4,15 +4,11 @@ import java.security.Principal;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -22,19 +18,9 @@ import com.ub.model.UserRole;
 import com.ub.repository.RoleRepository;
 import com.ub.repository.UserRepository;
 import com.ub.repository.UserRoleRepository;
-import com.ub.service.SecurityService;
-import com.ub.service.UserService;
 import com.ub.utils.EncrytedPasswordUtils;
 import com.ub.utils.WebUtils;
-import com.ub.validator.UserValidator;
 
-/**
- * Main controller of the webApp, it is not a rest controller
- * so it is bound to disappear. It routes the requests from the client
- * to the database model
- * @author Jordi
- *
- */
 @Controller
 public class MainController {
 	
@@ -47,24 +33,11 @@ public class MainController {
 	@Autowired
 	private UserRoleRepository userRoleRepository;
 	
-<<<<<<< HEAD
-	@Autowired
-    private UserService userService;
-	
-	@Autowired
-    private UserValidator userValidator;
-	
-	
-	private SecurityService sec;
-	 
-	
 //	@GetMapping(path="/")
 //	public RedirectView index() {
 //		return new RedirectView("/index.html");
 //	}
 	
-=======
->>>>>>> sprint-2
 	@RequestMapping(value = { "/", "/welcome" }, method = RequestMethod.GET)
     public String welcomePage(Model model) {
         model.addAttribute("title", "Welcome");
@@ -82,35 +55,11 @@ public class MainController {
         return "register_2";
     }
 
-    @RequestMapping(value = {"/register_3" }, method = RequestMethod.GET)
-    public String register_3(Model model) {
-        return "register_3";
-    }
-
-    @RequestMapping(value = {"/register_4" }, method = RequestMethod.GET)
-    public String register_4(Model model) {
-        return "register_4";
-    }
-
     @RequestMapping(value = {"/register_5" }, method = RequestMethod.GET)
     public String register_5(Model model) {
         return "register_5";
     }
 
-    @RequestMapping(value = {"/feed" }, method = RequestMethod.GET)
-    public String mainPage(Model model) {
-        return "mainPage";
-    }
-
-    @RequestMapping(value = {"/mynetwork" }, method = RequestMethod.GET)
-    public String networkPage(Model model) {
-        return "networkPage";
-    }
-
-    @RequestMapping(value = {"/errorLogin" }, method = RequestMethod.GET)
-    public String errorLogin(Model model) {
-        return "errorLogin";
-    }
  
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String adminPage(Model model, Principal principal) {
@@ -123,13 +72,7 @@ public class MainController {
         return "adminPage";
     }
     
-<<<<<<< HEAD
-=======
-    /**
-     * Load register page
-     * @param model
-     * @return route to the html file
-     */
+ // Show Register page.
     @RequestMapping(value = "/register", method = RequestMethod.GET)
     public String viewRegister(Model model) {
     	AppUser appUser = new AppUser();
@@ -139,11 +82,6 @@ public class MainController {
     	return "register";
     }
     
-    /**
-     * Function to receive posts from /register
-     * @param appUser {@link AppUser} to register
-     * @return
-     */
 	@PostMapping("/register")
 	public String createUser(AppUser appUser) {
 		appUser.setId(Long.MAX_VALUE);
@@ -160,13 +98,12 @@ public class MainController {
 	}
   
  
->>>>>>> sprint-2
  
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String loginPage(Model model, Principal principal) {
-    	return "userInfoPage";
+    public String loginPage(Model model) {
+ 
+        return "userInfoPage";
     }
-
  
     @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
     public String logoutSuccessfulPage(Model model) {
@@ -190,12 +127,6 @@ public class MainController {
         return "userInfoPage";
     }
  
-    /**
-     * 
-     * @param model
-     * @param principal
-     * @return
-     */
     @RequestMapping(value = "/403", method = RequestMethod.GET)
     public String accessDenied(Model model, Principal principal) {
  
