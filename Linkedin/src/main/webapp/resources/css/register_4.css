@@ -32,6 +32,7 @@
     padding-right: 0px;
     padding-bottom: 2px;
     padding-left: 0px;
+    border: 1px solid rgb(151, 151, 151);
 }
 
 .title{
@@ -127,8 +128,12 @@ input[type=textregister]:focus{
   }
 
 .btn-primary{
-    width: 456px;
+    width: 376px;
     height: 50px;
+    margin-top: 30px;
+    margin-left: 40px;
+    margin-right: 40px;
+    margin-bottom: 10px;
     
 }
 
@@ -147,27 +152,9 @@ p{
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
     cursor: pointer;
-}
-
-.button4 {
-    color: black;
-    border: none;
     margin-left: 40%;
-    
 }
-
-.button_image{
-    padding: 22px 75px;
-    background: url(../images/android-download.png);
-}
-
-.button_image1{
-    padding: 22px 75px;
-    background: url(../images/apple-download.png);
-}
-
 
 .container4{
     float: left;
@@ -176,7 +163,6 @@ p{
     padding-right: 0px;
     padding-bottom: 2px;
     padding-left: 0px;
-    margin-left: 10%;
     
 }
 .container5{
@@ -186,4 +172,13 @@ p{
     padding-right: 0px;
     padding-bottom: 2px;
     padding-left: 0px;
+}
+
+.avatar {
+    vertical-align: middle;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-top: 10px;
+    margin-left: 30%;
 }

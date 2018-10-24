@@ -4,15 +4,11 @@ import java.security.Principal;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -22,11 +18,8 @@ import com.ub.model.UserRole;
 import com.ub.repository.RoleRepository;
 import com.ub.repository.UserRepository;
 import com.ub.repository.UserRoleRepository;
-import com.ub.service.SecurityService;
-import com.ub.service.UserService;
 import com.ub.utils.EncrytedPasswordUtils;
 import com.ub.utils.WebUtils;
-import com.ub.validator.UserValidator;
 
 /**
  * Main controller of the webApp, it is not a rest controller
@@ -47,24 +40,6 @@ public class MainController {
 	@Autowired
 	private UserRoleRepository userRoleRepository;
 	
-<<<<<<< HEAD
-	@Autowired
-    private UserService userService;
-	
-	@Autowired
-    private UserValidator userValidator;
-	
-	
-	private SecurityService sec;
-	 
-	
-//	@GetMapping(path="/")
-//	public RedirectView index() {
-//		return new RedirectView("/index.html");
-//	}
-	
-=======
->>>>>>> sprint-2
 	@RequestMapping(value = { "/", "/welcome" }, method = RequestMethod.GET)
     public String welcomePage(Model model) {
         model.addAttribute("title", "Welcome");
@@ -123,8 +98,6 @@ public class MainController {
         return "adminPage";
     }
     
-<<<<<<< HEAD
-=======
     /**
      * Load register page
      * @param model
@@ -160,13 +133,12 @@ public class MainController {
 	}
   
  
->>>>>>> sprint-2
  
     @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String loginPage(Model model, Principal principal) {
-    	return "userInfoPage";
+    public String loginPage(Model model) {
+ 
+        return "userInfoPage";
     }
-
  
     @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
     public String logoutSuccessfulPage(Model model) {

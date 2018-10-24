@@ -147,27 +147,9 @@ p{
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
     cursor: pointer;
+    margin-left: 30%;
 }
-
-.button4 {
-    color: black;
-    border: none;
-    margin-left: 40%;
-    
-}
-
-.button_image{
-    padding: 22px 75px;
-    background: url(../images/android-download.png);
-}
-
-.button_image1{
-    padding: 22px 75px;
-    background: url(../images/apple-download.png);
-}
-
 
 .container4{
     float: left;
@@ -176,7 +158,6 @@ p{
     padding-right: 0px;
     padding-bottom: 2px;
     padding-left: 0px;
-    margin-left: 10%;
     
 }
 .container5{
