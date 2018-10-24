@@ -23,19 +23,7 @@ import com.ub.utils.WebUtils;
 
 @Controller
 public class MainController {
-	
 
-
-	 
-	
-	@Autowired
-	private UserRepository userRepository;
-	
-	@Autowired
-	private RoleRepository roleRepository;
-	
-	@Autowired
-	private UserRoleRepository userRoleRepository;
 	
 	@RequestMapping(value = { "/", "/welcome" }, method = RequestMethod.GET)
     public String welcomePage(Model model) {
