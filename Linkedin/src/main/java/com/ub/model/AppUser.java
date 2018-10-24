@@ -7,11 +7,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-/**
- * Main class to store information about aplication users
- * @author Jordi
- *
- */
 @Entity
 @Table(name = "App_User", //
 uniqueConstraints = { //

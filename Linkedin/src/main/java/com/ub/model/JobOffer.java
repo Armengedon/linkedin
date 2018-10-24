@@ -3,12 +3,6 @@ package com.ub.model;
 import java.util.Date;
 import java.util.Set;
 
-/**
- * Entity class to store all the information about
- * a job offer
- * @author Jordi
- *
- */
 public class JobOffer {
 	
 	private enum JobType{
