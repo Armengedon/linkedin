@@ -62,7 +62,6 @@ public class UserController {
 		return "register";
 	}
 
-	
 	@RequestMapping(value = "/register", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Object> createUser(@RequestBody AppUser appUser) {
 		appUser.setId(Long.MAX_VALUE);
