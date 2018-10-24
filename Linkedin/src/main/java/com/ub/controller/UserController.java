@@ -4,43 +4,24 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ub.model.AppUser;
-import com.ub.model.Role;
-import com.ub.model.UserRole;
-import com.ub.repository.RoleRepository;
 import com.ub.repository.UserRepository;
-import com.ub.repository.UserRoleRepository;
-import com.ub.utils.EncrytedPasswordUtils;
 
 @RestController
 @RequestMapping(value ="/users")
 public class UserController {
 	
 	@Autowired
-	private RoleRepository roleRepository;
-
-	@Autowired
-	private UserRoleRepository userRoleRepository;
-
-	@Autowired
 	private UserRepository userRepository;
-	
-	PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 	
 //	@PostMapping("/register")
 //	public ResponseEntity<Object> createUser(@RequestBody User user) {
@@ -131,7 +112,7 @@ public class UserController {
 	public List<AppUser> retrieveAllUsers() {
 		return userRepository.findAll();
 	}
-
+	
 	@GetMapping("/{id}")
 	public AppUser retrieveUser(@PathVariable long id) {
 		Optional<AppUser> foundUser = userRepository.findById(id);

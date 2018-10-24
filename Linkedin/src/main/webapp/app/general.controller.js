@@ -1,4 +1,4 @@
-angular.module("Linkedin").controller("GeneralController", GeneralController);
+angular.module("crudApp").controller("GeneralController", GeneralController);
 
 GeneralController.inject = ['$scope', 'User'];
 
@@ -14,8 +14,4 @@ function GeneralController($scope, User) {
 			$scope.buttonText = "Apply"
 		});
 	}
-	
-	$scope.test = function() {
-        console.log("Hola");
-    };
 }
