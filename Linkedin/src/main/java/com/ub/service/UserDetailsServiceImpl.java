@@ -25,18 +25,23 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	@Autowired
 	private RoleRepository roleRepository;
 	
-	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        AppUser user = userRepository.findByUserName(userName);
+	public UserDetails loadUserByUsername(String firstName) throws UsernameNotFoundException {
+        AppUser user = userRepository.findByFirstName(firstName);
  
         if (user == null) {
-            System.out.println("User not found! " + userName);
-            throw new UsernameNotFoundException("User " + userName + " was not found in the database");
+            System.out.println("User not found! " + firstName);
+            throw new UsernameNotFoundException("User " + firstName + " was not found in the database");
         }
  
         System.out.println("Found User: " + user);
  
         // [ROLE_USER, ROLE_ADMIN,..]
-        List<String> roleNames = roleRepository.getRoleNames(user.getId());
+        List<String> roleNames = roleRepository.findByUsers_UserId(user.getId());
+        System.out.println(roleNames);
+        System.out.println(roleNames);
+        System.out.println(roleNames);
+        System.out.println(roleNames);
+        System.out.println(roleNames);
         System.out.println(roleNames);
         List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
         if (roleNames != null) {
@@ -47,7 +52,7 @@ public class UserDetailsServiceImpl implements UserDetailsService{
             }
         }
  
-        UserDetails userDetails = (UserDetails) new User(user.getUserName(), //
+        UserDetails userDetails = (UserDetails) new User(user.getEmail(), //
                 user.getPassword(), grantList);
  
         return userDetails;
