@@ -1,16 +1,23 @@
 package com.ub.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "App_User", //
 uniqueConstraints = { //
-        @UniqueConstraint(name = "APP_USER_UK", columnNames = "User_Name") })
+        @UniqueConstraint(name = "APP_USER_UK", columnNames = "User_Email") })
 public class AppUser {
 	
 	@Id
@@ -18,30 +25,45 @@ public class AppUser {
     @Column(name = "User_Id", nullable = false)
 	private long userId;
 	
-    @Column(name = "User_Name", length = 36, nullable = false)
-	private String userName;
+    @Column(name = "First_Name", length = 36, nullable = false)
+	private String firstName;
+    
+    @Column(name = "Second_Name", length = 36, nullable = false)
+	private String secondName;
     
     @Column(name = "Encryted_Password", length = 128, nullable = false)
 	private String password;
     
     @Column(name = "User_Email", length = 64, nullable = false)
 	private String email;
+    
+    @ManyToMany(cascade = { 
+    	    CascadeType.PERSIST, 
+    	    CascadeType.MERGE
+    	})
+    @JoinTable(name = "user_roles",
+    joinColumns = @JoinColumn(name = "user_id"),
+    inverseJoinColumns = @JoinColumn(name = "role_id" ,referencedColumnName = "Role_Id")
+    		)
+    private Set<Role> roles = new HashSet<>();
 	
     public AppUser() {
     }
-    
-//	public AppUser(String userName, String email, String password) {
-//		this.userName = userName;
-//		this.password = password;
-//		this.email = email;
-//	}
 
-	public String getUserName() {
-		return userName;
+	public String getFirstName() {
+		return firstName;
 	}
 	
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	
+	public String getSecondName() {
+		return secondName;
+	}
+	
+	public void setSecondName(String secondName) {
+		this.secondName = secondName;
 	}
 	
 	public long getId() {
@@ -67,5 +89,23 @@ public class AppUser {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+	
+	public void addRole(Role role) {
+		roles.add(role);
+        role.getUsers().add(this);
+	}
+	
+	public void removeRole(Role role) {
+		roles.remove(role);
+		role.getUsers().remove(this);
+    }
 
 }

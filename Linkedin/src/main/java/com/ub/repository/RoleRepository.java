@@ -14,7 +14,9 @@ import com.ub.model.Role;
 @Transactional 
 public interface RoleRepository extends JpaRepository<Role, Long>{
  
-	@Query("SELECT r.roleName from Role r INNER JOIN UserRole ur ON r.id=ur.role where ur.user.id = :userId ")
-    public List<String> getRoleNames(@Param("userId") Long userId);
+//	@Query("SELECT r.roleName from Role r INNER JOIN UserRole ur ON r.id=ur.role where ur.user.id = :userId ")
+//    public List<String> getRoleNames(@Param("userId") Long userId);
 
+	
+	public List<String> findByUsers_UserId(Long userId);
 }

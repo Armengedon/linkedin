@@ -20,10 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ub.model.AppUser;
 import com.ub.model.Role;
-import com.ub.model.UserRole;
 import com.ub.repository.RoleRepository;
 import com.ub.repository.UserRepository;
-import com.ub.repository.UserRoleRepository;
 import com.ub.utils.EncrytedPasswordUtils;
 
 @RestController
@@ -37,8 +35,8 @@ public class UserController {
 	@Autowired
 	private RoleRepository roleRepository;
 	
-	@Autowired
-	private UserRoleRepository userRoleRepository;
+//	@Autowired
+//	private UserRoleRepository userRoleRepository;
 	
 	PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -57,18 +55,20 @@ public class UserController {
 	public ResponseEntity<Object> createUser(@RequestBody AppUser appUser) {
 		appUser.setId(Long.MAX_VALUE);
 		appUser.setPassword(EncrytedPasswordUtils.encrytePassword(appUser.getPassword()));
-		AppUser savedUser = null;
-		savedUser = userRepository.save(appUser);
+		Optional<Role> role = roleRepository.findById(2L);
+		appUser.addRole(role.get());
+		AppUser savedUser = userRepository.save(appUser);
 		if (savedUser == null) {
 			return ResponseEntity.notFound().build();
 		} else {
-			Optional<Role> role = roleRepository.findById(2L);
-			UserRole userRole = new UserRole();
-			userRole.setId(Long.MAX_VALUE);
-			String a = "";
-			userRole.setAppUser(savedUser);
-			userRole.setAppRole(role.get());
-			userRoleRepository.save(userRole);
+			
+			
+//			UserRole userRole = new UserRole();
+//			userRole.setId(Long.MAX_VALUE);
+//			String a = "";
+//			userRole.setAppUser(savedUser);
+//			userRole.setAppRole(role.get());
+//			userRoleRepository.save(userRole);
 			// return "loginPage";
 			return ResponseEntity.noContent().build();
 		}
