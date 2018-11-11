@@ -41,8 +41,17 @@
                                         <form action="">
                                             <div class="row">
                                                 <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
-                                                    <input type="image" class="avatar" id="photoUser" alt="Avatar"
-                                                        src="/resources/images/img_avatar.png" />
+
+                                                    <img id="output" class="avatar" src="/resources/images/img_avatar.png"/>
+                                                    <input type="file" accept="image/*" id="photoUser" onchange="loadFile(event)">
+                                                    
+                                                    <script>
+                                                        var loadFile = function(event) {
+                                                        var output = document.getElementById('output');
+                                                        output.src = URL.createObjectURL(event.target.files[0]);
+                                                        };
+                                                    </script>
+
                                                      
                                                 </div>
                                             </div>

@@ -1,0 +1,75 @@
+/*Profile card 4*/
+
+.container{
+    height: 216px;
+    width: 298px;
+    padding-left: 10px;
+}
+
+.profile-card-4 .card-img-block{
+    float:left;
+    width:100%;
+    height:100px;
+    overflow:hidden;
+}
+.profile-card-4 .card-body{
+    position:relative;
+    border: 1px solid rgb(196, 196, 196);
+}
+
+.profile-card-4 .card-body1{
+    position:relative;
+    border: 1px solid rgb(196, 196, 196);
+    height: 70px;
+}
+
+.profile-card-4 .card-body2{
+    position:relative;
+    border: 1px solid rgb(196, 196, 196);
+    height: 75px;
+}
+
+.profile-card-4 .profile {
+    border-radius: 50%;
+    position: absolute;
+    top: -62px;
+    left: 50%;
+    width:100px;
+    border: 3px solid rgba(255, 255, 255, 1);
+    margin-left: -50px;
+}
+.profile-card-4 .card-img-block{
+    position:relative;
+}
+
+.profile-card-4 h5{
+    font-weight:600;
+    color:#000000;
+}
+.profile-card-4 .card-text{
+    font-weight:300;
+    font-size:15px;
+}
+.profile-card-4 .icon-block{
+    float:left;
+    width:100%;
+}
+.profile-card-4 .icon-block a{
+    text-decoration:none;
+}
+.profile-card-4 i {
+  display: inline-block;
+    font-size: 16px;
+    color: #d90be1;
+    text-align: center;
+    border: 1px solid #d90be1;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 50%;
+    margin:0 5px;
+}
+.profile-card-4 i:hover {
+  background-color:#d90be1;
+  color:#fff;
+}
