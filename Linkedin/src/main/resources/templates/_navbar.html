@@ -18,26 +18,26 @@
 	             </div>
 	         </form>
 	         <ul class="navbar-nav ml-auto">
-	         	<li class="nav-item active">
+	         	<li class="nav-item start">
 			        <a class="nav-link" href="feed">
 			          <i class="fa fa-home"></i>
 			          	Inicio
 			          <span class="sr-only">(current)</span>
 		          	</a>
 			   	</li>
-			   	<li class="nav-item">
+			   	<li class="nav-item network">
 			        <a class="nav-link" href="mynetwork">
 			          <i class="fa fa-users"></i>
 			          	Mi red
 		          	</a>
 			   	</li>
-			   	<li class="nav-item">
-			        <a class="nav-link" href="mynetwork">
+			   	<li class="nav-item jobs">
+			        <a class="nav-link" href="#">
 			          <i class="fa fa-briefcase"></i>
 			          	Empleos
 		          	</a>
 			   	</li>
-			   	<li class="nav-item">
+			   	<li class="nav-item messages">
 				     <a class="nav-link" href="#">
 				       <i class="fa fa-comments">
 				         <span class="badge badge-pill badge-danger">8</span>
@@ -45,7 +45,7 @@
 				       	Mensajes
 				     </a>
 			   </li>
-			   <li class="nav-item">
+			   <li class="nav-item spam">
 				     <a class="nav-link" href="#">
 				       <i class="fa fa-bell">
 				         <span class="badge badge-pill badge-danger">3</span>
@@ -68,14 +68,26 @@
 </nav>
 
 <script>
-	$(document).ready(function() {
-	    $( ".ml-auto .nav-item" ).bind( "click", function(event) {
-	        event.preventDefault();
-	        var clickedItem = $( this );
-	        $( ".ml-auto .nav-item" ).each( function() {
-	            $( this ).removeClass( "active" );
-	        });
-	        clickedItem.addClass( "active" );
-	    });
+	$(window).on('load', function() {
+		switch (window.location.pathname) {
+			case "/feed":
+				$( '.start' ).addClass( 'active' );
+				break;
+			case "/mynetwork":
+				$( '.network' ).addClass( 'active' );
+				break;
+			case "/jobs":
+				$( '.jobs' ).addClass( 'active' );
+				break;
+			case "/messaging":
+				$( '.messages' ).addClass( 'active' );
+				break;
+			case "/notifications":
+				$( '.spam' ).addClass( 'active' );
+				break;
+			default:
+				break;
+		}
+		
 	});
 </script>
