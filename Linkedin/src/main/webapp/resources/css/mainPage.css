@@ -1,9 +1,17 @@
 /*Profile card 4*/
 
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+
+/*
+.wrapper { position: relative; }
+*/
+i.fa-camera { margin-left: 5px; margin-top:5px;}
+
 .container{
     height: 216px;
     width: 298px;
     padding-left: 10px;
+    padding-right: 5px;
 }
 
 .profile-card-4 .card-img-block{
@@ -58,7 +66,7 @@
     text-decoration:none;
 }
 .profile-card-4 i {
-  display: inline-block;
+    display: inline-block;
     font-size: 16px;
     color: #d90be1;
     text-align: center;
@@ -70,6 +78,71 @@
     margin:0 5px;
 }
 .profile-card-4 i:hover {
-  background-color:#d90be1;
-  color:#fff;
+    background-color:#d90be1;
+    color:#fff;
+}
+
+.container2{
+    width: 552px;
+    padding-top: 25px;
+    margin-left: 15px;
+}
+
+.container3{
+    width: 552px;
+    height: 210px;
+    border: 1px solid rgb(196, 196, 196);
+}
+
+.container4{
+    height: 72px;
+    text-align: center;
+    align-items: center;
+}
+
+.container5{
+    height: 82px;
+    border-bottom: 1px solid rgb(196, 196, 196);
+}
+
+.container6{
+    width: 100%;
+    height: 55px;
+    white-space: nowrap;
+}
+
+.container6 > div{
+    display: inline-block;
+
+    margin-right: 5px;
+    margin-left: 20px;
+}
+
+.avatar {
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-left: 5px;
+    margin-top:10px;
+    margin-bottom: 10px;
+    
+}
+
+.btn-primary{
+    margin-left: 250px;
+    margin-top: 2px;
+}
+
+textarea { 
+    border-style: none; 
+    border-color: Transparent; 
+    overflow: auto;        
+}
+
+.avatar1{
+    vertical-align: middle;
+    width: 100px;
+    height: 100px;
+    margin-left: 30%;
 }
