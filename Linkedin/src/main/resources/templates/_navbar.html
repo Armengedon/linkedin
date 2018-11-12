@@ -1,45 +1,68 @@
 <!-- Navigation -->
-<nav class="navbar navbar-icon-top navbar-expand-lg fixed-top">
-    <a class="navbar-brand" href="feed">
-  		<img src="/resources/images/LinkedIn_logo.png" width="30" height="30" alt="">
-  	</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-        aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <form class="form-inline my-2 my-lg-0">
-             <div class="input-group input-group-sm">
-                 <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Search...">
-                 <div class="input-group-append">
-                     <button type="button" class="btn btn-secondary btn-number">
-                         <i class="fa fa-search"></i>
-                     </button>
-                 </div>
-             </div>
-         </form>
-         <ul class="navbar-nav ml-auto nav-flex-icons">
-         	<li class="nav-item active">
-		        <a class="nav-link" href="feed">
-		          <i class="fa fa-home"></i>
-		          Home
-		          <span class="sr-only">(current)</span>
-	          	</a>
-		   	</li>
-		   	<li class="nav-item">
-			     <a class="nav-link" href="#">
-			       <i class="fa fa-envelope-o">
-			         <span class="badge badge-pill badge-danger">11</span>
-			       </i>
-			       Messages
-			     </a>
-		   </li>
-		   <li class="nav-item">
-		     <a class="nav-link" href="#">
-		       <i class="fa fa-envelope-o">
-		         <span class="badge badge-pill badge-danger">11</span>
-		       </i>
-		       Disabled
-		     </a>
-		   </li>
-        </ul>
-    </div>
+<nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+	<div class="container">
+	    <a class="navbar-brand" href="feed">
+	  		<img src="/resources/images/LinkedIn_logo.png" width="30" height="30" alt="">
+	  	</a>
+	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+	        aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	        <form class="form-inline my-2 my-lg-0">
+	             <div class="input-group input-group-sm">
+	                 <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Busqueda">
+	                 <div class="input-group-append">
+	                     <button type="button" class="btn btn-secondary btn-number">
+	                         <i class="fa fa-search"></i>
+	                     </button>
+	                 </div>
+	             </div>
+	         </form>
+	         <ul class="navbar-nav ml-auto">
+	         	<li class="nav-item active">
+			        <a class="nav-link" href="feed">
+			          <i class="fa fa-home"></i>
+			          	Inicio
+			          <span class="sr-only">(current)</span>
+		          	</a>
+			   	</li>
+			   	<li class="nav-item">
+			        <a class="nav-link" href="mynetwork">
+			          <i class="fa fa-users"></i>
+			          	Mi red
+		          	</a>
+			   	</li>
+			   	<li class="nav-item">
+			        <a class="nav-link" href="mynetwork">
+			          <i class="fa fa-briefcase"></i>
+			          	Empleos
+		          	</a>
+			   	</li>
+			   	<li class="nav-item">
+				     <a class="nav-link" href="#">
+				       <i class="fa fa-comments">
+				         <span class="badge badge-pill badge-danger">8</span>
+				       </i>
+				       	Mensajes
+				     </a>
+			   </li>
+			   <li class="nav-item">
+				     <a class="nav-link" href="#">
+				       <i class="fa fa-bell">
+				         <span class="badge badge-pill badge-danger">3</span>
+				       </i>
+				       Notificaciones
+				     </a>
+			   </li>
+			   <li class="nav-item">
+			        <a class="nav-link" href="#">
+			        	<i class="profile-image">
+			        		<img class="rounded-circle" src="/resources/images/LinkedIn_logo.png">
+			        	</i>
+				  		Yo &#9660;
+			        </a>
+		      	</li>
+	        </ul>
+	        <a class="premium" href="#">Abonate gratis a Premium</a>
+	    </div>
+	</div>
 </nav>
