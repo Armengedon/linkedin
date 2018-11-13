@@ -9,13 +9,12 @@
 .con{
     height: 100%;
     width: 100%;
-
-    margin-top:20px;
+	padding-top: 60px
 }
 
 i.fa-camera { margin-left: 5px; margin-top:5px;}
 
-.container{
+.profile-box {
     height: 216px;
     width: 298px;
     padding-left: 10px;
