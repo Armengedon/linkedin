@@ -41,7 +41,8 @@ public class AppUser {
     
     @Column(name = "User_Email", length = 64, nullable = false)
 	private String email;
-    
+
+
     @ManyToMany(cascade = { 
     	    CascadeType.PERSIST, 
     	    CascadeType.MERGE
@@ -57,6 +58,14 @@ public class AppUser {
     
     @OneToMany(mappedBy = "user")
     private List<Studies> studies_list = new ArrayList<>();
+    
+    @Column(name = "Photo", length = 64, nullable = true)
+	private String photoUser;
+    
+    
+    @Column(name = "Postal_Code", nullable = true)
+	private long postalCode;
+    
     
     @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL, 
             fetch = FetchType.LAZY, optional = true)
@@ -171,6 +180,19 @@ public class AppUser {
 
 	public void setStudies_list(List<Studies> studies_list) {
 		this.studies_list = studies_list;
+	}
+	
+	public String getPhotoUser() {
+		return photoUser;
+	}
+ 	public void setPhotoUser(String photoUser) {
+		this.photoUser = photoUser;
+	}
+ 	public long getPostalCode() {
+		return postalCode;
+	}
+ 	public void setPostalCode(long postalCode) {
+		this.postalCode = postalCode;
 	}
 	
 }
