@@ -10,7 +10,7 @@ import com.ub.model.AppUser;
 @Transactional 
 public interface UserRepository extends JpaRepository<AppUser, Long> {
     
-	AppUser findByUserName(String userName);
+	AppUser findByFirstName(String firstName);
 	
 	AppUser findByEmail(String email);
 	
