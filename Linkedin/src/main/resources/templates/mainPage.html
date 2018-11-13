@@ -79,7 +79,91 @@
 									
 							</div>
 						</div>
-					</div>	
+					<hr>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<!-- <div class="post" id="post2"> -->
+						<div class="container3-1">
+							<div class="caption">
+								<div class="content">
+									<div class="row">
+										<div class="author">
+											<img src="https://randomuser.me/api/portraits/men/73.jpg" alt="" class="avatar">  
+											
+											<div class="name">
+												<div class="col">
+													<p>@shu3aybbadran</p>
+												
+													<p id="date"></p>
+													<p id="hour"></p>
+												</div>
+											</div>
+
+											<script>
+												var d = new Date();
+												var y = d.getFullYear();
+												var m = d.getMonth();
+												var day = d.getDay();
+												var n = d.getHours();
+												var min = d.getMinutes();
+
+												document.getElementById("date").innerText = day + "-" + m + "-" + "-"+ y;
+												document.getElementById("hour").innerText = n+":"+min;
+											</script>
+										</div> 
+										<div class="text">
+											<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit modi dolore vero consectetur? </p>
+										</div>
+
+										<div class="[ panel panel-default ] panel-google-plus">
+											<div class="panel-footer">
+												
+												<button type="button" class="[ btn btn-default ]">+1</button>
+												<div class="input-placeholder" onkeyup="comment()">Add a comment...</div>
+												
+												<script>
+													$(function () {
+														$('.panel-google-plus > .panel-footer > .input-placeholder, .panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > button[type="reset"]').on('click', function(event) {
+																var $panel = $(this).closest('.panel-google-plus');
+																	$comment = $panel.find('.panel-google-plus-comment');
+																	
+																$comment.find('.btn:first-child').addClass('disabled');
+																$comment.find('textarea').val('');
+																
+																$panel.toggleClass('panel-google-plus-show-comment');
+																
+																if ($panel.hasClass('panel-google-plus-show-comment')) {
+																	$comment.find('textarea').focus();
+																}
+														});
+														$('.panel-google-plus-comment > .panel-google-plus-textarea > textarea').on('keyup', function(event) {
+																var $comment = $(this).closest('.panel-google-plus-comment');
+																
+																$comment.find('button[type="submit"]').addClass('disabled');
+																if ($(this).val().length >= 1) {
+																	$comment.find('button[type="submit"]').removeClass('disabled');
+																}
+														});
+													});
+												</script>
+
+											</div>
+											<div class="panel-google-plus-comment">
+												<img class="img-circle" src="https://lh3.googleusercontent.com/uFp_tsTJboUY7kue5XAsGA=s46" alt="User Image" />
+												<div class="panel-google-plus-textarea">
+													<textarea rows="4"></textarea>
+													<button type="submit" class="[ btn btn-success disabled ]">Post comment</button>
+													<button type="reset" class="[ btn btn-default ]" >Cancel</button>
+												</div>
+												<div class="clearfix"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div><!-- / .caption -->
+						</div>
+					</div>
+						
 				</div>
 			</div>
 		</header>
