@@ -20,6 +20,9 @@ public class Company {
 	@GeneratedValue
     @Column(name = "Company_Id", nullable = false)
 	private long id;
+    
+	@Column(name = "Company_Name", nullable = false)
+	private String companyName;
 	
 	@OneToMany(mappedBy = "company")
 	private Set<JobExperience> experiences = new HashSet<>();
@@ -29,6 +32,14 @@ public class Company {
 	
 //	private Set<JobOffer> jobOffers;
 
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+	
 	public Set<JobExperience> getExperiences() {
 		return experiences;
 	}
@@ -53,5 +64,5 @@ public class Company {
 	public void setOwner(AppUser owner) {
 		this.owner = owner;
 	}
-	
+
 }
