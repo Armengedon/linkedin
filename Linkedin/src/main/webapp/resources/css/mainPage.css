@@ -5,6 +5,14 @@
 /*
 .wrapper { position: relative; }
 */
+
+.con{
+    height: 100%;
+    width: 100%;
+
+    margin-top:20px;
+}
+
 i.fa-camera { margin-left: 5px; margin-top:5px;}
 
 .container{
@@ -154,40 +162,32 @@ textarea {
     margin-left: 30%;
 }
 
-.post {
-    position: relative;
-    width: 552px;
-    height: auto;
-    margin: auto;
-    margin-bottom: 1rem;
-    background-color: #fff;
-    color: #000;
-    border-radius: 5px;
-    margin-bottom: 3rem;
-
-  }
-  .caption {
+.caption {
     position: relative;
     height: inherit;
-    background-color: inherit;
+    background-color: white;
     padding: 10px;
 
     
     border: 1px solid rgb(196, 196, 196);
-  }
-  .content {
+}
+.content {
     position: relative;
     height: inherit;
     padding: 10px;
-  }
-  .content .img {
+    background-color: white;
+}
+
+.content .img {
     width: 100%;
     height: auto;
   }
 .author {
     position: relative;
     margin-bottom: 3rem;
+    background-color: white;
   }
+
 .author .avatar {
     position: relative;
     float: left;
@@ -214,42 +214,40 @@ textarea {
     margin: .5rem 0;
     width: 500px;
     margin-top:1px;
+    background-color: whiteS;
   }
   .post .category {
     visibility: hidden;
   }
 
 @media (min-width: 992px) {
-    .post {
-        width: 75vw;
-        height: 500px; 
-    }
-    .post .caption {
+    .caption {
         float: left;
         padding: 2rem;
     }
-    .post .author {
+    .author {
         margin-bottom: 5rem;
+        background-color: white;
     }
-    .post .author .avatar {
+    .author .avatar {
     }
-    .post .author .name {
+    .author .name {
         margin-bottom:1px;
     }
-    .post .caption .meta {
+    .caption .meta {
     }
-    .post .caption .text {
+    .caption .text {
         margin-left:5px;
         margin: 1rem 0;
     }
-    .post .content {
+    .content {
         float: left;
         padding: 0;
     }
-    .post .content .img {
+    .content .img {
         height: 100%;
     }
-    .post .category {
+    .category {
         visibility: visible;
     }
 }
@@ -274,10 +272,11 @@ p{
     border-radius: 0px;
     border-top: 1px solid rgb(196, 196, 196);
     font-family: 'Roboto', sans-serif;
+    background-color: white;
 }
 
 .panel-google-plus > .panel-footer {
-    background-color: rgb(255, 255, 255);
+    background-color: white;
     border-width: 0px; 
     width: 100%;
 }
@@ -300,6 +299,7 @@ p{
     border: 1px solid rgb(217, 217, 217);
     border-radius: 2px;
     box-shadow: rgba(0, 0, 0, 0.0470588) 0px 1px 0px 0px;
+    background-color: white;
 }
 .panel-google-plus.panel-google-plus-show-comment > .panel-footer > .input-placeholder {
     display: none;   
