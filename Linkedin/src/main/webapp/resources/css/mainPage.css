@@ -1,9 +1,25 @@
 /*Profile card 4*/
 
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+
+/*
+.wrapper { position: relative; }
+*/
+
+.con{
+    height: 100%;
+    width: 100%;
+
+    margin-top:20px;
+}
+
+i.fa-camera { margin-left: 5px; margin-top:5px;}
+
 .container{
     height: 216px;
     width: 298px;
     padding-left: 10px;
+    padding-right: 5px;
 }
 
 .profile-card-4 .card-img-block{
@@ -58,7 +74,7 @@
     text-decoration:none;
 }
 .profile-card-4 i {
-  display: inline-block;
+    display: inline-block;
     font-size: 16px;
     color: #d90be1;
     text-align: center;
@@ -70,6 +86,276 @@
     margin:0 5px;
 }
 .profile-card-4 i:hover {
-  background-color:#d90be1;
-  color:#fff;
+    background-color:#d90be1;
+    color:#fff;
+}
+
+.container2{
+    width: 552px;
+    padding-top: 25px;
+    margin-left: 15px;
+}
+
+.container3{
+    width: 552px;
+    height: 210px;
+    border: 1px solid rgb(196, 196, 196);
+    margin-bottom: 30px;
+    background-color: white;
+}
+
+.container4{
+    height: 72px;
+    text-align: center;
+    align-items: center;
+    background-color: white;
+}
+
+.container5{
+    height: 82px; 
+    border-bottom: 1px solid rgb(196, 196, 196);
+    background-color: white;
+}
+
+.container6{
+    width: 100%;
+    height: 55px;
+    white-space: nowrap;
+    background-color: white;
+    border-bottom: 1px solid rgb(196, 196, 196);
+
+}
+
+.container6 > div{
+    display: inline-block; 
+
+    margin-right: 5px;
+    margin-left: 20px;
+}
+
+.avatar {
+    vertical-align: middle;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-left: 5px;
+    margin-top:10px;
+    margin-bottom: 10px;
+    
+}
+
+.btn-primary{
+    margin-left: 250px;
+    margin-top: 2px;
+}
+
+textarea { 
+    border-style: none; 
+    border-color: Transparent; 
+    overflow: auto;        
+}
+
+.avatar1{
+    vertical-align: middle;
+    width: 100px;
+    height: 100px;
+    margin-left: 30%;
+}
+
+.caption {
+    position: relative;
+    height: inherit;
+    background-color: white;
+    padding: 10px;
+
+    
+    border: 1px solid rgb(196, 196, 196);
+}
+.content {
+    position: relative;
+    height: inherit;
+    padding: 10px;
+    background-color: white;
+}
+
+.content .img {
+    width: 100%;
+    height: auto;
+  }
+.author {
+    position: relative;
+    margin-bottom: 3rem;
+    background-color: white;
+  }
+
+.author .avatar {
+    position: relative;
+    float: left;
+    width: 3rem;
+    border-radius: 50%;
+  }
+.author .name {
+    position: relative;
+    float: left;
+    font-size: 1rem;
+    font-weight: 500;
+    padding-left: 1rem;
+    padding-bottom: 1px;
+    height: 50px;
+  }
+.meta {
+    float: left;
+    padding-left: 1rem;
+    size: .6rem;
+    color: #000;
+  }
+.caption .text {
+    margin-left: 5px;
+    margin: .5rem 0;
+    width: 500px;
+    margin-top:1px;
+    background-color: whiteS;
+  }
+  .post .category {
+    visibility: hidden;
+  }
+
+@media (min-width: 992px) {
+    .caption {
+        float: left;
+        padding: 2rem;
+    }
+    .author {
+        margin-bottom: 5rem;
+        background-color: white;
+    }
+    .author .avatar {
+    }
+    .author .name {
+        margin-bottom:1px;
+    }
+    .caption .meta {
+    }
+    .caption .text {
+        margin-left:5px;
+        margin: 1rem 0;
+    }
+    .content {
+        float: left;
+        padding: 0;
+    }
+    .content .img {
+        height: 100%;
+    }
+    .category {
+        visibility: visible;
+    }
+}
+
+p{
+    margin-left: 5px;
+}
+
+.container3-1{
+    width: 552px;
+    height: auto;
+    border: 1px solid rgb(196, 196, 196);
+    margin-bottom: 30px;
+}
+
+
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,700);
+
+.panel-google-plus {
+    position: relative;
+    width: 100%;
+    border-radius: 0px;
+    border-top: 1px solid rgb(196, 196, 196);
+    font-family: 'Roboto', sans-serif;
+    background-color: white;
+}
+
+.panel-google-plus > .panel-footer {
+    background-color: white;
+    border-width: 0px; 
+    width: 100%;
+}
+
+.panel-google-plus > .panel-footer {
+    font-size: 14px;
+    font-weight: 700;
+    min-height: 54px;
+}
+.panel-google-plus > .panel-footer > .btn {
+    float: left;
+    margin-right: 8px;
+}
+.panel-google-plus > .panel-footer > .input-placeholder {
+    display: block;
+    margin-left: 98px;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 8px 6px 7px;
+    border: 1px solid rgb(217, 217, 217);
+    border-radius: 2px;
+    box-shadow: rgba(0, 0, 0, 0.0470588) 0px 1px 0px 0px;
+    background-color: white;
+}
+.panel-google-plus.panel-google-plus-show-comment > .panel-footer > .input-placeholder {
+    display: none;   
+}
+.panel-google-plus > .panel-google-plus-comment {
+    display: none;
+    padding: 10px 20px 15px;
+    border-top: 1px solid rgb(229, 229, 229);
+    background-color: white;
+}
+.panel-google-plus.panel-google-plus-show-comment > .panel-google-plus-comment {
+    display: block;
+}
+/*.panel-google-plus > .panel-google-plus-comment > img {
+    float: left;   
+}*/
+.panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea {
+    float: right;
+    width: calc(100% - 56px);
+}
+.panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > textarea {
+    display: block;
+    /*margin-left: 60px;
+    width: calc(100% - 56px);*/
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgb(217, 217, 217);
+    box-shadow: rgba(0, 0, 0, 0.0470588) 0px 1px 0px 0px;
+    resize: vertical;
+}
+.panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > .btn {
+    margin-top: 10px;
+    margin-right: 8px;
+    width: 100%;
+}
+@media (min-width: 992px) {
+    .panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > .btn {
+        width: auto;
+    }    
+}
+
+
+.panel-google-plus .btn {
+    border-radius: 3px;   
+}
+.panel-google-plus .btn-default {
+    border: 1px solid rgb(217, 217, 217);
+    box-shadow: rgba(0, 0, 0, 0.0470588) 0px 1px 0px 0px;
+}
+.panel-google-plus .btn-default:hover, 
+.panel-google-plus .btn-default:focus, 
+.panel-google-plus .btn-default:active {
+    background-color: rgb(255, 255, 255);
+    border-color: rgb(0, 0, 0);    
+}
+
+body{
+    background-color: #f8f8f8;
 }

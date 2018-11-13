@@ -16,28 +16,198 @@
 	<body>
 		<header>
 			<th:block th:include="_navbar"></th:block>
+		</header>
 
-			<!--PROFILE SUMMARY-->
-			<div class="col-md-4 mt-4">
-				<div class="container">
-					<div class="card profile-card-4">
-						<div class="card-img-block">
-							<img class="img-fluid" src="https://previews.123rf.com/images/foodandmore/foodandmore1403/foodandmore140300067/26700838-frontera-n%C3%A1utica-delicado-con-la-red-de-pesca-conchas-de-mar-y-estrellas-de-mar-sobre-un-fondo-de-colo.jpg" alt="Card image cap">
-						</div>
-						<div class="card-body pt-5">
-							<img src="https://randomuser.me/api/portraits/women/14.jpg" alt="profile-image" class="profile"/>
-							<h5 class="card-title text-center">User Name</h5>
-							<p class="card-text text-center">job/studies</p>
-						</div>
-						<div class="card-body1">
-							<p>Contactos</p>
-							<p>Amplía tu red</p>
-						</div>
-						<div class="card-body2">
-							<p class="card-text text-center">Accede a información y herraminetas exclusivas</p>
+		<!--PROFILE SUMMARY-->
+		<div class="con">
+			<div class="row">
+				<div class="col-md-4 mt-4">
+					<div class="container">
+						<div class="card profile-card-4">
+							<div class="card-img-block">
+								<img class="img-fluid" src="https://previews.123rf.com/images/foodandmore/foodandmore1403/foodandmore140300067/26700838-frontera-n%C3%A1utica-delicado-con-la-red-de-pesca-conchas-de-mar-y-estrellas-de-mar-sobre-un-fondo-de-colo.jpg" alt="Card image cap">
+							</div>
+							<div class="card-body pt-5">
+								<img src="https://randomuser.me/api/portraits/women/14.jpg" alt="profile-image" class="profile"/>
+								<h5 class="card-title text-center">User Name</h5>
+								<p class="card-text text-center">job/studies</p>
+							</div>
+							<div class="card-body1">
+								<p>Contactos</p>
+								<p>Amplía tu red</p>
+							</div>
+							<div class="card-body2">
+								<p class="card-text text-center">Accede a información y herraminetas exclusivas</p>
+							</div>
 						</div>
 					</div>
 				</div>
-    		</div>
-		</header>
+
+				
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div class="container2">
+						<div class="container3">
+							<div class="container4">
+								<div class="row">
+									<div class="col-xs-12 col-sm-6 col-md-4">	
+										<img src="/resources/images/img_avatar.png" class="avatar">
+									</div>
+									<h6>User Name</h6>
+								</div>	
+							</div>
+							<div class="container5">
+								<textarea rows="3" cols="73" placeholder="Escribe aquí" id="messageText"
+								name="messageText" form="messageTextPost" onkeyup="success()"></textarea>
+								
+								<img id="output" class="avatar1" src="" style="display: none;"/>
+								<input type="file" id="my_file" style="display: none;" form="messageTextPost" onchange="loadFile(event)"/>
+								
+							</div>
+							<div class="container6">
+								<div>
+									<a class="btn btn-light" href="#" onclick="buttonCam()">
+										<i class="fa fa-camera fa-lg"></i>
+									</a>
+								</div>
+								<div>
+									<a class="btn btn-light" href="#" onclick="buttonPencil()">
+										<i class="fa fa-pencil fa-lg"></i>
+									</a>
+								</div>
+								<div>
+									<form action="" id="messageTextPost" name="messageTextPost" method="post">
+										<button type="submit" id="publicar" class="btn btn-primary" disabled>Publicar</button>
+									</form>
+								</div>
+									
+							</div>
+						</div>
+					<hr>
+					</div>
+					<div class="col-xs-12 col-sm-6 col-md-4">
+						<!-- <div class="post" id="post2"> -->
+						<div class="container3-1">
+							<div class="caption">
+								<div class="content">
+									<div class="row">
+										<div class="author">
+											<img src="https://randomuser.me/api/portraits/men/73.jpg" alt="" class="avatar">  
+											
+											<div class="name">
+												<div class="col">
+													<p>@shu3aybbadran</p>
+												
+													<p id="date"></p>
+													<p id="hour"></p>
+												</div>
+											</div>
+
+											<script>
+												var d = new Date();
+												var y = d.getFullYear();
+												var m = d.getMonth();
+												var day = d.getDay();
+												var n = d.getHours();
+												var min = d.getMinutes();
+
+												document.getElementById("date").innerText = day + "-" + m + "-" + "-"+ y;
+												document.getElementById("hour").innerText = n+":"+min;
+											</script>
+										</div> 
+										<div class="text">
+											<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit modi dolore vero consectetur? </p>
+										</div>
+
+										<div class="[ panel panel-default ] panel-google-plus">
+											<div class="panel-footer">
+												
+												<button type="button" class="[ btn btn-default ]">+1</button>
+												<div class="input-placeholder" onkeyup="comment()">Add a comment...</div>
+												
+												<script>
+													$(function () {
+														$('.panel-google-plus > .panel-footer > .input-placeholder, .panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > button[type="reset"]').on('click', function(event) {
+																var $panel = $(this).closest('.panel-google-plus');
+																	$comment = $panel.find('.panel-google-plus-comment');
+																	
+																$comment.find('.btn:first-child').addClass('disabled');
+																$comment.find('textarea').val('');
+																
+																$panel.toggleClass('panel-google-plus-show-comment');
+																
+																if ($panel.hasClass('panel-google-plus-show-comment')) {
+																	$comment.find('textarea').focus();
+																}
+														});
+														$('.panel-google-plus-comment > .panel-google-plus-textarea > textarea').on('keyup', function(event) {
+																var $comment = $(this).closest('.panel-google-plus-comment');
+																
+																$comment.find('button[type="submit"]').addClass('disabled');
+																if ($(this).val().length >= 1) {
+																	$comment.find('button[type="submit"]').removeClass('disabled');
+																}
+														});
+													});
+												</script>
+
+											</div>
+											<div class="panel-google-plus-comment">
+												<img class="avatar" src="https://randomuser.me/api/portraits/women/14.jpg" alt="User Image" />
+												<div class="panel-google-plus-textarea">
+													<textarea rows="4"></textarea>
+													<button type="submit" class="[ btn btn-success disabled ]">Post comment</button>
+													<button type="reset" class="[ btn btn-default ]" >Cancel</button>
+												</div>
+												<div class="clearfix"></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div><!-- / .caption -->
+						</div>
+					</div>
+						
+				</div>
+			</div>
+		</div>
 	</body>
+</html>
+
+<script type="text/javascript">
+	function success() {
+		if(document.getElementById("messageText").value==="") { 
+			document.getElementById('publicar').disabled = true; 
+		} else { 
+			document.getElementById('publicar').disabled = false;
+		}
+	}
+	
+</script>
+
+
+<script type="text/javascript">
+	function buttonCam(){
+		document.getElementById("messageText").style.display="none";
+		document.getElementById("my_file").style.display="block";
+		document.getElementById("output").style.display="block";
+		document.getElementById("publicar").disabled = false;
+		document.getElementById("my_file").click();
+	}
+</script>
+
+
+<script type="text/javascript">
+	function buttonPencil(){
+		document.getElementById("output").style.display="none";
+		document.getElementById("my_file").style.display="none";
+		document.getElementById("messageText").style.display="block";
+		document.getElementById("publicar").disabled = true; 
+	}
+</script>
+
+<script>
+	var loadFile = function(event) {
+	var output = document.getElementById('output');
+	output.src = URL.createObjectURL(event.target.files[0]);
+	};
+</script>
