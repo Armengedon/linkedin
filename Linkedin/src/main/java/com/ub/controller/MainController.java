@@ -56,6 +56,21 @@ public class MainController {
     public String networkPage(Model model) {
         return "networkPage";
     }
+    
+    @RequestMapping(value = {"/jobs" }, method = RequestMethod.GET)
+    public String jobsPage(Model model) {
+        return "jobs";
+    }
+    
+    @RequestMapping(value = {"/messaging" }, method = RequestMethod.GET)
+    public String messagesPage(Model model) {
+        return "messages";
+    }
+    
+    @RequestMapping(value = {"/notifications" }, method = RequestMethod.GET)
+    public String notificationsPage(Model model) {
+        return "spam";
+    }
 
     @RequestMapping(value = {"/errorLogin" }, method = RequestMethod.GET)
     public String errorLogin(Model model) {
