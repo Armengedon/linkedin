@@ -1,0 +1,94 @@
+<link rel="stylesheet" href="/resources/css/navbar.css">
+<!-- Navigation -->
+<nav class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark fixed-top">
+	<div class="container nav-cont">
+	    <a class="navbar-brand" href="feed">
+	  		<img src="/resources/images/LinkedIn_logo.png" width="30" height="30" alt="">
+	  	</a>
+	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+	        aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	        <form class="form-inline my-2 my-lg-0">
+	             <div class="input-group input-group-sm">
+	                 <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Busqueda">
+	                 <div class="input-group-append">
+	                     <button type="button" class="btn btn-secondary btn-number">
+	                         <i class="fa fa-search"></i>
+	                     </button>
+	                 </div>
+	             </div>
+	         </form>
+	         <ul class="navbar-nav ml-auto">
+	         	<li class="nav-item start">
+			        <a class="nav-link" href="feed">
+			          <i class="fa fa-home"></i>
+			          	Inicio
+			          <span class="sr-only">(current)</span>
+		          	</a>
+			   	</li>
+			   	<li class="nav-item network">
+			        <a class="nav-link" href="mynetwork">
+			          <i class="fa fa-users"></i>
+			          	Mi red
+		          	</a>
+			   	</li>
+			   	<li class="nav-item jobs">
+			        <a class="nav-link" href="jobs">
+			          <i class="fa fa-briefcase"></i>
+			          	Empleos
+		          	</a>
+			   	</li>
+			   	<li class="nav-item messages">
+				     <a class="nav-link" href="messaging">
+				       <i class="fa fa-comments">
+				         <span class="badge badge-pill badge-danger">8</span>
+				       </i>
+				       	Mensajes
+				     </a>
+			   </li>
+			   <li class="nav-item spam">
+				     <a class="nav-link" href="notifications">
+				       <i class="fa fa-bell">
+				         <span class="badge badge-pill badge-danger">3</span>
+				       </i>
+				       Notificaciones
+				     </a>
+			   </li>
+			   <li class="nav-item">
+			        <a class="nav-link" href="#">
+			        	<i class="profile-image">
+			        		<img class="rounded-circle" src="/resources/images/img_avatar.png">
+			        	</i>
+				  		Yo &#9660;
+			        </a>
+		      	</li>
+	        </ul>
+	        <a class="premium" href="#">Abonate gratis a Premium</a>
+	    </div>
+	</div>
+</nav>
+
+<script>
+	$(window).on('load', function() {
+		switch (window.location.pathname) {
+			case "/feed":
+				$( '.start' ).addClass( 'active' );
+				break;
+			case "/mynetwork":
+				$( '.network' ).addClass( 'active' );
+				break;
+			case "/jobs":
+				$( '.jobs' ).addClass( 'active' );
+				break;
+			case "/messaging":
+				$( '.messages' ).addClass( 'active' );
+				break;
+			case "/notifications":
+				$( '.spam' ).addClass( 'active' );
+				break;
+			default:
+				break;
+		}
+		
+	});
+</script>

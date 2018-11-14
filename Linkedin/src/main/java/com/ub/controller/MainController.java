@@ -1,24 +1,14 @@
 package com.ub.controller;
 
 import java.security.Principal;
-import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.ub.model.AppUser;
-import com.ub.model.Role;
-import com.ub.model.UserRole;
-import com.ub.repository.RoleRepository;
-import com.ub.repository.UserRepository;
-import com.ub.repository.UserRoleRepository;
-import com.ub.utils.EncrytedPasswordUtils;
 import com.ub.utils.WebUtils;
 
 @Controller
@@ -65,6 +55,21 @@ public class MainController {
     @RequestMapping(value = {"/mynetwork" }, method = RequestMethod.GET)
     public String networkPage(Model model) {
         return "networkPage";
+    }
+    
+    @RequestMapping(value = {"/jobs" }, method = RequestMethod.GET)
+    public String jobsPage(Model model) {
+        return "jobs";
+    }
+    
+    @RequestMapping(value = {"/messaging" }, method = RequestMethod.GET)
+    public String messagesPage(Model model) {
+        return "messages";
+    }
+    
+    @RequestMapping(value = {"/notifications" }, method = RequestMethod.GET)
+    public String notificationsPage(Model model) {
+        return "spam";
     }
 
     @RequestMapping(value = {"/errorLogin" }, method = RequestMethod.GET)
