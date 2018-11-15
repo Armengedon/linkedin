@@ -4,7 +4,7 @@ import com.ub.model.AppUser;
 
 public interface UserService {
     
-	void save(AppUser user);
+	AppUser save(AppUser user);
 
-	AppUser findByUserName(String username);
+	AppUser findByEmail(String email);
 }
