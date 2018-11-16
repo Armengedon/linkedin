@@ -2,6 +2,7 @@ package com.ub.controller;
 
 import java.security.Principal;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
@@ -9,11 +10,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.ub.model.AppUser;
+import com.ub.repository.UserRepository;
 import com.ub.utils.WebUtils;
 
 @Controller
 public class MainController {
 
+	@Autowired
+	private UserRepository userRepository;
 	
 	@RequestMapping(value = { "/", "/welcome" }, method = RequestMethod.GET)
     public String welcomePage(Model model) {
@@ -48,7 +53,13 @@ public class MainController {
     }
 
     @RequestMapping(value = {"/feed" }, method = RequestMethod.GET)
-    public String mainPage(Model model) {
+    public String mainPage(Model model, Principal principal) {
+    	String userName = principal.getName();
+    	
+    	AppUser appUser = userRepository.findByEmail(userName);
+    	
+        model.addAttribute("appUser", appUser);
+    	
         return "mainPage";
     }
 
@@ -93,27 +104,13 @@ public class MainController {
  
         return "userInfoPage";
     }
+    
+    
  
     @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
     public String logoutSuccessfulPage(Model model) {
         model.addAttribute("title", "Logout");
         return "logoutSuccessfulPage";
-    }
- 
-    @RequestMapping(value = "/userInfo", method = RequestMethod.GET)
-    public String userInfo(Model model, Principal principal) {
- 
-        // After user login successfully.
-        String userName = principal.getName();
- 
-        System.out.println("User Name: " + userName);
- 
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
- 
-        String userInfo = WebUtils.toString(loginedUser);
-        model.addAttribute("userInfo", userInfo);
- 
-        return "userInfoPage";
     }
  
     @RequestMapping(value = "/403", method = RequestMethod.GET)

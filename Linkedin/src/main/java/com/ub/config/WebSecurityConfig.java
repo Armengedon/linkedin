@@ -3,6 +3,7 @@ package com.ub.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -20,8 +21,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
     private UserDetailsServiceImpl userDetailsService;
  
-    //@Autowired
-    //private DataSource dataSource;
+	@Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
     
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -47,10 +51,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
  
         // /userInfo page requires login as ROLE_USER or ROLE_ADMIN.
         // If no login, it will redirect to /login page.
-        http.authorizeRequests().antMatchers("/userInfo", "/users").access("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/userInfo", "/feed", "/users").authenticated();
  
         // For ADMIN only.
-        http.authorizeRequests().antMatchers("/admin", "/users").access("hasRole('ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/admin").access("hasRole('ROLE_ADMIN')");
  
         // When the user has logged in as XX.
         // But access a page that requires role YY,
@@ -60,11 +64,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // Config for Login Form
         http.authorizeRequests().and().formLogin()//
                 // Submit URL of login page.
-                .loginProcessingUrl("/j_spring_security_check") // Submit URL
-                .loginPage("/login")//
-                .defaultSuccessUrl("/userInfo")//
+                .loginProcessingUrl("/performlogin") // Submit URL
+                .loginPage("/welcome")//
+                .defaultSuccessUrl("/register_1")//
                 .failureUrl("/login?error=true")//
-                .usernameParameter("username")//
+                .usernameParameter("email")//
                 .passwordParameter("password")
                 // Config for Logout Page
                 .and().logout().logoutUrl("/logout").logoutSuccessUrl("/logoutSuccessful");

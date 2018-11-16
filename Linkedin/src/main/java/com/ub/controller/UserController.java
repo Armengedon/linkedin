@@ -6,8 +6,10 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,37 +18,30 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.ub.model.AppUser;
-import com.ub.model.Role;
-import com.ub.repository.RoleRepository;
 import com.ub.repository.UserRepository;
-import com.ub.utils.EncrytedPasswordUtils;
+import com.ub.service.SecurityServiceImpl;
+import com.ub.service.UserServiceImpl;
 
-@RestController
+@Controller
 @RequestMapping(value ="/users")
 public class UserController {
 	
 	@Autowired
-	private UserRepository userRepository;
+    private UserServiceImpl userService;
 
-	
+    @Autowired
+    private SecurityServiceImpl securityService;
+
 	@Autowired
-	private RoleRepository roleRepository;
-	
-//	@Autowired
-//	private UserRoleRepository userRoleRepository;
-	
+	private UserRepository userRepository;
+		
 	PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-
-	// Show Register page.
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public String viewRegister(Model model) {
-		AppUser appUser = new AppUser();
-
-		model.addAttribute("appUser", appUser);
+		model.addAttribute("appUser",  new AppUser());
 
 		return "register";
 	}
@@ -54,12 +49,13 @@ public class UserController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public ResponseEntity<Object> createUser(@RequestBody AppUser appUser) {
 		appUser.setId(Long.MAX_VALUE);
-		appUser.setPassword(EncrytedPasswordUtils.encrytePassword(appUser.getPassword()));
-		Optional<Role> role = roleRepository.findById(2L);
-		appUser.addRole(role.get());
-		AppUser savedUser = userRepository.save(appUser);
-		if (savedUser == null) {
-			return ResponseEntity.notFound().build();
+		String password = appUser.getPassword();
+		AppUser savedUser = userService.save(appUser);
+		
+        securityService.login(appUser.getEmail(), password);
+        
+        if (savedUser == null) {
+        	return ResponseEntity.notFound().build();
 		} else {
 			return ResponseEntity.noContent().build();
 		}
@@ -91,26 +87,15 @@ public class UserController {
    
 	@RequestMapping(value = "/performlogin", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE })
     public ResponseEntity<Object> performlogin(@RequestBody AppUser appUser) {
-        AppUser userPrincipal = null;
-        userPrincipal = userRepository.findByEmail(appUser.getEmail());
-        
-        if (passwordEncoder.matches(appUser.getPassword(), userPrincipal.getPassword())) {
+        try {
+        	securityService.login(appUser.getEmail(), appUser.getPassword());
+        } catch (AuthenticationException e) {
         	return ResponseEntity.noContent().build();
-        	//return userPrincipal; 
-        }else {
-        	//QUe vol frontend
-        	return ResponseEntity.notFound().build();
         }
-        	
-        // model.addAttribute(userPrincipal);
-
-//        String userName = userPrincipal.getUserName();
-//        String loginedUser = userPrincipal.toString();
-
-        //model.addAttribute("userInfo", loginedUser);
+        return ResponseEntity.noContent().build();
     }
 	
-	@GetMapping(value = { "","/"})
+	@GetMapping
 	public List<AppUser> retrieveAllUsers() {
 		return userRepository.findAll();
 	}

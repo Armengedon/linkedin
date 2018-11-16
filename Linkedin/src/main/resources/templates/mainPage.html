@@ -27,7 +27,7 @@
 							</div>
 							<div class="card-body pt-5">
 								<img src="https://randomuser.me/api/portraits/women/14.jpg" alt="profile-image" class="profile"/>
-								<h5 class="card-title text-center">User Name</h5>
+								<h5 class="card-title text-center" th:if="${appUser != null}" th:utext="${appUser.firstName} + ' ' + ${appUser.secondName}"></h5>
 								<p class="card-text text-center">job/studies</p>
 							</div>
 							<div class="card-body1">
@@ -50,7 +50,7 @@
 									<div class="col-xs-12 col-sm-6 col-md-4">	
 										<img src="/resources/images/img_avatar.png" class="avatar">
 									</div>
-									<h6>User Name</h6>
+									<h6 th:if="${appUser != null}" th:utext="${appUser.firstName} + ' ' + ${appUser.secondName}"></h6>
 								</div>	
 							</div>
 							<div class="container5">
