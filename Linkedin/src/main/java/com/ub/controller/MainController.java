@@ -89,6 +89,11 @@ public class MainController {
         return "spam";
     }
 
+    @RequestMapping(value = {"/user"}, method = RequestMethod.GET)
+    public String userPage(Model model) {
+        return "user";
+    }
+
     @RequestMapping(value = {"/errorLogin" }, method = RequestMethod.GET)
     public String errorLogin(Model model) {
         return "errorLogin";
