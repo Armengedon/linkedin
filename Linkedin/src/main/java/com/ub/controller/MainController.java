@@ -42,6 +42,12 @@ public class MainController {
         return "register_3";
     }
 
+    
+    @RequestMapping(value = {"/register_31" }, method = RequestMethod.GET)
+    public String register_31(Model model) {
+        return "register_31";
+    }
+
     @RequestMapping(value = {"/register_4" }, method = RequestMethod.GET)
     public String register_4(Model model) {
         return "register_4";
