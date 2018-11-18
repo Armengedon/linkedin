@@ -31,10 +31,10 @@
 								<h5 class="card-title text-center" th:if="${appUser != null}" th:utext="${appUser.firstName} + ' ' + ${appUser.secondName}"></h5>
 								<p class="card-text text-center">
 									<a th:if="${appUser != null && !appUser.studies_list.isEmpty()}">
-										Estudiante en 
+										Estudiante en <a th:utext="${appUser.studies_list.get(0).university]}"></a>
 									</a>
 									<a th:if="${appUser != null && !appUser.experiences.isEmpty()}">
-										Trabaja en
+										Trabaja en <a th:utext="${appUser.experiences.get(0).company]}"></a>
 									</a>
 									<a th:if="${appUser == null || (appUser.experiences.isEmpty() && appUser.studies_list.isEmpty())}">
 										No tiene de estudios ni experiencia
