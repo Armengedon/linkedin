@@ -48,7 +48,8 @@
 							<div class="container4">
 								<div class="row">
 									<div class="col-xs-12 col-sm-6 col-md-4">	
-										<img src="/resources/images/img_avatar.png" class="avatar">
+										<img class= "avatar" th:if="${appUser != null && appUser.photoUser != null}" th:src="${appUser.photoUser}">
+			        					<img class= "avatar" th:unless="${appUser != null && appUser.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
 									</div>
 									<h6 th:if="${appUser != null}" th:utext="${appUser.firstName} + ' ' + ${appUser.secondName}"></h6>
 								</div>	
