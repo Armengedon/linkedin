@@ -18,13 +18,15 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.ub.model.AppUser;
+import com.ub.model.Publication;
 import com.ub.repository.UserRepository;
 import com.ub.service.SecurityServiceImpl;
 import com.ub.service.UserServiceImpl;
 
-@Controller
+@RestController
 @RequestMapping(value ="/users")
 public class UserController {
 	
@@ -152,6 +154,18 @@ public class UserController {
 		
 		userRepository.save(userPrincipal);
 		return userPrincipal;
+	}
+	
+	
+	@RequestMapping(value="/addPublication", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE })
+	public Publication createPublication(@RequestBody Publication p) {
+		AppUser author = userRepository.findByEmail(p.getAuthor().getEmail());
+
+		author.addPublication(p);
+		userRepository.save(author);
+		return p;
+		
+
 	}
 	
 }

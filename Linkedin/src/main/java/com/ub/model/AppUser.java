@@ -59,6 +59,10 @@ public class AppUser {
     @OneToMany(mappedBy = "user")
     private List<Studies> studies_list = new ArrayList<>();
     
+    @OneToMany(mappedBy = "author")
+    private List<Publication> publications_list = new ArrayList<>();
+    
+    
     @Column(name = "Photo", length = 64, nullable = true)
 	private String photoUser;
     
@@ -194,5 +198,16 @@ public class AppUser {
  	public void setPostalCode(long postalCode) {
 		this.postalCode = postalCode;
 	}
+ 	
+ 	public List<Publication> getPublication() {
+ 		return publications_list;
+ 	}
+ 	
+ 	public void addPublication(Publication p) {
+ 		
+ 		publications_list.add(p);
+ 		
+ 		System.out.println(publications_list.get(0)+"ASFGUAF");
+ 	}
 	
 }
