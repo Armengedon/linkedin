@@ -26,13 +26,29 @@
 								<img class="img-fluid" src="https://previews.123rf.com/images/foodandmore/foodandmore1403/foodandmore140300067/26700838-frontera-n%C3%A1utica-delicado-con-la-red-de-pesca-conchas-de-mar-y-estrellas-de-mar-sobre-un-fondo-de-colo.jpg" alt="Card image cap">
 							</div>
 							<div class="card-body pt-5">
-								<img src="https://randomuser.me/api/portraits/women/14.jpg" alt="profile-image" class="profile"/>
+								<img alt="profile-image" class="profile" th:if="${appUser != null && appUser.photoUser != null}" th:src="${appUser.photoUser}">
+			        			<img alt="profile-image" class="profile" th:unless="${appUser != null && appUser.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
 								<h5 class="card-title text-center" th:if="${appUser != null}" th:utext="${appUser.firstName} + ' ' + ${appUser.secondName}"></h5>
-								<p class="card-text text-center">job/studies</p>
+								<p class="card-text text-center">
+									<a th:if="${appUser != null && !appUser.studies_list.isEmpty()}">
+										Estudiante en 
+									</a>
+									<a th:if="${appUser != null && !appUser.experiences.isEmpty()}">
+										Trabaja en
+									</a>
+									<a th:if="${appUser == null || (appUser.experiences.isEmpty() && appUser.studies_list.isEmpty())}">
+										No tiene de estudios ni experiencia
+									</a>
+								</p>
 							</div>
 							<div class="card-body1">
-								<p>Contactos</p>
-								<p>Amplía tu red</p>
+								<div class="basic_text">
+									<p>Contactos</p>
+									<p>Amplía tu red</p>
+								</div>
+								<div class="reversed_text" th:if="${appUser != null}">
+									<a th:utext="${appUser.experiences.size()}"></a>
+								</div>
 							</div>
 							<div class="card-body2">
 								<p class="card-text text-center">Accede a información y herraminetas exclusivas</p>
@@ -151,7 +167,8 @@
 
 											</div>
 											<div class="panel-google-plus-comment">
-												<img class="avatar" src="https://randomuser.me/api/portraits/women/14.jpg" alt="User Image" />
+												<img alt="User Image" class="avatar" th:if="${appUser != null && appUser.photoUser != null}" th:src="${appUser.photoUser}">
+			        							<img alt="User Image" class="avatar" th:unless="${appUser != null && appUser.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
 												<div class="panel-google-plus-textarea">
 													<textarea rows="4"></textarea>
 													<button type="submit" class="[ btn btn-success disabled ]">Post comment</button>
