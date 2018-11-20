@@ -91,6 +91,7 @@ public class Studies {
 	}
 
 	public void setUser(AppUser user) {
+		this.user = user;
 	}
 
 }

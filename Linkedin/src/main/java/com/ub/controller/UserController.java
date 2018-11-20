@@ -1,5 +1,6 @@
 package com.ub.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ub.model.AppUser;
 import com.ub.model.Publication;
+import com.ub.model.Studies;
 import com.ub.repository.UserRepository;
 import com.ub.service.SecurityServiceImpl;
 import com.ub.service.UserServiceImpl;
@@ -53,6 +55,7 @@ public class UserController {
 		appUser.setId(Long.MAX_VALUE);
 		String password = appUser.getPassword();
 		AppUser savedUser = userService.save(appUser);
+		//System.out.println(appUser.getStudies_list().get(0).getBeginYear()+"SAHIDFGASD");
 		
         securityService.login(appUser.getEmail(), password);
         
@@ -61,6 +64,7 @@ public class UserController {
 		} else {
 			return ResponseEntity.noContent().build();
 		}
+        
 	}
 
 	@RequestMapping(value = "/register/{phase}",method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
@@ -136,23 +140,42 @@ public class UserController {
 	@RequestMapping(value = "/additionalRegister", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE })
 	public AppUser additionalRegister(@RequestBody AppUser appUser) {
 		AppUser userPrincipal = null;
-        userPrincipal = userRepository.findByEmail(appUser.getEmail());
+		userPrincipal = userRepository.findByEmail(appUser.getEmail());
+		
+		
+		
+		List<Studies> a = appUser.getStudies_list();
+		List<Studies> b = new ArrayList<Studies>();
+		
         
-        System.out.println(appUser.getPostalCode()+"ASFA"+userPrincipal.getPostalCode());
+        Studies temp;
+        for (int i = 0; i < a.size(); i++) {
+        	temp = a.get(i);
+        	b.add(temp);
+        }
+        
+        /*System.out.println(appUser.getPostalCode()+"ASFA"+userPrincipal.getPostalCode());
         
 		//userPrincipal no te emails d'amics (register_1)
 		/*if (appUser.getEmailFriends() != userPrincipal.getEmailFriends()) {
 			//afegirli*/
         
         //if no te estudis (register_3)
-        if (userPrincipal.getStudies_list() != appUser.getStudies_list()) {userPrincipal.setStudies_list(appUser.getStudies_list());}
+        //if (userPrincipal.getStudies_list() != appUser.getStudies_list()) {userPrincipal.setStudies_list(appUser.getStudies_list());}
         //no te foto (register_4) 
-        if (appUser.getPhotoUser() != userPrincipal.getPhotoUser()) {userPrincipal.setPhotoUser(appUser.getPhotoUser());}
+        //if (appUser.getPhotoUser() != userPrincipal.getPhotoUser()) {userPrincipal.setPhotoUser(appUser.getPhotoUser());}
         
         //no te pais-codi postal (register_5)
-		if (appUser.getPostalCode() != userPrincipal.getPostalCode()) {userPrincipal.setPostalCode(appUser.getPostalCode());}
+		//if (appUser.getPostalCode() != userPrincipal.getPostalCode()) {userPrincipal.setPostalCode(appUser.getPostalCode());}
 		
-		userRepository.save(userPrincipal);
+        
+        userPrincipal.setStudies_list(b);
+        System.out.println(userPrincipal.getStudies_list().get(0).getBeginYear()+"YEEEE");
+		//userRepository.save(userPrincipal);
+		System.out.println(userPrincipal.getStudies_list().get(0).getBeginYear()+"222222222");
+        AppUser x = userRepository.findByEmail(appUser.getEmail());
+        System.out.println(x.getStudies_list().get(0).getUniversity()+"ASDDASD");
+        
 		return userPrincipal;
 	}
 	
@@ -161,8 +184,8 @@ public class UserController {
 	public Publication createPublication(@RequestBody Publication p) {
 		AppUser author = userRepository.findByEmail(p.getAuthor().getEmail());
 
-		author.addPublication(p);
-		userRepository.save(author);
+		//author.addPublication(p);
+		//userRepository.save(author);
 		return p;
 		
 

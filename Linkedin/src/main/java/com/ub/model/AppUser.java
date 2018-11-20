@@ -205,6 +205,8 @@ public class AppUser {
  	
  	public void addPublication(Publication p) {
  		
+ 		p.addComment(email, "hey soul sister");
+ 		
  		publications_list.add(p);
  		
  		System.out.println(publications_list.get(0)+"ASFGUAF");
