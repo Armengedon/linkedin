@@ -187,12 +187,11 @@ public class UserController {
 	
 	@RequestMapping(value = "/addPublication", method = RequestMethod.POST)
 	public void addPublication(@RequestBody Publication p, Principal user) {
+
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
-		
 		foundUser.addPublication(p);
 		publicationRepository.save(p);
-		
 		userRepository.save(foundUser);
 	
 	}

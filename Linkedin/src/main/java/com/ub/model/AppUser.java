@@ -139,7 +139,7 @@ public class AppUser {
 	
 	public void addPublication(Publication p) {
 		this.publications_list.add(p);
-		p.setAuthor(this);
+		p.setUser(this);
 	}
 	
 	public void addStudies(Studies studies) {
