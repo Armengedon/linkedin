@@ -5,7 +5,7 @@
 version: 2
 jobs:
   build:
-    working_directory: ~/project # directory where steps will run
+    working_directory: ~/Linkedin # directory where steps will run
     docker:
       # specify the version you desire here
       - image: circleci/openjdk:8-jdk
