@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -41,6 +42,9 @@ public class AppUser {
     
     @Column(name = "User_Email", length = 64, nullable = false)
 	private String email;
+    
+    @Column(name = "User_Country", length = 128, nullable = true)
+    private String country;
 
 
     @ManyToMany(cascade = { 
@@ -59,7 +63,7 @@ public class AppUser {
     @OneToMany(mappedBy = "user")
     private List<Studies> studies_list = new ArrayList<>();
     
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "user")
     private List<Publication> publications_list = new ArrayList<>();
     
     
@@ -70,10 +74,7 @@ public class AppUser {
     @Column(name = "Postal_Code", nullable = true)
 	private long postalCode;
     
-    
-    @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL, 
-            fetch = FetchType.LAZY, optional = true)
-    private Company company;
+
     
     public AppUser() {
     }
@@ -136,6 +137,11 @@ public class AppUser {
 		role.getUsers().remove(this);
     }
 	
+	public void addPublication(Publication p) {
+		this.publications_list.add(p);
+		p.setAuthor(this);
+	}
+	
 	public void addStudies(Studies studies) {
 		this.studies_list.add(studies);
 		studies.setUser(this);
@@ -154,22 +160,6 @@ public class AppUser {
 		experiences.remove(job);
     }
 	
-	public void setCompany(Company company) {
-        if (company == null) {
-            if (this.company != null) {
-                this.company.setOwner(null);
-            }
-        }
-        else {
-        	company.setOwner(this);
-        }
-        this.company = company;
-    }
-	
-	public Company getCompany() {
-		return company;
-	}
-
 	public List<JobExperience> getExperiences() {
 		return experiences;
 	}
@@ -203,13 +193,13 @@ public class AppUser {
  		return publications_list;
  	}
  	
- 	public void addPublication(Publication p) {
- 		
- 		p.addComment(email, "hey soul sister");
- 		
- 		publications_list.add(p);
- 		
- 		System.out.println(publications_list.get(0)+"ASFGUAF");
- 	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
 	
 }

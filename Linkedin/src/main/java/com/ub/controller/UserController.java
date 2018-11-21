@@ -3,11 +3,13 @@ package com.ub.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -22,8 +24,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ub.model.AppUser;
+
+import com.ub.model.JobExperience;
 import com.ub.model.Publication;
 import com.ub.model.Studies;
+
+import com.ub.repository.JobExperienceRepository;
+import com.ub.repository.PublicationRepository;
+import com.ub.repository.StudiesRepository;
 import com.ub.repository.UserRepository;
 import com.ub.service.SecurityServiceImpl;
 import com.ub.service.UserServiceImpl;
@@ -40,6 +48,15 @@ public class UserController {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private JobExperienceRepository jobExperiencieRepository;
+	
+	@Autowired
+	private StudiesRepository studiesRepository;
+	
+	@Autowired
+	private PublicationRepository publicationRepository;
 		
 	PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -137,58 +154,50 @@ public class UserController {
 	}
 	
 
-	@RequestMapping(value = "/additionalRegister", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE })
-	public AppUser additionalRegister(@RequestBody AppUser appUser) {
-		AppUser userPrincipal = null;
-		userPrincipal = userRepository.findByEmail(appUser.getEmail());
+	@RequestMapping(value = "/addStudies", method = RequestMethod.POST)
+	public void addStudies(@RequestBody Studies studies, Principal user) {
 		
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		foundUser.addStudies(studies);
+		studiesRepository.save(studies);
+		userRepository.save(foundUser);
 		
+	}
+	
+	@RequestMapping(value = "/addJobExperiencie", method = RequestMethod.POST)
+	public void addJobExperience(@RequestBody JobExperience job, Principal user) {
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		foundUser.addJobExperience(job);
+
+		jobExperiencieRepository.save(job);	
+		userRepository.save(foundUser);
 		
-		List<Studies> a = appUser.getStudies_list();
-		List<Studies> b = new ArrayList<Studies>();
+	}
+	
+	@RequestMapping(value = "/addPersonalInfo", method = RequestMethod.POST)
+	public void addPersonalInfo(@RequestBody AppUser appUser, Principal user) {
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		foundUser.setCountry(appUser.getCountry());
+		foundUser.setPostalCode(appUser.getPostalCode());
+		userRepository.save(foundUser);
+	}
+	
+	@RequestMapping(value = "/addPublication", method = RequestMethod.POST)
+	public void addPublication(@RequestBody Publication p, Principal user) {
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
 		
-        
-        Studies temp;
-        for (int i = 0; i < a.size(); i++) {
-        	temp = a.get(i);
-        	b.add(temp);
-        }
-        
-        /*System.out.println(appUser.getPostalCode()+"ASFA"+userPrincipal.getPostalCode());
-        
-		//userPrincipal no te emails d'amics (register_1)
-		/*if (appUser.getEmailFriends() != userPrincipal.getEmailFriends()) {
-			//afegirli*/
-        
-        //if no te estudis (register_3)
-        //if (userPrincipal.getStudies_list() != appUser.getStudies_list()) {userPrincipal.setStudies_list(appUser.getStudies_list());}
-        //no te foto (register_4) 
-        //if (appUser.getPhotoUser() != userPrincipal.getPhotoUser()) {userPrincipal.setPhotoUser(appUser.getPhotoUser());}
-        
-        //no te pais-codi postal (register_5)
-		//if (appUser.getPostalCode() != userPrincipal.getPostalCode()) {userPrincipal.setPostalCode(appUser.getPostalCode());}
+		foundUser.addPublication(p);
+		publicationRepository.save(p);
 		
-        
-        userPrincipal.setStudies_list(b);
-        System.out.println(userPrincipal.getStudies_list().get(0).getBeginYear()+"YEEEE");
-		//userRepository.save(userPrincipal);
-		System.out.println(userPrincipal.getStudies_list().get(0).getBeginYear()+"222222222");
-        AppUser x = userRepository.findByEmail(appUser.getEmail());
-        System.out.println(x.getStudies_list().get(0).getUniversity()+"ASDDASD");
-        
-		return userPrincipal;
+		userRepository.save(foundUser);
+	
 	}
 	
 	
-	@RequestMapping(value="/addPublication", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE })
-	public Publication createPublication(@RequestBody Publication p) {
-		AppUser author = userRepository.findByEmail(p.getAuthor().getEmail());
-
-		//author.addPublication(p);
-		//userRepository.save(author);
-		return p;
-		
-
-	}
+	
 	
 }

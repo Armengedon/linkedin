@@ -17,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Publication {
 	
@@ -29,19 +31,20 @@ public class Publication {
 	
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
-	private AppUser author;
+    @JoinColumn(name = "pl_user_id")
+	@JsonIgnore
+	private AppUser user;
 	
 	
-	@Column(name = "comments", nullable = true)
+	@Column(name = "Comments", nullable = true)
 	private Hashtable<String, List<String>> comments = new Hashtable<String, List<String>>();
 	
-	@Column(name = "date", nullable=false)
+	@Column(name = "Date", nullable=false)
 	private Date date;
 	
 	
-	public void setAuthor(AppUser author) {this.author = author;}
-	public AppUser getAuthor() {return author;}
+	public void setAuthor(AppUser user) {this.user = user;}
+	public AppUser getAuthor() {return user;}
 	
 	public void setDate(Date date) {this.date = date;}
 	public Date getDate() {return date;}
