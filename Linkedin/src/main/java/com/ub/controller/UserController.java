@@ -129,29 +129,33 @@ public class UserController {
 
 		return ResponseEntity.noContent().build();
 	}
-	
 
-	@RequestMapping(value = "/additionalRegister", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE })
-	public AppUser additionalRegister(@RequestBody AppUser appUser) {
-		AppUser userPrincipal = null;
-        userPrincipal = userRepository.findByEmail(appUser.getEmail());
-        
-        System.out.println(appUser.getPostalCode()+"ASFA"+userPrincipal.getPostalCode());
-        
-		//userPrincipal no te emails d'amics (register_1)
-		/*if (appUser.getEmailFriends() != userPrincipal.getEmailFriends()) {
-			//afegirli*/
-        
-        //if no te estudis (register_3)
-        if (userPrincipal.getStudies_list() != appUser.getStudies_list()) {userPrincipal.setStudies_list(appUser.getStudies_list());}
-        //no te foto (register_4) 
-        if (appUser.getPhotoUser() != userPrincipal.getPhotoUser()) {userPrincipal.setPhotoUser(appUser.getPhotoUser());}
-        
-        //no te pais-codi postal (register_5)
-		if (appUser.getPostalCode() != userPrincipal.getPostalCode()) {userPrincipal.setPostalCode(appUser.getPostalCode());}
-		
-		userRepository.save(userPrincipal);
-		return userPrincipal;
+
+	@RequestMappng(value = "/updatePersonalInfo", method = ResquestMethod.POST)
+	public void updatePersonalInfo(@RequestBody Object appUser, Principal user) {
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		Map info = ((Map)appUser);
+
+		for (String key: info.keySet() ){
+			switch (key) {
+				case "firstName": foundUser.setFirstName(info.get(key));
+					break;
+				case "secondName": foundUSer.setSecondName(info.get(key));
+					break;
+				case "password": //check
+					break;
+				case "country": foundUser.setContry(info.get(key));
+					break;
+				case "email": foundUser.setEmail(info.get(key));
+					break;
+				case "postalCode": foundUser.setPostalCode(info.get(key))
+					break;
+			}
+		}
+
+		userRepository.save(foundUser);
+
 	}
 	
 }
