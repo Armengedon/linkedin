@@ -39,8 +39,12 @@ public class AppUser {
     @Column(name = "Encryted_Password", length = 128, nullable = false)
 	private String password;
     
+    
     @Column(name = "User_Email", length = 64, nullable = false)
 	private String email;
+    
+    @Column(name = "User_Country", length = 128, nullable = true)
+    private String country;
 
 
     @ManyToMany(cascade = { 
@@ -194,5 +198,16 @@ public class AppUser {
  	public void setPostalCode(long postalCode) {
 		this.postalCode = postalCode;
 	}
+ 	
+ 	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+	
+ 	
+ 	
 	
 }

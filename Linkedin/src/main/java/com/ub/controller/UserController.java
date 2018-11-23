@@ -1,7 +1,10 @@
 package com.ub.controller;
 
+import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -18,13 +21,14 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.ub.model.AppUser;
 import com.ub.repository.UserRepository;
 import com.ub.service.SecurityServiceImpl;
 import com.ub.service.UserServiceImpl;
 
-@Controller
+@RestController
 @RequestMapping(value ="/users")
 public class UserController {
 	
@@ -131,25 +135,29 @@ public class UserController {
 	}
 
 
-	@RequestMappng(value = "/updatePersonalInfo", method = ResquestMethod.POST)
+	@RequestMapping(value = "/updatePersonalInfo", method = RequestMethod.POST)
 	public void updatePersonalInfo(@RequestBody Object appUser, Principal user) {
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
+		System.out.println(foundUser.getFirstName()+"NAME");
 		Map info = ((Map)appUser);
-
-		for (String key: info.keySet() ){
-			switch (key) {
-				case "firstName": foundUser.setFirstName(info.get(key));
+		Set s = info.keySet();
+		for (Object key: s){
+			String k = key.toString().replace("[", "").replaceAll("]","");
+			switch (k) {
+				case "firstName": 
+					System.out.println(info.get(key).toString());
+					foundUser.setFirstName(info.get(key).toString());
 					break;
-				case "secondName": foundUSer.setSecondName(info.get(key));
+				case "secondName": foundUser.setSecondName(info.get(key).toString());
 					break;
 				case "password": //check
 					break;
-				case "country": foundUser.setContry(info.get(key));
+				case "country": foundUser.setCountry(info.get(key).toString());
 					break;
-				case "email": foundUser.setEmail(info.get(key));
+				case "email": foundUser.setEmail(info.get(key).toString());
 					break;
-				case "postalCode": foundUser.setPostalCode(info.get(key))
+				case "postalCode": foundUser.setPostalCode(Integer.parseInt(info.get(key).toString()));
 					break;
 			}
 		}
