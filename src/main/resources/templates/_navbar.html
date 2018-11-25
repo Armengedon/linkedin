@@ -55,7 +55,7 @@
 				     </a>
 			   </li>
 			   <li class="nav-item">
-			        <a class="nav-link" href="#">
+			        <a class="nav-link" href="user">
 			        	<i class="profile-image">
 			        		<img class= "rounded-circle" th:if="${appUser != null && appUser.photoUser != null}" th:src="${appUser.photoUser}">
 			        		<img class= "rounded-circle" th:unless="${appUser != null && appUser.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"></html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title th:utext="${title}"></title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="/resources/css/startbootstrap-landing-page-gh-pages/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom fonts for this template -->
+        <link href="/resources/css/startbootstrap-landing-page-gh-pages/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+        <link href="/resources/css/startbootstrap-landing-page-gh-pages/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+        <!-- Custom styles for this template -->
+        <link href="/resources/css/startbootstrap-landing-page-gh-pages/css/landing-page.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/resources/css/register_31.css"> 
+    </head>
+
+    <body>
+        <header>
+            <nav class="navbar navbar-light bg-light static-top">
+                <div class = "container">
+                    <img class="lazy-loaded" src="/resources/images/linkedin_black.png">
+                </div>       
+            </nav>
+
+        </header>
+        
+        <div class="container" > 
+            <div class="row">
+                <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+                    <div class = "container2">
+                        <h1 class="title">Tu perfil te ayuda a descubrir las oportunidades y personas más adecuadas</h1>
+                        <div class="row">
+                            <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+                                <div class = "container3">
+                                    <form action="/register_4">
+                                        <label for="nombreCompañia">Nombre de la empresa</label>
+                                        <input type="textregister" name="companyName"required>
+                                        
+                                        <label for="añoInicio">Año de inicio *</label>
+                                        <input type="textregister" name="beginYearCompany"required>      
+                                        
+                                        <button type="submit" class="btn btn-primary">Continuar</button>
+                                    </form>
+    
+                                </div>    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    
+    </body>
+    
+</html>
