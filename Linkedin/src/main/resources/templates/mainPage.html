@@ -30,11 +30,11 @@
 			        			<img alt="profile-image" class="profile" th:unless="${appUser != null && appUser.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
 								<h5 class="card-title text-center" th:if="${appUser != null}" th:utext="${appUser.firstName} + ' ' + ${appUser.secondName}"></h5>
 								<p class="card-text text-center">
-									<a th:if="${appUser != null && !appUser.studies_list.isEmpty()}">
-										Estudiante en <a th:utext="${appUser.studies_list.get(0).university]}"></a>
-									</a>
 									<a th:if="${appUser != null && !appUser.experiences.isEmpty()}">
-										Trabaja en <a th:utext="${appUser.experiences.get(0).company]}"></a>
+										Trabaja en <a th:utext="${appUser.experiences.get(appUser.experiences.size()-1).company]}"></a>
+									</a>
+									<a th:if="${appUser != null && !appUser.studies_list.isEmpty()}">
+										Estudiante en <a th:utext="${appUser.studies_list.get(appUser.studies_list.size()-1).university]}"></a>
 									</a>
 									<a th:if="${appUser == null || (appUser.experiences.isEmpty() && appUser.studies_list.isEmpty())}">
 										No tiene de estudios ni experiencia
