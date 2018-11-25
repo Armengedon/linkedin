@@ -2,7 +2,9 @@ package com.ub.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +52,7 @@ public class UserController {
 	private UserRepository userRepository;
 	
 	@Autowired
-	private JobExperienceRepository jobExperiencieRepository;
+	private JobExperienceRepository jobExperienceRepository;
 	
 	@Autowired
 	private StudiesRepository studiesRepository;
@@ -153,25 +155,38 @@ public class UserController {
 		return ResponseEntity.noContent().build();
 	}
 	
-
 	@RequestMapping(value = "/addStudies", method = RequestMethod.POST)
 	public void addStudies(@RequestBody Studies studies, Principal user) {
 		
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
+		
+		for (int i = 0; i < foundUser.getStudies_list().size(); i++) { //update
+			int bYear = foundUser.getStudies_list().get(i).getBeginYear();
+			int eYear = foundUser.getStudies_list().get(i).getEndYear();
+			studiesRepository.delete(foundUser.getStudies_list().get(i));
+			foundUser.getStudies_list().remove(i);
+			studies.setBeginYear(bYear);
+			studies.setEndYear(eYear);
+		}
 		foundUser.addStudies(studies);
 		studiesRepository.save(studies);
 		userRepository.save(foundUser);
-		
+
 	}
 	
-	@RequestMapping(value = "/addJobExperiencie", method = RequestMethod.POST)
+	@RequestMapping(value = "/addJobExperience", method = RequestMethod.POST)
 	public void addJobExperience(@RequestBody JobExperience job, Principal user) {
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
+		
+		if (foundUser.getExperiences().size() > 0) {
+			jobExperienceRepository.deleteAll();
+		}
+				
 		foundUser.addJobExperience(job);
 
-		jobExperiencieRepository.save(job);	
+		jobExperienceRepository.save(job);	
 		userRepository.save(foundUser);
 		
 	}
@@ -194,6 +209,38 @@ public class UserController {
 		publicationRepository.save(p);
 		userRepository.save(foundUser);
 	
+	}
+	
+	@RequestMapping(value = "/updatePersonalInfo", method = RequestMethod.POST)
+	public void updatePersonalInfo(@RequestBody Object appUser, Principal user) {
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		System.out.println(foundUser.getFirstName()+"NAME");
+		Map info = ((Map)appUser);
+		Set s = info.keySet();
+		for (Object key: s){
+			String k = key.toString().replace("[", "").replaceAll("]","");
+			switch (k) {
+				case "firstName": 
+					System.out.println(info.get(key).toString());
+					foundUser.setFirstName(info.get(key).toString());
+					break;
+				case "secondName": foundUser.setSecondName(info.get(key).toString());
+					break;
+				case "password": foundUser.setPassword(info.get(key).toString());
+					userService.save(foundUser);
+					break;
+				case "country": foundUser.setCountry(info.get(key).toString());
+					break;
+				case "email": foundUser.setEmail(info.get(key).toString());
+					break;
+				case "postalCode": foundUser.setPostalCode(Integer.parseInt(info.get(key).toString()));
+					break;
+			}
+		}
+
+		userRepository.save(foundUser);
+
 	}
 	
 	
