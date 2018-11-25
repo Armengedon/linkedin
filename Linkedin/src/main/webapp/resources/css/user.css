@@ -33,3 +33,80 @@
 
 
 
+.container_educacio{
+    position: relative;
+    height: auto;
+    width: 800px;
+    left: -135px;
+    border: 1px solid rgb(196, 196, 196);
+    box-shadow: 0px 15px 10px -15px #111;
+    margin-bottom: 50px;
+}
+
+.header_container_educacio {
+	position: relative;
+	width: 800px;
+    margin-top: 15px;
+    height: auto;
+	
+}
+
+.text_header_container_educacio {
+	position: relative;
+	width: 300px;
+    font-size: 20px;
+    font-weight: 400;
+    padding-left: 10px;
+    padding-bottom: 5px;
+    margin-top: 5px;
+    height: 50px;
+	
+}
+
+.btn_add {
+    background-color: Transparent;
+    color: Grey;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+.education {
+	 height: auto;
+}
+
+.img-logo-education {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-left: 5px;
+}
+
+.info_education {
+	position: relative;
+	height: auto;
+    float: left;
+    font-size: 15px;
+    font-weight: 400;
+    padding-left: 15px;
+    margin-bottom: 10px; 
+}
+
+.name-education {
+    font-weight: 600;
+    margin-bottom: 5px; 
+}
+
+.grade-education {
+	margin-bottom: 5px; 
+}
+.activity-education{
+	margin-bottom: 5px; 
+}
+
+.info_education2 {
+	margin-bottom: 5px; 
+	font-size: 14px;
+    font-weight: 300;
+    color: Grey;
+    margin-bottom: 5px;
+}
