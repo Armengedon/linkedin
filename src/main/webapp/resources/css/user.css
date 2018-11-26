@@ -1,0 +1,35 @@
+/*Profile card 4*/
+
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+
+/*
+.wrapper { position: relative; }
+*/
+
+.container_gran{
+    position: relative;
+    width: 100%;
+    height:100%;
+    margin-left: 25px;
+}
+
+.container_mitja{
+    position: relative;
+    height: 100%;
+    width: 100%;
+    margin-top: 80px;
+}
+
+.container_perfil{
+    position: relative;
+    height: 480px;
+    width: 800px;
+
+    left: -135px;
+    border: 1px solid rgb(196, 196, 196);
+    
+    box-shadow: 0px 15px 10px -15px #111;
+}
+
+
+

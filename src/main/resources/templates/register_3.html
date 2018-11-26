@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"></html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title th:utext="${title}"></title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="/resources/css/startbootstrap-landing-page-gh-pages/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom fonts for this template -->
+        <link href="/resources/css/startbootstrap-landing-page-gh-pages/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+        <link href="/resources/css/startbootstrap-landing-page-gh-pages/vendor/simple-line-icons/css/simple-line-icons.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+        <!-- Custom styles for this template -->
+        <link href="/resources/css/startbootstrap-landing-page-gh-pages/css/landing-page.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="/resources/css/register_3.css"> 
+        
+        <!--  Add JS -->
+		<script type="application/script" src="./lib/generatorJson.js"></script>
+		<script type="application/script" src="/app/user.service.js"></script>
+		<script type="application/script" src="/app/general.controller.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    </head>
+
+    <body>
+        <header>
+            <nav class="navbar navbar-light bg-light static-top">
+                <div class = "container">
+                    <img class="lazy-loaded" src="/resources/images/linkedin_black.png">
+                </div>       
+            </nav>
+        </header>
+
+
+        <div class="container" > 
+            <div class="row">
+                <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+                    <div class = "container2">
+                        <h1 class="title">Tu perfil te ayuda a descubrir las oportunidades y personas más adecuadas</h1>
+                        <div class="row">
+                            <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+                                <div class = "container3">
+                                    <form id="register3" action="/register_5">
+                                        <label for="uni">Universidad o centro de estudios *</label>
+                                        
+                                        <input hidden type="textregister" id="title" name="title" value="Graduat">
+                                        
+                                        <input type="textregister" id="university" name="university"required>
+                                        
+                                        <label for="añoInicio">Año de inicio *</label>
+                                        <input type="textregister" id="beginYear" name="beginYear"required>   
+                                        
+                                        <label for="añoFinal">Año de finalización (o previsto) *</label>
+                                        <input type="textregister" id="endYear" name="endYear"required>   
+                                            
+                                        <button class="button"><a href="/register_31">No soy estudiante</a></button>
+                                        
+                                        <button type="submit" class="btn btn-primary">Continuar</button>
+                                    </form>
+    
+                                </div>    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </body>
+    
+</html>
+
+<script>
+	(function() {
+		function toJSONString(form) {
+			var obj = {};
+			var elements = form.querySelectorAll("input, select, textarea");
+			for (var i = 0; i < elements.length; ++i) {
+				var element = elements[i]
+				var name = element.name;
+				var value = element.value;
+				if (name) {
+					obj[name] = value;
+				}
+			}
+			return JSON.stringify(obj);
+		}
+		document.addEventListener("DOMContentLoaded", function() {
+			var form = document.getElementById("register3");
+			form.addEventListener("submit", function(e) {
+				e.preventDefault();
+				var json = toJSONString(this);
+				console.log(json);
+				
+				$.ajax({
+					  url:"/users/addStudies",
+					  type:"POST",
+					  data:json,
+					  contentType:"application/json; charset=utf-8",
+					  dataType:"json",
+					  success: function(){
+							$.post("/users/addStudies ", json, function(data, status) {
+								alert("Data: " + data + "\nStatus: " + status);
+							});
+							window.location.href = "/register_5";
+					  }
+					})
+				//output.innerHTML = json
+				
+			}, false);
+			
+		});
+	})();
+</script>
