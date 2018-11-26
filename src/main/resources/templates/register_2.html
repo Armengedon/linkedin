@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"></html>
+<html xmlns:th="http://www.thymeleaf.org">
 
     <head>
         <meta charset="utf-8">
@@ -36,8 +36,6 @@
             </nav>
 
         </header>
-
-
         
         <div class="container" > 
             <div class="row">
@@ -50,7 +48,7 @@
                                 <div class = "container3">
                                     <form id="register2" action="/register_3">
                                             <label for="pais"> <b>Pais/región</b></label>
-                                            <input type="textregister" name="country" list="countries" required>
+                                            <input type="textregister" name="country" list="countries">
                                             <datalist id="countries">
                                                 <option value="United States">United States</option> 
                                                 <option value="United Kingdom">United Kingdom</option> 
@@ -295,7 +293,7 @@
                                                 <option value="Zimbabwe">Zimbabwe</option>
                                             </datalist>
                                         <label for="numero">Número</label>
-                                        <input type="textregister" name="numero"required>
+                                        <input type="textregister" name="numero">
                                         <p>Se aplicarán las tarifas estándar para mensajes de texto. 
                                             No mostraremos tu número en tu perfil ni lo compartiremos 
                                             con nadie.
@@ -314,9 +312,10 @@
                                         </form>
                                         
                                     </div>
+                                    <form action="/feed">
+                                    	<button class="button button4">Saltar</button>
+                                    </form>
                                     
-                                    <button class="button button4">Saltar</button>
-    
                                 </div>    
                             </div>
                         </div>
@@ -324,52 +323,5 @@
                 </div>
             </div>
         </div>
-        
-    
     </body>
-    
 </html>
-
-<script>
-	(function() {
-		function toJSONString(form) {
-			var obj = {};
-			var elements = form.querySelectorAll("input, select, textarea");
-			for (var i = 0; i < elements.length; ++i) {
-				var element = elements[i]
-				var name = element.name;
-				var value = element.value;
-				if (name) {
-					obj[name] = value;
-				}
-			}
-			return JSON.stringify(obj);
-		}
-		document.addEventListener("DOMContentLoaded", function() {
-			var form = document.getElementById("register2");
-			var output = document.getElementById("output");
-			form.addEventListener("submit", function(e) {
-				e.preventDefault();
-				var json = toJSONString(this);
-				console.log(json);
-				
-				$.ajax({
-					  url:"/users/additionalRegister",
-					  type:"POST",
-					  data:json,
-					  contentType:"application/json; charset=utf-8",
-					  dataType:"json",
-					  success: function(){
-							$.post("/users/additionalRegister ", json, function(data, status) {
-								alert("Data: " + data + "\nStatus: " + status);
-							});
-							window.location.href = "/register_3";
-					  }
-					})
-				//output.innerHTML = json;
-				
-			}, false);
-			
-		});
-	})();
-</script>
