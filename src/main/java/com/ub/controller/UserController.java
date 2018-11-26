@@ -156,7 +156,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/addStudies", method = RequestMethod.POST)
-	public void addStudies(@RequestBody Studies studies, Principal user) {
+	public ResponseEntity<Object> addStudies(@RequestBody Studies studies, Principal user) {
 		
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
@@ -172,11 +172,11 @@ public class UserController {
 		foundUser.addStudies(studies);
 		studiesRepository.save(studies);
 		userRepository.save(foundUser);
-
+		return ResponseEntity.noContent().build();
 	}
 	
 	@RequestMapping(value = "/addJobExperience", method = RequestMethod.POST)
-	public void addJobExperience(@RequestBody JobExperience job, Principal user) {
+	public ResponseEntity<Object> addJobExperience(@RequestBody JobExperience job, Principal user) {
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
 		
@@ -188,34 +188,34 @@ public class UserController {
 
 		jobExperienceRepository.save(job);	
 		userRepository.save(foundUser);
-		
+		return ResponseEntity.noContent().build();
 	}
 	
 	@RequestMapping(value = "/addPersonalInfo", method = RequestMethod.POST)
-	public void addPersonalInfo(@RequestBody AppUser appUser, Principal user) {
+	public ResponseEntity<Object> addPersonalInfo(@RequestBody AppUser appUser, Principal user) {
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
 		foundUser.setCountry(appUser.getCountry());
 		foundUser.setPostalCode(appUser.getPostalCode());
 		userRepository.save(foundUser);
+		return ResponseEntity.noContent().build();
 	}
 	
 	@RequestMapping(value = "/addPublication", method = RequestMethod.POST)
-	public void addPublication(@RequestBody Publication p, Principal user) {
+	public ResponseEntity<Object> addPublication(@RequestBody Publication p, Principal user) {
 
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
 		foundUser.addPublication(p);
 		publicationRepository.save(p);
 		userRepository.save(foundUser);
-	
+		return ResponseEntity.noContent().build();
 	}
 	
 	@RequestMapping(value = "/updatePersonalInfo", method = RequestMethod.POST)
-	public void updatePersonalInfo(@RequestBody Object appUser, Principal user) {
+	public ResponseEntity<Object> updatePersonalInfo(@RequestBody Object appUser, Principal user) {
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
-		System.out.println(foundUser.getFirstName()+"NAME");
 		Map info = ((Map)appUser);
 		Set s = info.keySet();
 		for (Object key: s){
@@ -240,7 +240,7 @@ public class UserController {
 		}
 
 		userRepository.save(foundUser);
-
+		return ResponseEntity.noContent().build();
 	}
 	
 	
