@@ -1,0 +1,88 @@
+<link rel="stylesheet" href="/resources/css/profile_change.css">
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+  	<div class="top-header">
+  		<div class="top-title">
+  			<a class="text-title">Editar presentacion</a>
+  		</div>
+  		<button id="close-button">&times;</button>
+	</div>
+  	<div class="profile-card">
+		<div class="card-img-block">
+			<img class="img-fluid" src="https://previews.123rf.com/images/foodandmore/foodandmore1403/foodandmore140300067/26700838-frontera-n%C3%A1utica-delicado-con-la-red-de-pesca-conchas-de-mar-y-estrellas-de-mar-sobre-un-fondo-de-colo.jpg" alt="Card image cap">
+		</div>
+		<div class="card-body pt-5">
+			<img alt="profile-image" class="profile" th:if="${appUser != null && appUser.photoUser != null}" th:src="${appUser.photoUser}">
+ 			<img alt="profile-image" class="profile" th:unless="${appUser != null && appUser.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
+		</div>
+		<div class="name-box">
+			<div class="form-group half-form-left">
+			    <label for="name">Nombre <a class="asterisc">*</a></label>
+			    <input type="text" class="form-control" id="name" th:if="${appUser != null}" th:value="${appUser.firstName}">
+	  			<input type="text" class="form-control" id="name" th:unless="${appUser != null}" placeholder="Nombre">
+	  		</div>
+	  		<div class="form-group half-form-right">
+			    <label for="surname">Apellidos <a class="asterisc">*</a></label>
+			    <input type="text" class="form-control" id="surname" th:if="${appUser != null}" th:value="${appUser.secondName}">
+	  			<input type="text" class="form-control" id="surname" th:unless="${appUser != null}" placeholder="Apellidos">
+	  		</div>
+		</div>
+		<div th:if="${appUser != null && !appUser.studies_list.isEmpty()}" class="full-form">
+			<ul class="list-group" id="education">
+				
+			</ul>
+		</div>
+		<div th:if="${appUser != null && !appUser.experiences.isEmpty()}" class="full-form">
+			<ul class="list-group" id="experiences">
+				
+			</ul>
+		</div>
+  		<div class="region-box">
+			<div class="form-group half-form-left">
+			    <label for="name">Pais/Region <a class="asterisc">*</a></label>
+			    <input type="text" class="form-control" id="name" th:if="${appUser != null}" th:value="${appUser.firstName}">
+	  			<input type="text" class="form-control" id="name" th:unless="${appUser != null}" placeholder="Nombre">
+	  		</div>
+	  		<div class="form-group half-form-right">
+			    <label for="surname">Codigo Postal <a class="asterisc">*</a></label>
+			    <input type="text" class="form-control" id="surname" th:if="${appUser != null}" th:value="${appUser.postalCode}">
+	  			<input type="text" class="form-control" id="surname" th:unless="${appUser != null}" placeholder="Apellidos">
+	  		</div>
+		</div>
+	</div>
+	
+  </div>
+</div>
+
+<script>
+	//Get the modal
+	var modal = document.getElementById('myModal');
+	
+	// Get the button that opens the modal
+	var btn = document.getElementById("update-button");
+	
+	// Get the <span> element that closes the modal
+	var span = document.getElementById("close-button");
+	
+	// When the user clicks on the button, open the modal 
+	btn.onclick = function() {
+	    modal.style.display = "block";
+	}
+	
+	// When the user clicks on <span> (x), close the modal
+	span.onclick = function() {
+	    modal.style.display = "none";
+	}
+	
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+	    if (event.target == modal) {
+	        modal.style.display = "none";
+	    }
+	}
+	
+
+</script>
