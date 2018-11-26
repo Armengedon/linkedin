@@ -22,7 +22,7 @@
     overflow:hidden;
 }
 
-.profile-card-4 .card-body{
+.profile-card-4 .card-body-base{
     position:relative;
 }
 
@@ -39,16 +39,15 @@
     position: relative;
 }
 
-.profile-card-4 .profile {
+.profile-card-4 .profile-base {
     border-radius: 50%;
-    position: absolute;
     width: 200px;
     height: 160px;
     border: 3px solid rgba(255, 255, 255, 1);
     margin: -130px 10px 0px 50px;
     z-index: 9;
 }
-.profile-card-4 .card-img-block{
+.profile-card-4 .card-img-block-base{
     position:relative;
 }
 
