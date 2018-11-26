@@ -90,7 +90,13 @@ public class MainController {
     }
 
     @RequestMapping(value = {"/user"}, method = RequestMethod.GET)
-    public String userPage(Model model) {
+    public String userPage(Model model, Principal principal) {
+        String userName = principal.getName();
+    	
+    	AppUser appUser = userRepository.findByEmail(userName);
+    	
+        model.addAttribute("appUser", appUser);
+
         return "user";
     }
 
