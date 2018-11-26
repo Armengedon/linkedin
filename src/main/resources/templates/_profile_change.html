@@ -1,8 +1,5 @@
 <link rel="stylesheet" href="/resources/css/profile_change.css">
 
-<!-- Trigger/Open The Modal -->
-<button id="myBtn">Open Modal</button>
-
 <!-- The Modal -->
 <div id="myModal" class="modal">
   <!-- Modal content -->
@@ -65,7 +62,7 @@
 	var modal = document.getElementById('myModal');
 	
 	// Get the button that opens the modal
-	var btn = document.getElementById("myBtn");
+	var btn = document.getElementById("update-button");
 	
 	// Get the <span> element that closes the modal
 	var span = document.getElementById("close-button");
@@ -87,28 +84,5 @@
 	    }
 	}
 	
-// 	var i;
-// 	var size = /*[[${appUser.studies_list.size()}]]*/ 0;
-	
-// 	if (size != 0) {
-// 		var education = document.getElementById('education');
-// 		for (i = 0; i < size; i++) {
-// 			var entry = document.createElement('li');
-// 			var element = /*[[${appUser.studies_list.get(i).university}]] */ 'Dummy content';
-// 			entry.appendChild(document.createTextNode(element));
-// 			education.appendChild(entry);
-// 		}
-// 	}
-	
-// 	var size = /*[[${appUser.experiences.size()}]]*/ 0;
-	
-// 	if (size != 0) {
-// 		var experiences = document.getElementById('experiences');
-// 		for (i = 0; i < ${appUser.experiences.size()}; i++) {
-// 			var entry = document.createElement('li');
-// 			var element = /*[[${appUser.experiences.get(i).company}]] */ 'Dummy content';
-// 			entry.appendChild(document.createTextNode(element));
-// 			education.appendChild(entry);
-// 		}
-// 	}
+
 </script>
