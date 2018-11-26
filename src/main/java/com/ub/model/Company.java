@@ -50,7 +50,7 @@ public class Company {
 
 	public void addJobExperience(JobExperience experience) {
 		experiences.add(experience);
-		experience.setEnterprise(this);
+		//experience.setEnterprise(this);
 	}
 	
 	public void removeJobExperience(JobExperience experience) {
