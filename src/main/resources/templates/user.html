@@ -17,16 +17,33 @@
 			<th:block th:include="_navbar"></th:block>
         </header>
         
-        <div class="container container_gran">
-            <div class="container container_mitja">
-                <div class="container container_perfil">
-     
-     			<th:block th:include="_profile_change"></th:block>
+        <th:block th:include="_profile_change"></th:block>
+        <div class="container container1">
+            <div class="container container2">
+                <div class="container profile-box">
+                    <div class="card profile-card-4">
+                        <div class="card-img-block">
+                            <img class="image-portada" src="https://previews.123rf.com/images/foodandmore/foodandmore1403/foodandmore140300067/26700838-frontera-n%C3%A1utica-delicado-con-la-red-de-pesca-conchas-de-mar-y-estrellas-de-mar-sobre-un-fondo-de-colo.jpg" alt="Card image cap">
+                        </div>
+                        <div class="card-body pt-5">
+                            <img src="https://randomuser.me/api/portraits/women/14.jpg" alt="profile-image" class="profile"/>
+                        </div> 
+                        <div class="row">
+                            <div class = "col-sm-4 card-body3">
+                                <h5 th:if="${appUser != null}" th:utext="${appUser.firstName} + ' ' + ${appUser.secondName}"></h5>
+                                <p>Enginyeria Informatica</p>
+                                <p>Badalona</p>
+                            </div>
+                            <div class = "col-sm-4 card-body4">
+                                <i class="fa fa-pencil update-button"></i>
+                                <p>Everis</p>
+                                <p>Universitat de Barcelona</p>
+                            </div>
+                        </div>  
 
+                    </div>
                 </div>
             </div>
-            
-
         </div>
 	</body>
 </html>
