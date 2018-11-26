@@ -9,6 +9,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "Job_Experience")
 public class JobExperience {
@@ -19,15 +21,19 @@ public class JobExperience {
 	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_user")
+	@JsonIgnore
 	private AppUser user;
 	
     @Column(name = "Exp_title", length = 64, nullable = false)
-	private String title;
+	private String title; //posicio
     
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_company")
-	private Company company;
-	
+    @Column(name = "Job_BYear", length = 64, nullable = false)
+	private int beginYear;
+    
+    @Column(name = "Company_Name", length = 256, nullable = true)
+    private String company_Name;
+
+    	
 	public AppUser getUser() {
 		return user;
 	}
@@ -44,13 +50,22 @@ public class JobExperience {
 		this.title = title;
 	}
 
-	public Company getEnterprise() {
-		return company;
+	public int getBeginYear() {
+		return beginYear;
 	}
 
-	public void setEnterprise(Company company) {
-		this.company = company;
-		
+	public void setBeginYear(int beginYear) {
+		this.beginYear = beginYear;
 	}
+
+	public String getCompany_Name() {
+		return company_Name;
+	}
+
+	public void setCompany_Name(String company_Name) {
+		this.company_Name = company_Name;
+	}
+	
+	
 	
 }
