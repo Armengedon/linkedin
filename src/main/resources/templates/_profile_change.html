@@ -53,7 +53,9 @@
 	  		</div>
 		</div>
 	</div>
-	
+	<div class="bottom-footer">
+		<button type="button" class="btn btn-primary store-button" id="store-button">Guardar</button>
+	</div>
   </div>
 </div>
 
@@ -67,6 +69,8 @@
 	// Get the <span> element that closes the modal
 	var span = document.getElementById("close-button");
 	
+	var store = document.getElementById("store-button")
+	
 	// When the user clicks on the button, open the modal 
 	btn.onclick = function() {
 	    modal.style.display = "block";
@@ -77,12 +81,42 @@
 	    modal.style.display = "none";
 	}
 	
+	store.onclick = function() {
+		
+	}
+	
 	// When the user clicks anywhere outside of the modal, close it
 	window.onclick = function(event) {
 	    if (event.target == modal) {
 	        modal.style.display = "none";
 	    }
 	}
-	
+</script>
+<script th:if="${appUser != null && !appUser.studies_list.isEmpty()}">
+var i;
+var size = /*[[${appUser.studies_list.size()}]]*/ 0;
 
+if (size != 0) {
+	var education = document.getElementById('education');
+	for (i = 0; i < size; i++) {
+		var entry = document.createElement('li');
+		var element = /*[[${appUser.studies_list.get(i).university}]] */ 'Dummy content';
+		entry.appendChild(document.createTextNode(element));
+		education.appendChild(entry);
+	}
+}
+</script>
+<script th:if="${appUser != null && !appUser.experiences.isEmpty()}">
+	var i;
+	var size = /*[[${appUser.experiences.size()}]]*/ 0;
+	
+	if (size != 0) {
+		var experiences = document.getElementById('experiences');
+		for (i = 0; i < ${appUser.experiences.size()}; i++) {
+			var entry = document.createElement('li');
+			var element = /*[[${appUser.experiences.get(i).company}]] */ 'Dummy content';
+			entry.appendChild(document.createTextNode(element));
+			education.appendChild(entry);
+		}
+	}
 </script>

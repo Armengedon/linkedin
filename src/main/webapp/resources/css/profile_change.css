@@ -119,3 +119,16 @@
 .asterisc {
 	color: blue !important;
 }
+
+.bottom-footer {
+	height: 65px;
+	align-items: center;
+	position: relative;
+}
+
+.store-button {
+	float: right;
+	margin-top: 10px;
+	margin-right: 20px;
+	width: 100px;
+}
