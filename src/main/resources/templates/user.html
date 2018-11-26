@@ -30,15 +30,26 @@
                         <div class="row">
                             <div class = "col-sm-4 card-body3">
                                 <h5 th:if="${appUser != null}" th:utext="${appUser.firstName} + ' ' + ${appUser.secondName}"></h5>
-                                <p>Enginyeria Informatica</p>
-                                <p>Badalona</p>
+                                <a th:if="${appUser != null && !appUser.studies_list.isEmpty()}">
+                                    Graduado en <a th:utext="${appUser.studies_list.get(appUser.studies_list.size()-1).title]}"></a>
+                                </a>
+                                <a th:if="${appUser == null || appUser.studies_list.isEmpty()}">
+                                    No tiene de estudios ni experiencia
+                                </a>
                             </div>
                             <div class = "col-sm-4 card-body4">
                                 <button id="update-button">
                                     <i class="fa fa-pencil"></i>
                                 </button>
-                                <p>Everis</p>
-                                <p>Universitat de Barcelona</p>
+                                <a th:if="${appUser != null && !appUser.experiences.isEmpty()}">
+                                    Trabaja en <a th:utext="${appUser.experiences.get(appUser.experiences.size()-1).company]}"></a>
+                                </a>
+                                <a th:if="${appUser != null && !appUser.studies_list.isEmpty()}">
+                                    Estudiante en <a th:utext="${appUser.studies_list.get(appUser.studies_list.size()-1).university]}"></a>
+                                </a>
+                                <a th:if="${appUser == null || (appUser.experiences.isEmpty() && appUser.studies_list.isEmpty())}">
+                                    No tiene de estudios ni experiencia
+                                </a>
                             </div>
                         </div>  
 

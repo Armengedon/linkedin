@@ -30,6 +30,7 @@
     width: 487px;
     height: 192px;
     position:relative;
+    margin-left: 10px;
 }
 
 .profile-card-4 .card-body4{
@@ -41,8 +42,7 @@
 
 .profile-card-4 .profile-base {
     border-radius: 50%;
-    width: 200px;
-    height: 160px;
+    width: 150px;
     border: 3px solid rgba(255, 255, 255, 1);
     margin: -130px 10px 0px 50px;
     z-index: 9;
@@ -51,16 +51,16 @@
     position:relative;
 }
 
-.card-body3 p{
+.card-body3 a{
     margin-top: 5px;
-    margin-left: 30px;
+    margin-left:30px;
 }
 
 .card-body4 h5{
     margin-top: 40px;
 }
 
-.card-body4 p{
+.card-body4 a{
     margin-top: 5px
 }
 
@@ -98,18 +98,8 @@
 }
 
 .image-portada{
-    width: 798px;
+    width: 784px;
     height: 198px;
-}
-
-.image-perfil{
-    width: 160px;
-    height: 120px;
-    border-radius: 50%;
-    margin: -90px 10px 0px 50px;
-    z-index: 9;
-    border-radius: 50%;
-    position: absolute;
 }
 
 
@@ -120,4 +110,10 @@
     border-radius: 50%;
     margin-top: 10px;
     margin-left: 30%;
+}
+
+#update-button{
+    float:right;
+    border: 0px;
+    background-color: white;
 }
