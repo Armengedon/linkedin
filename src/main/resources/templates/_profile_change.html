@@ -31,29 +31,37 @@
 	  		</div>
 		</div>
 		<div th:if="${appUser != null && !appUser.studies_list.isEmpty()}" class="full-form">
-			<ul class="list-group" id="education">
-				
-			</ul>
+			<label>Estudios</label>
+			<select class="form-control form-control-lg  selector-form">
+				<th:block th:object="${appUser}">
+					<option th:each="studies: *{studies_list}" th:text="${studies.title} + ' en ' + ${studies.university}" th:selected="${studies == appUser.studies_list.get(appUser.studies_list.size()-1)}"></option>
+				</th:block>
+			</select>
 		</div>
 		<div th:if="${appUser != null && !appUser.experiences.isEmpty()}" class="full-form">
-			<ul class="list-group" id="experiences">
-				
-			</ul>
+			<select class="form-control form-control-lg selector-form">
+				<label>Estudios</label>
+				<th:block th:object="${appUser}">
+					<option th:each="experience: *{experiences}" th:text="${experience.title} + ' en ' + ${experience.company_name}" th:selected="${experience == appUser.experience.get(appUser.experience.size()-1)}"></option>
+				</th:block>
+			</select>
 		</div>
   		<div class="region-box">
 			<div class="form-group half-form-left">
 			    <label for="name">Pais/Region <a class="asterisc">*</a></label>
-			    <input type="text" class="form-control" id="name" th:if="${appUser != null}" th:value="${appUser.firstName}">
-	  			<input type="text" class="form-control" id="name" th:unless="${appUser != null}" placeholder="Nombre">
+			    <input type="text" class="form-control" id="name" th:if="${appUser != null}" th:value="${appUser.country}">
+	  			<input type="text" class="form-control" id="name" th:unless="${appUser != null}" placeholder="Pais">
 	  		</div>
 	  		<div class="form-group half-form-right">
 			    <label for="surname">Codigo Postal <a class="asterisc">*</a></label>
 			    <input type="text" class="form-control" id="surname" th:if="${appUser != null}" th:value="${appUser.postalCode}">
-	  			<input type="text" class="form-control" id="surname" th:unless="${appUser != null}" placeholder="Apellidos">
+	  			<input type="text" class="form-control" id="surname" th:unless="${appUser != null}" placeholder="Codigo Postal">
 	  		</div>
 		</div>
 	</div>
-	
+	<div class="bottom-footer">
+		<button type="button" class="btn btn-primary store-button" id="store-button">Guardar</button>
+	</div>
   </div>
 </div>
 
@@ -67,6 +75,8 @@
 	// Get the <span> element that closes the modal
 	var span = document.getElementById("close-button");
 	
+	var store = document.getElementById("store-button")
+	
 	// When the user clicks on the button, open the modal 
 	btn.onclick = function() {
 	    modal.style.display = "block";
@@ -77,12 +87,14 @@
 	    modal.style.display = "none";
 	}
 	
+	store.onclick = function() {
+		
+	}
+	
 	// When the user clicks anywhere outside of the modal, close it
 	window.onclick = function(event) {
 	    if (event.target == modal) {
 	        modal.style.display = "none";
 	    }
 	}
-	
-
 </script>

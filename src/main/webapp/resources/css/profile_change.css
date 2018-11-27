@@ -86,7 +86,7 @@
 .name-box {
 	padding-top: 175px;
 	position: relative;
-	padding-bot: 7px;
+	padding-bottom: 7px;
 }
 
 .half-form-left {
@@ -107,15 +107,37 @@
 	padding-right: 20px;
 	padding-left: 20px;
 	padding-top: 7px;
-	padding-bot: 7px;
+	padding-bottom: 7px;
 }
 
 .region-box {
 	padding-top: 7px;
 	position: relative;
-	padding-bot: 7px;
+	padding-bottom: 7px;
 }
 
 .asterisc {
 	color: blue !important;
+}
+
+.bottom-footer {
+	height: 65px;
+	align-items: center;
+	position: relative;
+}
+
+.store-button {
+	float: right;
+	margin-top: 10px;
+	margin-right: 20px;
+	width: 100px;
+}
+
+.selector-form {
+	height: 38px !important;
+	font-size: 1rem !important;
+	padding-top: 0.375rem !important;
+    padding-right: 0.75rem !important;
+    padding-bottom: 0.375rem !important;
+    padding-left: 0.75rem !important;
 }
