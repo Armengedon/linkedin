@@ -27,8 +27,8 @@
 		<div class="name-box">
 			<div class="form-group half-form-left">
 			    <label for="name">Nombre <a class="asterisc">*</a></label>
-			    <input type="text" class="form-control" name="surname" id="name" th:if="${appUser != null}" th:value="${appUser.firstName}">
-	  			<input type="text" class="form-control" id="name1" th:unless="${appUser != null}" placeholder="Nombre">
+			    <input type="text" class="form-control" name="name" id="name" th:if="${appUser != null}" th:value="${appUser.firstName}">
+	  			<input type="text" class="form-control" id="name" th:unless="${appUser != null}" placeholder="Nombre">
 	  		</div>
 	  		<div class="form-group half-form-right">
 			    <label for="surname">Apellidos <a class="asterisc">*</a></label>
