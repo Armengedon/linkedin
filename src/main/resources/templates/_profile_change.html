@@ -31,25 +31,31 @@
 	  		</div>
 		</div>
 		<div th:if="${appUser != null && !appUser.studies_list.isEmpty()}" class="full-form">
-			<ul class="list-group" id="education">
-				
-			</ul>
+			<label>Estudios</label>
+			<select class="form-control form-control-lg  selector-form">
+				<th:block th:object="${appUser}">
+					<option th:each="studies: *{studies_list}" th:text="${studies.title} + ' en ' + ${studies.university}"></option>
+				</th:block>
+			</select>
 		</div>
 		<div th:if="${appUser != null && !appUser.experiences.isEmpty()}" class="full-form">
-			<ul class="list-group" id="experiences">
-				
-			</ul>
+			<select class="form-control form-control-lg selector-form">
+				<label>Estudios</label>
+				<th:block th:object="${appUser}">
+					<option th:each="experience: *{experiences}" th:text="${experience.title} + ' en ' + ${experience.company_name}"></option>
+				</th:block>
+			</select>
 		</div>
   		<div class="region-box">
 			<div class="form-group half-form-left">
 			    <label for="name">Pais/Region <a class="asterisc">*</a></label>
-			    <input type="text" class="form-control" id="name" th:if="${appUser != null}" th:value="${appUser.firstName}">
-	  			<input type="text" class="form-control" id="name" th:unless="${appUser != null}" placeholder="Nombre">
+			    <input type="text" class="form-control" id="name" th:if="${appUser != null}" th:value="${appUser.country}">
+	  			<input type="text" class="form-control" id="name" th:unless="${appUser != null}" placeholder="Pais">
 	  		</div>
 	  		<div class="form-group half-form-right">
 			    <label for="surname">Codigo Postal <a class="asterisc">*</a></label>
 			    <input type="text" class="form-control" id="surname" th:if="${appUser != null}" th:value="${appUser.postalCode}">
-	  			<input type="text" class="form-control" id="surname" th:unless="${appUser != null}" placeholder="Apellidos">
+	  			<input type="text" class="form-control" id="surname" th:unless="${appUser != null}" placeholder="Codigo Postal">
 	  		</div>
 		</div>
 	</div>
@@ -90,33 +96,5 @@
 	    if (event.target == modal) {
 	        modal.style.display = "none";
 	    }
-	}
-</script>
-<script th:if="${appUser != null && !appUser.studies_list.isEmpty()}">
-var i;
-var size = /*[[${appUser.studies_list.size()}]]*/ 0;
-
-if (size != 0) {
-	var education = document.getElementById('education');
-	for (i = 0; i < size; i++) {
-		var entry = document.createElement('li');
-		var element = /*[[${appUser.studies_list.get(i).university}]] */ 'Dummy content';
-		entry.appendChild(document.createTextNode(element));
-		education.appendChild(entry);
-	}
-}
-</script>
-<script th:if="${appUser != null && !appUser.experiences.isEmpty()}">
-	var i;
-	var size = /*[[${appUser.experiences.size()}]]*/ 0;
-	
-	if (size != 0) {
-		var experiences = document.getElementById('experiences');
-		for (i = 0; i < ${appUser.experiences.size()}; i++) {
-			var entry = document.createElement('li');
-			var element = /*[[${appUser.experiences.get(i).company}]] */ 'Dummy content';
-			entry.appendChild(document.createTextNode(element));
-			education.appendChild(entry);
-		}
 	}
 </script>

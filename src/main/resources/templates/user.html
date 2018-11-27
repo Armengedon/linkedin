@@ -25,16 +25,17 @@
                             <img class="image-portada" src="https://previews.123rf.com/images/foodandmore/foodandmore1403/foodandmore140300067/26700838-frontera-n%C3%A1utica-delicado-con-la-red-de-pesca-conchas-de-mar-y-estrellas-de-mar-sobre-un-fondo-de-colo.jpg" alt="Card image cap">
                         </div>
                         <div class="card-body-base pt-5">
-                            <img src="https://randomuser.me/api/portraits/women/14.jpg" class="profile-base"/>
+                            <img alt="profile-image" class="profile-base" th:if="${appUser != null && appUser.photoUser != null}" th:src="${appUser.photoUser}">
+			        		<img alt="profile-image" class="profile-base" th:unless="${appUser != null && appUser.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
                         </div> 
                         <div class="row">
                             <div class = "col-sm-4 card-body3">
                                 <h5 th:if="${appUser != null}" th:utext="${appUser.firstName} + ' ' + ${appUser.secondName}"></h5>
                                 <a th:if="${appUser != null && !appUser.studies_list.isEmpty()}">
-                                    Graduado en <a th:utext="${appUser.studies_list.get(appUser.studies_list.size()-1).title]}"></a>
+                                    Graduado en <a th:utext="${appUser.studies_list.get(appUser.studies_list.size()-1).title}"></a>
                                 </a>
                                 <a th:if="${appUser == null || appUser.studies_list.isEmpty()}">
-                                    No tiene de estudios ni experiencia
+                                    No tiene estudios
                                 </a>
                             </div>
                             <div class = "col-sm-4 card-body4">
@@ -42,13 +43,13 @@
                                     <i class="fa fa-pencil"></i>
                                 </button>
                                 <a th:if="${appUser != null && !appUser.experiences.isEmpty()}">
-                                    Trabaja en <a th:utext="${appUser.experiences.get(appUser.experiences.size()-1).company]}"></a>
+                                    Trabaja en <a th:utext="${appUser.experiences.get(appUser.experiences.size()-1).company_name}"></a>
                                 </a>
                                 <a th:if="${appUser != null && !appUser.studies_list.isEmpty()}">
-                                    Estudiante en <a th:utext="${appUser.studies_list.get(appUser.studies_list.size()-1).university]}"></a>
+                                    Estudiante en <a th:utext="${appUser.studies_list.get(appUser.studies_list.size()-1).university}"></a>
                                 </a>
                                 <a th:if="${appUser == null || (appUser.experiences.isEmpty() && appUser.studies_list.isEmpty())}">
-                                    No tiene de estudios ni experiencia
+                                    No tiene estudios ni experiencia
                                 </a>
                             </div>
                         </div>  
