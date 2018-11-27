@@ -1,12 +1,17 @@
 package com.ub.controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -18,13 +23,22 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.ub.model.AppUser;
+
+import com.ub.model.JobExperience;
+import com.ub.model.Publication;
+import com.ub.model.Studies;
+
+import com.ub.repository.JobExperienceRepository;
+import com.ub.repository.PublicationRepository;
+import com.ub.repository.StudiesRepository;
 import com.ub.repository.UserRepository;
 import com.ub.service.SecurityServiceImpl;
 import com.ub.service.UserServiceImpl;
 
-@Controller
+@RestController
 @RequestMapping(value ="/users")
 public class UserController {
 	
@@ -36,6 +50,15 @@ public class UserController {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private JobExperienceRepository jobExperienceRepository;
+	
+	@Autowired
+	private StudiesRepository studiesRepository;
+	
+	@Autowired
+	private PublicationRepository publicationRepository;
 		
 	PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -51,6 +74,7 @@ public class UserController {
 		appUser.setId(Long.MAX_VALUE);
 		String password = appUser.getPassword();
 		AppUser savedUser = userService.save(appUser);
+		//System.out.println(appUser.getStudies_list().get(0).getBeginYear()+"SAHIDFGASD");
 		
         securityService.login(appUser.getEmail(), password);
         
@@ -59,6 +83,7 @@ public class UserController {
 		} else {
 			return ResponseEntity.noContent().build();
 		}
+        
 	}
 
 	@RequestMapping(value = "/register/{phase}",method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
@@ -130,28 +155,95 @@ public class UserController {
 		return ResponseEntity.noContent().build();
 	}
 	
-
-	@RequestMapping(value = "/additionalRegister", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE })
-	public AppUser additionalRegister(@RequestBody AppUser appUser) {
-		AppUser userPrincipal = null;
-        userPrincipal = userRepository.findByEmail(appUser.getEmail());
-        
-        System.out.println(appUser.getPostalCode()+"ASFA"+userPrincipal.getPostalCode());
-        
-		//userPrincipal no te emails d'amics (register_1)
-		/*if (appUser.getEmailFriends() != userPrincipal.getEmailFriends()) {
-			//afegirli*/
-        
-        //if no te estudis (register_3)
-        if (userPrincipal.getStudies_list() != appUser.getStudies_list()) {userPrincipal.setStudies_list(appUser.getStudies_list());}
-        //no te foto (register_4) 
-        if (appUser.getPhotoUser() != userPrincipal.getPhotoUser()) {userPrincipal.setPhotoUser(appUser.getPhotoUser());}
-        
-        //no te pais-codi postal (register_5)
-		if (appUser.getPostalCode() != userPrincipal.getPostalCode()) {userPrincipal.setPostalCode(appUser.getPostalCode());}
+	@RequestMapping(value = "/addStudies", method = RequestMethod.POST)
+	public ResponseEntity<Object> addStudies(@RequestBody Studies studies, Principal user) {
 		
-		userRepository.save(userPrincipal);
-		return userPrincipal;
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		
+		for (int i = 0; i < foundUser.getStudies_list().size(); i++) { //update
+			int bYear = foundUser.getStudies_list().get(i).getBeginYear();
+			int eYear = foundUser.getStudies_list().get(i).getEndYear();
+			studiesRepository.delete(foundUser.getStudies_list().get(i));
+			foundUser.getStudies_list().remove(i);
+			studies.setBeginYear(bYear);
+			studies.setEndYear(eYear);
+		}
+		foundUser.addStudies(studies);
+		studiesRepository.save(studies);
+		userRepository.save(foundUser);
+		return ResponseEntity.noContent().build();
 	}
+	
+	@RequestMapping(value = "/addJobExperience", method = RequestMethod.POST)
+	public ResponseEntity<Object> addJobExperience(@RequestBody JobExperience job, Principal user) {
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		
+		if (foundUser.getExperiences().size() > 0) {
+			jobExperienceRepository.deleteAll();
+		}
+				
+		foundUser.addJobExperience(job);
+
+		jobExperienceRepository.save(job);	
+		userRepository.save(foundUser);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value = "/addPersonalInfo", method = RequestMethod.POST)
+	public ResponseEntity<Object> addPersonalInfo(@RequestBody AppUser appUser, Principal user) {
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		foundUser.setCountry(appUser.getCountry());
+		foundUser.setPostalCode(appUser.getPostalCode());
+		userRepository.save(foundUser);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value = "/addPublication", method = RequestMethod.POST)
+	public ResponseEntity<Object> addPublication(@RequestBody Publication p, Principal user) {
+
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		foundUser.addPublication(p);
+		publicationRepository.save(p);
+		userRepository.save(foundUser);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value = "/updatePersonalInfo", method = RequestMethod.POST)
+	public ResponseEntity<Object> updatePersonalInfo(@RequestBody Object appUser, Principal user) {
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		Map info = ((Map)appUser);
+		Set s = info.keySet();
+		for (Object key: s){
+			String k = key.toString().replace("[", "").replaceAll("]","");
+			switch (k) {
+				case "firstName": 
+					System.out.println(info.get(key).toString());
+					foundUser.setFirstName(info.get(key).toString());
+					break;
+				case "secondName": foundUser.setSecondName(info.get(key).toString());
+					break;
+				case "password": foundUser.setPassword(info.get(key).toString());
+					userService.save(foundUser);
+					break;
+				case "country": foundUser.setCountry(info.get(key).toString());
+					break;
+				case "email": foundUser.setEmail(info.get(key).toString());
+					break;
+				case "postalCode": foundUser.setPostalCode(Integer.parseInt(info.get(key).toString()));
+					break;
+			}
+		}
+
+		userRepository.save(foundUser);
+		return ResponseEntity.noContent().build();
+	}
+	
+	
+	
 	
 }
