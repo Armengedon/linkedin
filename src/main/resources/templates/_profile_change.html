@@ -34,7 +34,7 @@
 			<label>Estudios</label>
 			<select class="form-control form-control-lg  selector-form">
 				<th:block th:object="${appUser}">
-					<option th:each="studies: *{studies_list}" th:text="${studies.title} + ' en ' + ${studies.university}"></option>
+					<option th:each="studies: *{studies_list}" th:text="${studies.title} + ' en ' + ${studies.university}" th:selected="${studies == appUser.studies_list.get(appUser.studies_list.size()-1)}"></option>
 				</th:block>
 			</select>
 		</div>
@@ -42,7 +42,7 @@
 			<select class="form-control form-control-lg selector-form">
 				<label>Estudios</label>
 				<th:block th:object="${appUser}">
-					<option th:each="experience: *{experiences}" th:text="${experience.title} + ' en ' + ${experience.company_name}"></option>
+					<option th:each="experience: *{experiences}" th:text="${experience.title} + ' en ' + ${experience.company_name}" th:selected="${experience == appUser.experience.get(appUser.experience.size()-1)}"></option>
 				</th:block>
 			</select>
 		</div>
