@@ -74,14 +74,14 @@
 	 height: auto;
 }
 
-.img-logo-education {
+.img-logo-education, .img-logo-experience {
     width: 50px;
     height: 50px;
     border-radius: 50%;
     margin-left: 5px;
 }
 
-.info_education {
+.info_education, .info_experience {
 	position: relative;
 	height: auto;
     float: left;
@@ -91,12 +91,12 @@
     margin-bottom: 10px; 
 }
 
-.name-education {
+.name-education, .name_job {
     font-weight: 600;
     margin-bottom: 5px; 
 }
 
-.grade-education {
+.grade-education, .name_business {
 	margin-bottom: 5px; 
 }
 .activity-education{
