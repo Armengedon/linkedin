@@ -1,12 +1,18 @@
 <link rel="stylesheet" href="/resources/css/profile_change.css">
 
+<!--  Add JS -->
+<script type="application/script" src="./lib/generatorJson.js"></script>
+<script type="application/script" src="/app/user.service.js"></script>
+<script type="application/script" src="/app/general.controller.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
 <!-- The Modal -->
 <div id="myModal" class="modal">
   <!-- Modal content -->
   <div class="modal-content">
   	<div class="top-header">
   		<div class="top-title">
-  			<a class="text-title">Editar presentacion</a>
+  			<a class="text-title">Editar presentación</a>
   		</div>
   		<button id="close-button">&times;</button>
 	</div>
@@ -21,12 +27,12 @@
 		<div class="name-box">
 			<div class="form-group half-form-left">
 			    <label for="name">Nombre <a class="asterisc">*</a></label>
-			    <input type="text" class="form-control" id="name" th:if="${appUser != null}" th:value="${appUser.firstName}">
-	  			<input type="text" class="form-control" id="name" th:unless="${appUser != null}" placeholder="Nombre">
+			    <input type="text" class="form-control" name="surname" id="name" th:if="${appUser != null}" th:value="${appUser.firstName}">
+	  			<input type="text" class="form-control" id="name1" th:unless="${appUser != null}" placeholder="Nombre">
 	  		</div>
 	  		<div class="form-group half-form-right">
 			    <label for="surname">Apellidos <a class="asterisc">*</a></label>
-			    <input type="text" class="form-control" id="surname" th:if="${appUser != null}" th:value="${appUser.secondName}">
+			    <input type="text" class="form-control" name="surname" id="surname" th:if="${appUser != null}" th:value="${appUser.secondName}">
 	  			<input type="text" class="form-control" id="surname" th:unless="${appUser != null}" placeholder="Apellidos">
 	  		</div>
 		</div>
@@ -48,14 +54,14 @@
 		</div>
   		<div class="region-box">
 			<div class="form-group half-form-left">
-			    <label for="name">Pais/Region <a class="asterisc">*</a></label>
-			    <input type="text" class="form-control" id="name" th:if="${appUser != null}" th:value="${appUser.country}">
-	  			<input type="text" class="form-control" id="name" th:unless="${appUser != null}" placeholder="Pais">
+			    <label for="name">País/Región <a class="asterisc">*</a></label>
+			    <input type="text" class="form-control" id="country" th:if="${appUser != null}" th:value="${appUser.country}">
+	  			<input type="text" class="form-control" id="country" th:unless="${appUser != null}" placeholder="Pais">
 	  		</div>
 	  		<div class="form-group half-form-right">
-			    <label for="surname">Codigo Postal <a class="asterisc">*</a></label>
-			    <input type="text" class="form-control" id="surname" th:if="${appUser != null}" th:value="${appUser.postalCode}">
-	  			<input type="text" class="form-control" id="surname" th:unless="${appUser != null}" placeholder="Codigo Postal">
+			    <label for="surname">Código Postal <a class="asterisc">*</a></label>
+			    <input type="text" class="form-control" id="postalCode" th:if="${appUser != null}" th:value="${appUser.postalCode}">
+	  			<input type="text" class="form-control" id="postalCode" th:unless="${appUser != null}" placeholder="Codigo Postal">
 	  		</div>
 		</div>
 	</div>
@@ -88,6 +94,36 @@
 	}
 	
 	store.onclick = function() {
+		
+		var obj = {};
+		
+		var inputName = document.getElementById('name');
+		var inputSurname = document.getElementById('surname');
+		var inputCountry = document.getElementById('country');
+		var inputPostalCode = document.getElementById('postalCode');
+		
+		obj["firstName"] = inputName.value;
+		obj["secondName"] = inputSurname.value;
+		obj["country"] = inputSurname.value;
+		obj["postalCode"] = inputPostalCode.value;
+		
+		var json = JSON.stringify(obj);
+		console.log(json);
+		
+		$.ajax({
+			  url:"/users/updatePersonalInfo",
+			  type:"POST",
+			  data:json,
+			  contentType:"application/json; charset=utf-8",
+			  dataType:"json",
+			  success: function(){
+					$.post("/users/updatePersonalInfo ", json, function(data, status) {
+						alert("Data: " + data + "\nStatus: " + status);
+					});
+					modal.style.display = "none";
+			  }
+			})
+		
 		
 	}
 	
