@@ -32,7 +32,7 @@ public class Publication {
 	@Column(name = "Comments", nullable = true)
 	private Hashtable<String, List<String>> comments = new Hashtable<String, List<String>>();
 	
-	@Column(name = "Date", nullable=true)
+	@Column(name = "Date", nullable=false)
 	private Date date;
 
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -44,47 +44,30 @@ public class Publication {
 	private String mainText;
 
 	
-	public void setUser(AppUser user) {
-		this.user = user;
-	}
-	
-	public AppUser getUser() {
-		return user;
-	}
+	public void setUser(AppUser user) {this.user = user;}
+	public AppUser getUser() {return user;}
 	
 	public String getMainText() {
 		return mainText;
 	}
-	
 	public void setMainText(String mainText) {
 		this.mainText = mainText;
 	}
-	
-	public void setDate(Date date) {
-		this.date = date;
-	
-	}
-	
-	public Date getDate() {
-		return date;
-	}
+	public void setDate(Date date) {this.date = date;}
+	public Date getDate() {return date;}
 	
 	public long getId() {
 		return id;
 	}
-	
 	public void setId(long id) {
 		this.id = id;
 	}
-	
 	public Hashtable<String, List<String>> getComments() {
 		return comments;
 	}
-	
 	public void setComments(Hashtable<String, List<String>> comments) {
 		this.comments = comments;
 	}
-	
 	public List<String> getCommentsUser(String email) {
 		
 		return comments.get(email);
