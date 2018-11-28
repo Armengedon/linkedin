@@ -91,11 +91,11 @@
 							</div>
 						</div>
 						
-						<hr size="1px" color="silver" />
+						<hr size="1px" color="silver" th:if="${appUser != null && !appUser.experiences.isEmpty()}"/></hr>
 						
 					</div>
 					
-					<div class="container container_experiencia">
+					<div class="container container_experiencia" th:if="${appUser != null && !appUser.experiences.isEmpty()}">
 						<div class="row header_container_experiencia" >
 	                		<div class="col-sm-11">
 								<h1 class="text_header_container_educacio">Experiencia</h1 >
@@ -113,11 +113,15 @@
 							</div>
 							
 							<div class="col-sm-10 info_experience">
-								<p class="name_job">Puesto</p>
-								<p class="name_business">Business
+								<p class="name_job">
+									<a th:utext="${appUser.experiences.get(appUser.experiences.size()-1).title}"></a>
 								</p>
-								<p class="info_education2 year-experience">2015-2018</p>
-								<p class="description-experience">Descripción</p>
+								<p class="name_business">
+									<a th:utext="${appUser.experiences.get(appUser.experiences.size()-1).company_Name}"></a>
+								</p>
+								<p class="info_education2 year-experience">
+									<a th:utext="${appUser.experiences.get(appUser.experiences.size()-1).beginYear}"></a>
+								</p>
 								
 							</div>
 							<div class="col-sm-1 btns_education">
