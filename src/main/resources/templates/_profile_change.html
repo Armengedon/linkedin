@@ -48,7 +48,7 @@
 			<select class="form-control form-control-lg selector-form">
 				<label>Estudios</label>
 				<th:block th:object="${appUser}">
-					<option th:each="experience: *{experiences}" th:text="${experience.title} + ' en ' + ${experience.company_name}" th:selected="${experience == appUser.experience.get(appUser.experience.size()-1)}"></option>
+					<option th:each="experience: *{experiences}" th:text="${experience.title} + ' en ' + ${experience.company_Name}" th:selected="${experience == appUser.experiences.get(appUser.experiences.size()-1)}"></option>
 				</th:block>
 			</select>
 		</div>

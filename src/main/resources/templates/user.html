@@ -31,23 +31,15 @@
                         <div class="row">
                             <div class = "col-sm-4 card-body3">
                                 <h5 th:if="${appUser != null}" th:utext="${appUser.firstName} + ' ' + ${appUser.secondName}"></h5>
-                                <a th:if="${appUser != null && !appUser.studies_list.isEmpty()}">
-                                    Graduado en <a th:utext="${appUser.studies_list.get(appUser.studies_list.size()-1).title}"></a>
-                                </a>
-                                <a th:if="${appUser == null || appUser.studies_list.isEmpty()}">
-                                    No tiene estudios
-                                </a>
+                                <a th:if="${appUser != null && !appUser.studies_list.isEmpty()}" th:utext="${'Graduado en ' + appUser.studies_list.get(appUser.studies_list.size()-1).title}"></a>
+                                <a th:if="${appUser == null || appUser.studies_list.isEmpty()}">No tiene estudios</a>
                             </div>
                             <div class = "col-sm-4 card-body4">
                                 <button id="update-button">
                                     <i class="fa fa-pencil"></i>
                                 </button>
-                                <a th:if="${appUser != null && !appUser.experiences.isEmpty()}">
-                                    Trabaja en 
-                                </a>
-                                <a th:if="${appUser != null && !appUser.studies_list.isEmpty()}">
-                                    Estudiante en <a th:utext="${appUser.studies_list.get(appUser.studies_list.size()-1).university}"></a>
-                                </a>
+                                <a th:if="${appUser != null && !appUser.experiences.isEmpty()}" th:utext="${appUser.experiences.get(appUser.experiences.size()-1).title + ' en ' +  appUser.experiences.get(appUser.experiences.size()-1).company_Name}"></a>
+                                <a th:if="${appUser != null && !appUser.studies_list.isEmpty()}" th:utext="${'Estudiante en ' + appUser.studies_list.get(appUser.studies_list.size()-1).university}"></a>
                                 <a th:if="${appUser == null || (appUser.experiences.isEmpty() && appUser.studies_list.isEmpty())}">
                                     No tiene estudios ni experiencia
                                 </a>
@@ -60,7 +52,7 @@
             
 	   			<div class="container container_educacio_experiencia">      
 	           	  	<div class="container container_educacio" th:if="${appUser != null && !appUser.studies_list.isEmpty()}">        	
-						<div class="row header_container_educacio">
+						<div class="row header_container_experiencia">
 							<div class="col-sm-11">
 								<h1 class="text_header_container_educacio">Educación</h1 >
 							</div>
