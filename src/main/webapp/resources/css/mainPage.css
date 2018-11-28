@@ -166,6 +166,7 @@ h6 {
 }
 
 textarea { 
+	width:100%;
     border-style: none; 
     border-color: Transparent; 
     overflow: auto;        

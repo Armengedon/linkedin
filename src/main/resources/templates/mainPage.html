@@ -30,15 +30,13 @@
 			        			<img alt="profile-image" class="profile" th:unless="${appUser != null && appUser.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
 								<h5 class="card-title text-center" th:if="${appUser != null}" th:utext="${appUser.firstName} + ' ' + ${appUser.secondName}"></h5>
 								<p class="card-text text-center">
-									<a th:if="${appUser != null && !appUser.experiences.isEmpty()}">
-										Trabaja en <a th:utext="${appUser.experiences.get(appUser.experiences.size()-1).company_Name}"></a>
-									</a>
-									<a th:if="${appUser != null && !appUser.studies_list.isEmpty()}">
-										Estudiante en <a th:utext="${appUser.studies_list.get(appUser.studies_list.size()-1).university}"></a>
-									</a>
-									<a th:if="${appUser == null || (appUser.experiences.isEmpty() && appUser.studies_list.isEmpty())}">
-										No tiene de estudios ni experiencia
-									</a>
+									<a th:if="${appUser != null && !appUser.experiences.isEmpty()}" th:utext="${'Trabaja en ' + appUser.experiences.get(appUser.experiences.size()-1).company_Name}"></a>
+								</p>
+								<p class="card-text text-center">
+									<a th:if="${appUser != null && !appUser.studies_list.isEmpty()}" th:utext="${'Estudiante en ' + appUser.studies_list.get(appUser.studies_list.size()-1).university}"></a>
+								</p>
+								<p class="card-text text-center">
+									<a th:if="${appUser == null || (appUser.experiences.isEmpty() && appUser.studies_list.isEmpty())}">No tiene estudios ni experiencia</a>
 								</p>
 							</div>
 							<div class="card-body1">
@@ -71,7 +69,7 @@
 								</div>	
 							</div>
 							<div class="container5">
-								<textarea rows="3" cols="73" placeholder="Escribe aquí" id="messageText"
+								<textarea rows="3" placeholder="Escribe aquí" id="messageText"
 								name="messageText" form="messageTextPost" onkeyup="success()"></textarea>
 								
 								<img id="output" class="avatar1" src="" style="display: none;"/>
