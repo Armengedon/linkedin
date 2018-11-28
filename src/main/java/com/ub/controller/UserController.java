@@ -172,6 +172,7 @@ public class UserController {
 		foundUser.addStudies(studies);
 		studiesRepository.save(studies);
 		userRepository.save(foundUser);
+		
 		return ResponseEntity.noContent().build();
 	}
 	
@@ -206,9 +207,12 @@ public class UserController {
 
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
+		
 		foundUser.addPublication(p);
+		
 		publicationRepository.save(p);
 		userRepository.save(foundUser);
+		
 		return ResponseEntity.noContent().build();
 	}
 	
