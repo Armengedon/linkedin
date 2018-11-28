@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"></html>
+<html xmlns:th="http://www.thymeleaf.org">
 
     <head>
         <meta charset="utf-8">
@@ -20,6 +20,11 @@
         <!-- Custom styles for this template -->
         <link href="/resources/css/startbootstrap-landing-page-gh-pages/css/landing-page.min.css" rel="stylesheet">
         <link rel="stylesheet" href="/resources/css/register_2.css"> 
+        <!--  Add JS -->
+		<script type="application/script" src="./lib/generatorJson.js"></script>
+		<script type="application/script" src="/app/user.service.js"></script>
+		<script type="application/script" src="/app/general.controller.js"></script>
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     </head>
 
     <body>
@@ -31,8 +36,6 @@
             </nav>
 
         </header>
-
-
         
         <div class="container" > 
             <div class="row">
@@ -43,9 +46,9 @@
                         <div class="row">
                             <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
                                 <div class = "container3">
-                                    <form action="/register_3">
+                                    <form id="register2" action="/register_3">
                                             <label for="pais"> <b>Pais/región</b></label>
-                                            <input type="textregister" name="country" list="countries" required>
+                                            <input type="textregister" name="country" list="countries">
                                             <datalist id="countries">
                                                 <option value="United States">United States</option> 
                                                 <option value="United Kingdom">United Kingdom</option> 
@@ -290,7 +293,7 @@
                                                 <option value="Zimbabwe">Zimbabwe</option>
                                             </datalist>
                                         <label for="numero">Número</label>
-                                        <input type="textregister" name="numero"required>
+                                        <input type="textregister" name="numero">
                                         <p>Se aplicarán las tarifas estándar para mensajes de texto. 
                                             No mostraremos tu número en tu perfil ni lo compartiremos 
                                             con nadie.
@@ -309,9 +312,10 @@
                                         </form>
                                         
                                     </div>
+                                    <form action="/feed">
+                                    	<button class="button button4">Saltar</button>
+                                    </form>
                                     
-                                    <button class="button button4">Saltar</button>
-    
                                 </div>    
                             </div>
                         </div>
@@ -319,8 +323,5 @@
                 </div>
             </div>
         </div>
-        
-    
     </body>
-    
 </html>

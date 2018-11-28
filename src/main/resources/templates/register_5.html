@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"></html>
+<html xmlns:th="http://www.thymeleaf.org">
 
   <head>
     <meta charset="utf-8">
@@ -20,6 +20,12 @@
     <!-- Custom styles for this template -->
     <link href="/resources/css/startbootstrap-landing-page-gh-pages/css/landing-page.min.css" rel="stylesheet">
     <link rel="stylesheet" href="/resources/css/register_5.css"> 
+  
+  	<!--  Add JS -->
+	<script type="application/script" src="./lib/generatorJson.js"></script>
+	<script type="application/script" src="/app/user.service.js"></script>
+	<script type="application/script" src="/app/general.controller.js"></script>
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
   </head>
 
   <body>
@@ -41,9 +47,9 @@
                     <div class="row">
                         <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
                             <div class = "container3">
-                                <form action="/feed">
+                                <form id="register5" action="/feed">
                                     <label for="pais"> <b>Pais/región</b></label>
-                                    <input type="textregister" name="country" list="countries" required>
+                                    <input type="textregister" id="country" name="country" list="countries" required>
                                     <datalist id="countries">
                                         <option value="United States">United States</option> 
                                         <option value="United Kingdom">United Kingdom</option> 
@@ -289,7 +295,7 @@
                                     </datalist>
                                 
                                     <label for="cp"><b>Código postal</b></label>
-                                    <input type="textregister" name="cp" required>
+                                    <input type="textregister" id="postalCode" name="postalCode" required>
                                     <button type="submit" class="btn btn-primary">Siguiente</button>
                                 </form>    
                             </div>    
@@ -301,5 +307,48 @@
     </div>
 
   </body>
+
+<script>
+	(function() {
+		function toJSONString(form) {
+			var obj = {};
+			var elements = form.querySelectorAll("input, select, textarea");
+			for (var i = 0; i < elements.length; ++i) {
+				var element = elements[i]
+				var name = element.name;
+				var value = element.value;
+				if (name) {
+					obj[name] = value;
+				}
+			}
+			return JSON.stringify(obj);
+		}
+		document.addEventListener("DOMContentLoaded", function() {
+			var form = document.getElementById("register5");
+			form.addEventListener("submit", function(e) {
+				e.preventDefault();
+				var json = toJSONString(this);
+				console.log(json);
+				
+				$.ajax({
+					  url:"/users/updatePersonalInfo",
+					  type:"POST",
+					  data:json,
+					  contentType:"application/json; charset=utf-8",
+					  dataType:"json",
+					  success: function(){
+							$.post("/users/updatePersonalInfo ", json, function(data, status) {
+								alert("Data: " + data + "\nStatus: " + status);
+							});
+							window.location.href = "/feed";
+					  }
+					})
+				//output.innerHTML = json
+				
+			}, false);
+			
+		});
+	})();
+</script>
 
 </html>

@@ -20,6 +20,12 @@
         <!-- Custom styles for this template -->
         <link href="/resources/css/startbootstrap-landing-page-gh-pages/css/landing-page.min.css" rel="stylesheet">
         <link rel="stylesheet" href="/resources/css/register_31.css"> 
+        
+        <!--  Add JS -->
+		<script type="application/script" src="./lib/generatorJson.js"></script>
+		<script type="application/script" src="/app/user.service.js"></script>
+		<script type="application/script" src="/app/general.controller.js"></script>
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     </head>
 
     <body>
@@ -40,12 +46,15 @@
                         <div class="row">
                             <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
                                 <div class = "container3">
-                                    <form action="/register_4">
+                                    <form id="register31" action="/register_5">
                                         <label for="nombreCompañia">Nombre de la empresa</label>
-                                        <input type="textregister" name="companyName"required>
+                                        <input type="textregister" id="company_Name" name="company_Name"required>
                                         
                                         <label for="añoInicio">Año de inicio *</label>
-                                        <input type="textregister" name="beginYearCompany"required>      
+                                        <input type="textregister" id="beginYear" name="beginYear"required>
+                                        
+                                        <label for="carrec">Cargo en la empresa</label>
+                                        <input type="textregister" id="title" name="title"required>      
                                         
                                         <button type="submit" class="btn btn-primary">Continuar</button>
                                     </form>
@@ -62,3 +71,46 @@
     </body>
     
 </html>
+
+<script>
+	(function() {
+		function toJSONString(form) {
+			var obj = {};
+			var elements = form.querySelectorAll("input, select, textarea");
+			for (var i = 0; i < elements.length; ++i) {
+				var element = elements[i]
+				var name = element.name;
+				var value = element.value;
+				if (name) {
+					obj[name] = value;
+				}
+			}
+			return JSON.stringify(obj);
+		}
+		document.addEventListener("DOMContentLoaded", function() {
+			var form = document.getElementById("register31");
+			form.addEventListener("submit", function(e) {
+				e.preventDefault();
+				var json = toJSONString(this);
+				console.log(json);
+				
+				$.ajax({
+					  url:"/users/addJobExperience",
+					  type:"POST",
+					  data:json,
+					  contentType:"application/json; charset=utf-8",
+					  dataType:"json",
+					  success: function(){
+							$.post("/users/addJobExperience ", json, function(data, status) {
+								alert("Data: " + data + "\nStatus: " + status);
+							});
+							window.location.href = "/register_5";
+					  }
+					})
+				//output.innerHTML = json
+				
+			}, false);
+			
+		});
+	})();
+</script>
