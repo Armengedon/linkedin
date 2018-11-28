@@ -152,7 +152,6 @@
 		document.addEventListener("DOMContentLoaded", function() {
 			var form = document.getElementById("register1");
 			var form2 = document.getElementById("login")
-			var output = document.getElementById("output");
 			form.addEventListener("submit", function(e) {
 				e.preventDefault();
 				var json = toJSONString(this);
@@ -171,7 +170,6 @@
 							window.location.href = "/register_1";
 					  }
 					})
-				output.innerHTML = json
 				
 			}, false);
 			
@@ -193,7 +191,7 @@
 					  }
 					})
 				
-				output.innerHTML = json
+				//output.innerHTML = json
 			}, false);
 		});
 	})();

@@ -33,7 +33,7 @@ i.fa-camera { margin-left: 5px; margin-top:5px;}
 }
 
 .profile-card-4 .card-body1{
-    position:relative;
+    position: relative;
     border: 1px solid rgb(196, 196, 196);
     height: 70px;
 }
@@ -132,6 +132,23 @@ i.fa-camera { margin-left: 5px; margin-top:5px;}
     margin-left: 20px;
 }
 
+h6 {
+	line-height: 72px;
+}
+
+.reversed_text {
+	text-align: right;
+	padding-right: 15px;
+	display:block;
+ 	float:right;
+}
+
+.basic_text {
+	padding-left: 10px;
+	display:block;
+ 	float:left;
+}
+
 .avatar {
     vertical-align: middle;
     width: 50px;
@@ -149,6 +166,7 @@ i.fa-camera { margin-left: 5px; margin-top:5px;}
 }
 
 textarea { 
+	width:100%;
     border-style: none; 
     border-color: Transparent; 
     overflow: auto;        

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"></html>
+<html xmlns:th="http://www.thymeleaf.org">
 
     <head>
         <meta charset="utf-8">
@@ -20,6 +20,12 @@
         <!-- Custom styles for this template -->
         <link href="/resources/css/startbootstrap-landing-page-gh-pages/css/landing-page.min.css" rel="stylesheet">
         <link rel="stylesheet" href="/resources/css/register_3.css"> 
+        
+        <!--  Add JS -->
+		<script type="application/script" src="./lib/generatorJson.js"></script>
+		<script type="application/script" src="/app/user.service.js"></script>
+		<script type="application/script" src="/app/general.controller.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     </head>
 
     <body>
@@ -40,15 +46,21 @@
                         <div class="row">
                             <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
                                 <div class = "container3">
-                                    <form action="/register_4">
+                                    <form id="register3" action="/register_5">
                                         <label for="uni">Universidad o centro de estudios *</label>
-                                        <input type="textregister" name="studyCenter"required>
+                                        
+                                        <input type="textregister" id="university" name="university"required>
+                                        
+                                        <label for="uni">Titulo del estudio *</label>
+                                        
+                                        <input type="textregister" id="title" name="title" required>
+                                        
                                         
                                         <label for="añoInicio">Año de inicio *</label>
-                                        <input type="textregister" name="beginYear"required>   
+                                        <input type="textregister" id="beginYear" name="beginYear"required>   
                                         
                                         <label for="añoFinal">Año de finalización (o previsto) *</label>
-                                        <input type="textregister" name="endYear"required>   
+                                        <input type="textregister" id="endYear" name="endYear"required>   
                                             
                                         <button class="button"><a href="/register_31">No soy estudiante</a></button>
                                         
@@ -65,4 +77,47 @@
     
     </body>
     
+<script>
+	(function() {
+		function toJSONString(form) {
+			var obj = {};
+			var elements = form.querySelectorAll("input, select, textarea");
+			for (var i = 0; i < elements.length; ++i) {
+				var element = elements[i]
+				var name = element.name;
+				var value = element.value;
+				if (name) {
+					obj[name] = value;
+				}
+			}
+			return JSON.stringify(obj);
+		}
+		document.addEventListener("DOMContentLoaded", function() {
+			var form = document.getElementById("register3");
+			form.addEventListener("submit", function(e) {
+				e.preventDefault();
+				var json = toJSONString(this);
+				console.log(json);
+				
+				$.ajax({
+					  url:"/users/addStudies",
+					  type:"POST",
+					  data:json,
+					  contentType:"application/json; charset=utf-8",
+					  dataType:"json",
+					  success: function(){
+							$.post("/users/addStudies ", json, function(data, status) {
+								alert("Data: " + data + "\nStatus: " + status);
+							});
+							window.location.href = "/register_5";
+					  }
+					})
+				//output.innerHTML = json
+				
+			}, false);
+			
+		});
+	})();
+</script>
+
 </html>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"></html>
+<html xmlns:th="http://www.thymeleaf.org">
 
     <head>
         <meta charset="utf-8">
@@ -41,7 +41,7 @@
                         <div class="row">
                             <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
                                 <div class = "container3">
-                                    <form action="/register_5">
+                                    <form id="register4" action="/register_5">
                                         <div class="row">
                                             <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
 
@@ -59,7 +59,8 @@
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary">Añadir foto</button>
-                                        <button class="button"><a href="/welcome">Saltar</a></button>
+                                        <button class="button">
+                                        <a href="/welcome">Saltar</a></button>
                                     </form>
                                     
     
@@ -74,4 +75,47 @@
     
     </body>
     
+<script>
+	(function() {
+		function toJSONString(form) {
+			var obj = {};
+			var elements = form.querySelectorAll("input, select, textarea");
+			for (var i = 0; i < elements.length; ++i) {
+				var element = elements[i]
+				var name = element.name;
+				var value = element.value;
+				if (name) {
+					obj[name] = value;
+				}
+			}
+			return JSON.stringify(obj);
+		}
+		document.addEventListener("DOMContentLoaded", function() {
+			var form = document.getElementById("register4");
+			form.addEventListener("submit", function(e) {
+				e.preventDefault();
+				var json = toJSONString(this);
+				console.log(json);
+				
+				$.ajax({
+					  url:"/users/additionalRegister",
+					  type:"POST",
+					  data:json,
+					  contentType:"application/json; charset=utf-8",
+					  dataType:"json",
+					  success: function(){
+							$.post("/users/additionalRegister ", json, function(data, status) {
+								alert("Data: " + data + "\nStatus: " + status);
+							});
+							window.location.href = "/register_4";
+					  }
+					})
+				//output.innerHTML = json
+				
+			}, false);
+			
+		});
+	})();
+</script>
+
 </html>
