@@ -43,7 +43,6 @@ public class AppUser {
     @Column(name = "User_Country", length = 128, nullable = true)
     private String country;
 
-
     @ManyToMany(cascade = { 
     	    CascadeType.PERSIST, 
     	    CascadeType.MERGE

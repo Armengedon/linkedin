@@ -161,17 +161,19 @@ public class UserController {
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
 		
-		for (int i = 0; i < foundUser.getStudies_list().size(); i++) { //update
-			int bYear = foundUser.getStudies_list().get(i).getBeginYear();
-			int eYear = foundUser.getStudies_list().get(i).getEndYear();
-			studiesRepository.delete(foundUser.getStudies_list().get(i));
-			foundUser.getStudies_list().remove(i);
-			studies.setBeginYear(bYear);
-			studies.setEndYear(eYear);
-		}
+//		for (int i = 0; i < foundUser.getStudies_list().size(); i++) { //update
+//			int bYear = foundUser.getStudies_list().get(i).getBeginYear();
+//			int eYear = foundUser.getStudies_list().get(i).getEndYear();
+//			studiesRepository.delete(foundUser.getStudies_list().get(i));
+//			foundUser.getStudies_list().remove(i);
+//			studies.setBeginYear(bYear);
+//			studies.setEndYear(eYear);
+//		}
+		
 		foundUser.addStudies(studies);
 		studiesRepository.save(studies);
 		userRepository.save(foundUser);
+		
 		return ResponseEntity.noContent().build();
 	}
 	
@@ -206,9 +208,12 @@ public class UserController {
 
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
+		
 		foundUser.addPublication(p);
+		
 		publicationRepository.save(p);
 		userRepository.save(foundUser);
+		
 		return ResponseEntity.noContent().build();
 	}
 	
