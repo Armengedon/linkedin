@@ -46,7 +46,7 @@
 		</div>
 		<div th:if="${appUser != null && !appUser.experiences.isEmpty()}" class="full-form">
 			<select class="form-control form-control-lg selector-form">
-				<label>Estudios</label>
+				<label>Experiencias</label>
 				<th:block th:object="${appUser}">
 					<option th:each="experience: *{experiences}" th:text="${experience.title} + ' en ' + ${experience.company_Name}" th:selected="${experience == appUser.experiences.get(appUser.experiences.size()-1)}"></option>
 				</th:block>
@@ -104,7 +104,7 @@
 		
 		obj["firstName"] = inputName.value;
 		obj["secondName"] = inputSurname.value;
-		obj["country"] = inputSurname.value;
+		obj["country"] = inputCountry.value;
 		obj["postalCode"] = inputPostalCode.value;
 		
 		var json = JSON.stringify(obj);
