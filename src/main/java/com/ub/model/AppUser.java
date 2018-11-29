@@ -7,6 +7,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -42,9 +43,13 @@ public class AppUser {
     
     @Column(name = "User_Country", length = 128, nullable = true)
     private String country;
+    
+    @Column(name = "Friends", nullable = true)
+    @ElementCollection
+    private List<String> friends = new ArrayList<String>();
 
 
-    @ManyToMany(cascade = { 
+	@ManyToMany(cascade = { 
     	    CascadeType.PERSIST, 
     	    CascadeType.MERGE
     	})
@@ -197,6 +202,28 @@ public class AppUser {
 
 	public void setCountry(String country) {
 		this.country = country;
+	}
+	
+    public List<String> getFriends() {
+		return friends;
+	}
+
+	public void setFriends(List<String> friends) {
+
+		this.friends = friends;
+	}
+	
+	public void addFriend(String email) {
+
+		this.friends.add(email);
+	}
+
+	public List<Publication> getPublications_list() {
+		return publications_list;
+	}
+
+	public void setPublications_list(List<Publication> publications_list) {
+		this.publications_list = publications_list;
 	}
 	
 }
