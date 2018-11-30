@@ -1,6 +1,9 @@
 package com.ub.controller;
 
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -11,10 +14,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,6 +40,7 @@ import com.ub.repository.StudiesRepository;
 import com.ub.repository.UserRepository;
 import com.ub.service.SecurityServiceImpl;
 import com.ub.service.UserServiceImpl;
+import com.ub.utils.LevenshteinDistance;
 
 @RestController
 @RequestMapping(value ="/users")
@@ -59,6 +63,8 @@ public class UserController {
 	
 	@Autowired
 	private PublicationRepository publicationRepository;
+	
+	private LevenshteinDistance lDist = new LevenshteinDistance();
 		
 	PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -259,5 +265,39 @@ public class UserController {
 		
 	}
 	
+	@RequestMapping(value="/search", method = RequestMethod.GET)
+	public List<AppUser> search(@RequestBody String input, Principal user) {
+		
+		String email = user.getName(); //Email
+
+		Map<Integer,AppUser> scores = new HashMap<Integer,AppUser>();
+		List<AppUser> users = userRepository.findAll();
+
+		AppUser temp;
+		
+		for (int i = 0; i < users.size(); i++) {
+			
+			scores.put(lDist.getDistance(input, (users.get(i).getFirstName()+users.get(i).getSecondName())),users.get(i));
+		}
+		
+		ArrayList<Integer> sortedKeys = new ArrayList<Integer>(scores.keySet()); 
+	    Collections.sort(sortedKeys);
+	    
+	    
+	    List<AppUser> results = new ArrayList<AppUser>();
+	    for (Integer s: sortedKeys) {
+	    	results.add(scores.get(s));
+	    }
+	    
+	    return results;
+	}
+	
+	@RequestMapping(value="/ssearch", method = RequestMethod.GET)
+	public int ssearch() {
+		System.out.println(lDist.toString());
+		
+		
+		return lDist.getDistance("A", "Antoni");
+	}
 
 }
