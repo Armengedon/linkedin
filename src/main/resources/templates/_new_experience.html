@@ -1,11 +1,5 @@
 <link rel="stylesheet" href="/resources/css/popups.css">
 
-<!--  Add JS -->
-<script type="application/script" src="./lib/generatorJson.js"></script>
-<script type="application/script" src="/app/user.service.js"></script>
-<script type="application/script" src="/app/general.controller.js"></script>
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-
 <!-- The Modal -->
 <div id="experience-modal" class="modal">
   <!-- Modal content -->
@@ -14,20 +8,20 @@
   		<div class="top-title">
   			<a class="text-title">Experiencia</a>
   		</div>
-  		<button id="close-experience">&times;</button>
+  		<button id="close-experience" class="close-button">&times;</button>
 	</div>
   	<div class="profile-card">
+  		<div class="form-group full-form">
+		    <label for="company_name">Empresa <a class="asterisc">*</a></label>
+  			<input type="text" class="form-control" id="company_name" placeholder="P. ej. Microsoft" required>
+  		</div>
+  		<div class="form-group full-form">
+		    <label for="beginYear">Ano de inicio <a class="asterisc">*</a></label>
+  			<input type="number" class="form-control" id="beginYear" placeholder="Ano" required>
+  		</div>
 		<div class="form-group full-form">
 		    <label for="title">Titulo <a class="asterisc">*</a></label>
-  			<input type="text" class="form-control" id="title" placeholder="P. ej. gerente">
-  		</div>
-  		<div class="form-group full-form">
-		    <label for="beginYear">Empresa <a class="asterisc">*</a></label>
-  			<input type="text" class="form-control" id="beginYear" placeholder="Ano">
-  		</div>
-  		<div class="form-group full-form">
-		    <label for="company_name">Ano de inicio <a class="asterisc">*</a></label>
-  			<input type="text" class="form-control" id="company_name" placeholder="P. ej. Microsoft">
+  			<input type="text" class="form-control" id="title" placeholder="P. ej. gerente" required>
   		</div>
 	</div>
 	<div class="bottom-footer">
@@ -38,63 +32,54 @@
 
 <script>
 	//Get the modal
-	var modal = document.getElementById('experience-modal');
+	var experience_modal = document.getElementById('experience-modal');
 	
 	// Get the button that opens the modal
-	var btn = document.getElementById("experience-button");
+	var update_experience = document.getElementById("experience-button");
 	
 	// Get the <span> element that closes the modal
-	var span = document.getElementById("close-experience");
+	var close_experience = document.getElementById("close-experience");
 	
-	var store = document.getElementById("store-experience")
+	var store_experience = document.getElementById("store-experience")
 	
 	// When the user clicks on the button, open the modal 
-	btn.onclick = function() {
-	    modal.style.display = "block";
+	update_experience.onclick = function() {
+	    experience_modal.style.display = "block";
 	}
 	
 	// When the user clicks on <span> (x), close the modal
-	span.onclick = function() {
-	    modal.style.display = "none";
+	close_experience.onclick = function() {
+	    experience_modal.style.display = "none";
 	}
 	
-	store.onclick = function() {
+	store_experience.onclick = function() {
 		
-		var obj = {};
-		
-		var inputTitle = document.getElementById('title');
-		var inputYear = document.getElementById('beginYear');
+		var experience_obj = {};
+
 		var inputCompany = document.getElementById('company_name');
+		var inputYear = document.getElementById('beginYear');
+		var inputPosition = document.getElementById('title');
 		
-		obj["title"] = inputTitle.value;
-		obj["beginYear"] = inputYear.value;
-		obj["company_name"] = inputCompany.value;
+		experience_obj["company_Name"] = inputCompany.value;
+		experience_obj["beginYear"] = inputYear.value;
+		experience_obj["title"] = inputPosition.value;
 		
-		var json = JSON.stringify(obj);
-		console.log(json);
+		var experience_json = JSON.stringify(experience_obj);
+		console.log(experience_json);
 		
 		$.ajax({
 			  url:"/users/addJobExperience",
 			  type:"POST",
-			  data:json,
+			  data:experience_json,
 			  contentType:"application/json; charset=utf-8",
 			  dataType:"json",
 			  success: function(){
 					$.post("/users/addJobExperience ", json, function(data, status) {
 						alert("Data: " + data + "\nStatus: " + status);
 					});
-					modal.style.display = "none";
 					window.location.href = "/user";
 			  }
 			})
-		
-		
-	}
-	
-	// When the user clicks anywhere outside of the modal, close it
-	window.onclick = function(event) {
-	    if (event.target == modal) {
-	        modal.style.display = "none";
-	    }
+		experience_modal.style.display = "none";
 	}
 </script>
