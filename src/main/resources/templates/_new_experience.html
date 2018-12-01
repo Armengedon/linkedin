@@ -8,7 +8,7 @@
   		<div class="top-title">
   			<a class="text-title">Experiencia</a>
   		</div>
-  		<button id="close-experience" class="close-button">&times;</button>
+  		<button class="close-button" onclick="closeExperience()">&times;</button>
 	</div>
   	<div class="profile-card">
   		<div class="form-group full-form">
@@ -25,7 +25,7 @@
   		</div>
 	</div>
 	<div class="bottom-footer">
-		<button type="button" class="btn btn-primary store-button" id="store-experience">Guardar</button>
+		<button type="button" class="btn btn-primary store-button" onclick="storeExperience()">Guardar</button>
 	</div>
   </div>
 </div>
@@ -34,25 +34,22 @@
 	//Get the modal
 	var experience_modal = document.getElementById('experience-modal');
 	
-	// Get the button that opens the modal
-	var update_experience = document.getElementById("experience-button");
-	
-	// Get the <span> element that closes the modal
-	var close_experience = document.getElementById("close-experience");
-	
-	var store_experience = document.getElementById("store-experience")
-	
 	// When the user clicks on the button, open the modal 
-	update_experience.onclick = function() {
-	    experience_modal.style.display = "block";
-	}
-	
-	// When the user clicks on <span> (x), close the modal
-	close_experience.onclick = function() {
+	function closeExperience() {
 	    experience_modal.style.display = "none";
 	}
 	
-	store_experience.onclick = function() {
+	function showExperience() {
+		profile_modal.style.display = "none";
+		experience_modal.style.display = "block";
+	}
+	
+	// When the user clicks on <span> (x), close the modal
+	function openExperience() {
+	    experience_modal.style.display = "block";
+	}
+	
+	function storeExperience() {
 		
 		var experience_obj = {};
 

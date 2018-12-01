@@ -38,6 +38,9 @@
 				</th:block>
 			</select>
 		</div>
+		<div class="right-button">
+			<button type="button" class="btn btn-link" id="add-study-profile">Anadir nueva educacion</button>
+		</div>
 		<div th:if="${appUser != null && !appUser.experiences.isEmpty()}" class="full-form">
 			<label>Experiencias</label>
 			<select class="form-control form-control-lg selector-form">
@@ -45,6 +48,9 @@
 					<option th:each="experience: *{experiences}" th:text="${experience.title} + ' en ' + ${experience.company_Name}" th:selected="${experience == appUser.experiences.get(appUser.experiences.size()-1)}"></option>
 				</th:block>
 			</select>
+		</div>
+		<div class="right-button">
+			<button type="button" class="btn btn-link" onclick="showExperience()">Anadir nuevo puesto</button>
 		</div>
   		<div class="region-box">
 			<div class="form-group half-form-left">
@@ -75,7 +81,7 @@
 	// Get the <span> element that closes the modal
 	var close_profile = document.getElementById("close-button");
 	
-	var store_profile = document.getElementById("store-button")
+	var store_profile = document.getElementById("store-button");
 	
 	// When the user clicks on the button, open the modal 
 	update_profile.onclick = function() {

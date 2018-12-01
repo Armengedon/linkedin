@@ -103,7 +103,7 @@
 								<h1 class="text_header_container_educacio">Experiencia</h1 >
 							</div>
 							<div class="col-sm-1">
-								<button class="btn btn_add" id="experience-button">
+								<button class="btn btn_add" onclick="openExperience()">
 									<i class="fa fa-plus"></i>
 								</button>
 	                		</div>
@@ -143,14 +143,14 @@
         <th:block th:include="_new_experience"></th:block>
 
 		<script>
-		window.onclick = function(event) {
-			if (event.target == profile_modal) {
-		        profile_modal.style.display = "none";
-		    }
-			if (event.target == experience_modal) {
-		        experience_modal.style.display = "none";
-		    }
-		}
+			window.onclick = function(event) {
+				if (event.target == profile_modal) {
+			        profile_modal.style.display = "none";
+			    }
+				if (event.target == experience_modal) {
+			        experience_modal.style.display = "none";
+			    }
+			}
 		</script>
 	</body>
 </html>
