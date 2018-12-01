@@ -142,5 +142,15 @@
         <th:block th:include="_profile_change"></th:block>
         <th:block th:include="_new_experience"></th:block>
 
+		<script>
+		window.onclick = function(event) {
+			if (event.target == profile_modal) {
+		        profile_modal.style.display = "none";
+		    }
+			if (event.target == experience_modal) {
+		        experience_modal.style.display = "none";
+		    }
+		}
+		</script>
 	</body>
 </html>

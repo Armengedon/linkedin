@@ -1,11 +1,5 @@
 <link rel="stylesheet" href="/resources/css/popups.css">
 
-<!--  Add JS -->
-<script type="application/script" src="./lib/generatorJson.js"></script>
-<script type="application/script" src="/app/user.service.js"></script>
-<script type="application/script" src="/app/general.controller.js"></script>
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-
 <!-- The Modal -->
 <div id="myModal" class="modal">
   <!-- Modal content -->
@@ -27,13 +21,13 @@
 		<div class="name-box">
 			<div class="form-group half-form-left">
 			    <label for="name">Nombre <a class="asterisc">*</a></label>
-			    <input type="text" class="form-control" name="name" id="name" th:if="${appUser != null}" th:value="${appUser.firstName}">
-	  			<input type="text" class="form-control" id="name" th:unless="${appUser != null}" placeholder="Nombre">
+			    <input type="text" class="form-control" name="name" id="name" th:if="${appUser != null}" th:value="${appUser.firstName}" required>
+	  			<input type="text" class="form-control" id="name" th:unless="${appUser != null}" placeholder="Nombre" required>
 	  		</div>
 	  		<div class="form-group half-form-right">
 			    <label for="surname">Apellidos <a class="asterisc">*</a></label>
-			    <input type="text" class="form-control" name="surname" id="surname" th:if="${appUser != null}" th:value="${appUser.secondName}">
-	  			<input type="text" class="form-control" id="surname" th:unless="${appUser != null}" placeholder="Apellidos">
+			    <input type="text" class="form-control" name="surname" id="surname" th:if="${appUser != null}" th:value="${appUser.secondName}" required>
+	  			<input type="text" class="form-control" id="surname" th:unless="${appUser != null}" placeholder="Apellidos" required>
 	  		</div>
 		</div>
 		<div th:if="${appUser != null && !appUser.studies_list.isEmpty()}" class="full-form">
@@ -54,12 +48,12 @@
 		</div>
   		<div class="region-box">
 			<div class="form-group half-form-left">
-			    <label for="name">País/Región <a class="asterisc">*</a></label>
+			    <label for="name">País/Región</label>
 			    <input type="text" class="form-control" id="country" th:if="${appUser != null}" th:value="${appUser.country}">
 	  			<input type="text" class="form-control" id="country" th:unless="${appUser != null}" placeholder="Pais">
 	  		</div>
 	  		<div class="form-group half-form-right">
-			    <label for="surname">Código Postal <a class="asterisc">*</a></label>
+			    <label for="surname">Código Postal</label>
 			    <input type="text" class="form-control" id="postalCode" th:if="${appUser != null}" th:value="${appUser.postalCode}">
 	  			<input type="text" class="form-control" id="postalCode" th:unless="${appUser != null}" placeholder="Codigo Postal">
 	  		</div>
@@ -73,65 +67,56 @@
 
 <script>
 	//Get the modal
-	var modal = document.getElementById('myModal');
+	var profile_modal = document.getElementById('myModal');
 	
 	// Get the button that opens the modal
-	var btn = document.getElementById("update-button");
+	var update_profile = document.getElementById("update-button");
 	
 	// Get the <span> element that closes the modal
-	var span = document.getElementById("close-button");
+	var close_profile = document.getElementById("close-button");
 	
-	var store = document.getElementById("store-button")
+	var store_profile = document.getElementById("store-button")
 	
 	// When the user clicks on the button, open the modal 
-	btn.onclick = function() {
-	    modal.style.display = "block";
+	update_profile.onclick = function() {
+	    profile_modal.style.display = "block";
 	}
 	
 	// When the user clicks on <span> (x), close the modal
-	span.onclick = function() {
-	    modal.style.display = "none";
+	close_profile.onclick = function() {
+	    profile_modal.style.display = "none";
 	}
 	
-	store.onclick = function() {
+	store_profile.onclick = function() {
 		
-		var obj = {};
+		var profile_obj = {};
 		
 		var inputName = document.getElementById('name');
 		var inputSurname = document.getElementById('surname');
 		var inputCountry = document.getElementById('country');
 		var inputPostalCode = document.getElementById('postalCode');
 		
-		obj["firstName"] = inputName.value;
-		obj["secondName"] = inputSurname.value;
-		obj["country"] = inputCountry.value;
-		obj["postalCode"] = inputPostalCode.value;
+		profile_obj["firstName"] = inputName.value;
+		profile_obj["secondName"] = inputSurname.value;
+		profile_obj["country"] = inputCountry.value;
+		profile_obj["postalCode"] = inputPostalCode.value;
 		
-		var json = JSON.stringify(obj);
-		console.log(json);
+		var profile_json = JSON.stringify(profile_obj);
+		console.log(profile_json);
 		
 		$.ajax({
 			  url:"/users/updatePersonalInfo",
 			  type:"POST",
-			  data:json,
+			  data:profile_json,
 			  contentType:"application/json; charset=utf-8",
 			  dataType:"json",
 			  success: function(){
 					$.post("/users/updatePersonalInfo ", json, function(data, status) {
 						alert("Data: " + data + "\nStatus: " + status);
 					});
-					modal.style.display = "none";
 					window.location.href = "/user";
 			  }
 			})
-		
-		
-	}
-	
-	// When the user clicks anywhere outside of the modal, close it
-	window.onclick = function(event) {
-	    if (event.target == modal) {
-	        modal.style.display = "none";
-	    }
+		profile_modal.style.display = "none";
 	}
 </script>
