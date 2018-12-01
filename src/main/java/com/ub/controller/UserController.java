@@ -158,11 +158,21 @@ public class UserController {
 	@RequestMapping(value = "/addStudies", method = RequestMethod.POST)
 	public ResponseEntity<Object> addStudies(@RequestBody Studies studies, Principal user) {
 		
+
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
 		
-		foundUser.addStudies(studies);
-		studiesRepository.save(studies);
+		if (foundUser.getStudies_list().size() > 0) {
+			if (foundUser.updateStudies(studies) != -1) {
+				foundUser.getStudies_list().set(foundUser.updateStudies(studies), studies);
+			} else {
+				foundUser.addStudies(studies);
+				studiesRepository.save(studies);
+			}
+		} else {
+			foundUser.addStudies(studies);
+			studiesRepository.save(studies);
+		}
 		userRepository.save(foundUser);
 		
 		return ResponseEntity.noContent().build();
@@ -233,6 +243,11 @@ public class UserController {
 
 		userRepository.save(foundUser);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value = "/updateStudies", method = RequestMethod.POST)
+	public void updateStudies() {
+		
 	}
 	
 	
