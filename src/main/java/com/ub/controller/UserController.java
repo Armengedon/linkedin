@@ -2,12 +2,14 @@ package com.ub.controller;
 
 
 import java.util.ArrayList;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -267,28 +269,36 @@ public class UserController {
 	
 	@RequestMapping(value="/search", method = RequestMethod.GET)
 	public List<AppUser> search(@RequestBody String input, Principal user) {
-		
-		String email = user.getName(); //Email
 
-		Map<Integer,AppUser> scores = new HashMap<Integer,AppUser>();
+		Map<Integer,List<AppUser>> scores = new HashMap<Integer,List<AppUser>>();
 		List<AppUser> users = userRepository.findAll();
 
-		AppUser temp;
+		Integer score;
+		
 		
 		for (int i = 0; i < users.size(); i++) {
+			List<AppUser> temp = new ArrayList<AppUser>();
 			
-			scores.put(lDist.getDistance(input, (users.get(i).getFirstName()+users.get(i).getSecondName())),users.get(i));
+			score = lDist.getDistance(input, (users.get(i).getFirstName()+users.get(i).getSecondName()));
+
+			if (scores.containsKey(score)) {
+				temp = scores.get(score);
+			}
+			temp.add(users.get(i));
+			scores.put(score, temp);
 		}
 		
 		ArrayList<Integer> sortedKeys = new ArrayList<Integer>(scores.keySet()); 
 	    Collections.sort(sortedKeys);
-	    
+
 	    
 	    List<AppUser> results = new ArrayList<AppUser>();
 	    for (Integer s: sortedKeys) {
-	    	results.add(scores.get(s));
+	    	for (AppUser u: scores.get(s)) {
+	    		results.add(u);
+	    	}
+	    	
 	    }
-	    
 	    return results;
 	}
 	
