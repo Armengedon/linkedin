@@ -109,12 +109,12 @@
 			  contentType:"application/json; charset=utf-8",
 			  dataType:"json",
 			  success: function(){
-					$.post("/users/updatePersonalInfo ", json, function(data, status) {
+					$.post("/users/updatePersonalInfo ", profile_json, function(data, status) {
 						alert("Data: " + data + "\nStatus: " + status);
 					});
-					window.location.href = "/user";
+					profile_modal.style.display = "none";
+					location.reload();
 			  }
 			})
-		profile_modal.style.display = "none";
 	}
 </script>

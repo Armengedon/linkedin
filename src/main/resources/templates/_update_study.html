@@ -98,12 +98,12 @@
 			  contentType:"application/json; charset=utf-8",
 			  dataType:"json",
 			  success: function(){
-					$.post("/users/updateStudies ", json, function(data, status) {
+					$.post("/users/updateStudies ", update_study_json, function(data, status) {
 						alert("Data: " + data + "\nStatus: " + status);
 					});
-					window.location.href = "/user";
+					update_education_modal.style.display = "none";
+					location.reload();
 			  }
 			})
-		update_education_modal.style.display = "none";
 	}
 </script>

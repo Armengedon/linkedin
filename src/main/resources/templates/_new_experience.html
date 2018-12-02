@@ -71,12 +71,12 @@
 			  contentType:"application/json; charset=utf-8",
 			  dataType:"json",
 			  success: function(){
-					$.post("/users/addJobExperience ", json, function(data, status) {
+					$.post("/users/addJobExperience ", experience_json, function(data, status) {
 						alert("Data: " + data + "\nStatus: " + status);
 					});
-					window.location.href = "/user";
+					experience_modal.style.display = "none";
+				    location.reload();
 			  }
 			})
-		experience_modal.style.display = "none";
 	}
 </script>

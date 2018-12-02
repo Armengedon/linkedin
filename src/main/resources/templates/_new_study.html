@@ -91,12 +91,12 @@
 			  contentType:"application/json; charset=utf-8",
 			  dataType:"json",
 			  success: function(){
-					$.post("/users/addStudies ", json, function(data, status) {
+					$.post("/users/addStudies ", study_json, function(data, status) {
 						alert("Data: " + data + "\nStatus: " + status);
 					});
-					window.location.href = "/user";
+					education_modal.style.display = "none";
+				    location.reload();
 			  }
 			})
-		education_modal.style.display = "none";
 	}
 </script>

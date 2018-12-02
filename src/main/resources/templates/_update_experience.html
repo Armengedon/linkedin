@@ -75,12 +75,12 @@
 			  contentType:"application/json; charset=utf-8",
 			  dataType:"json",
 			  success: function(){
-					$.post("/users/updateJobExperience ", json, function(data, status) {
+					$.post("/users/updateJobExperience ", update_experience_json, function(data, status) {
 						alert("Data: " + data + "\nStatus: " + status);
 					});
-					window.location.href = "/user";
+					update_experience_modal.style.display = "none";
+				    location.reload();
 			  }
 			})
-		update_experience_modal.style.display = "none";
 	}
 </script>
