@@ -45,8 +45,8 @@
 								  		<span class="caret"></span>
 							  		</button>
 								  	<div class="dropdown-menu">
-								  		<button class="dropdown-item" type="button" onclick="showExperience()">Experiencia laboral</button>
-								  		<button class="dropdown-item" type="button">Educación</button>
+								  		<button class="dropdown-item" type="button" onclick="openExperience()">Experiencia laboral</button>
+								  		<button class="dropdown-item" type="button" onclick="openEducation()">Educación</button>
 								    	
 								  	</div>
 								</div>
@@ -74,7 +74,7 @@
 								<h1 class="text_header_container_educacio">Educación</h1 >
 							</div>
 							<div class="col-sm-1">
-								<button class="btn btn_add">
+								<button class="btn btn_add" onclick="openEducation()">
 									<i class="fa fa-plus"></i>
 								</button>
 							</div>
@@ -159,6 +159,7 @@
         <th:block th:include="_profile_change"></th:block>
         <th:block th:include="_new_experience"></th:block>
         <th:block th:include="_update_experience"></th:block>
+        <th:block th:include="_new_study"></th:block>
 
 		<script>
 			window.onclick = function(event) {
@@ -170,6 +171,9 @@
 			    }
 				if (event.target == update_experience_modal) {
 			        update_experience_modal.style.display = "none";
+			    }
+				if (event.target == education_modal) {
+			        education_modal.style.display = "none";
 			    }
 			}
 		</script>

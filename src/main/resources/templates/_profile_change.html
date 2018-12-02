@@ -39,7 +39,7 @@
 			</select>
 		</div>
 		<div class="right-button">
-			<button type="button" class="btn btn-link" id="add-study-profile">Anadir nueva educacion</button>
+			<button type="button" class="btn btn-link" onclick="showEducation()">Anadir nueva educacion</button>
 		</div>
 		<div th:if="${appUser != null && !appUser.experiences.isEmpty()}" class="full-form">
 			<label>Experiencias</label>
