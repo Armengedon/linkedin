@@ -80,7 +80,7 @@
 							</div>
 						</div>						
 						<th:block th:object="${appUser}">
-							<div th:each="study: *{studies_list}" class="row educations">
+							<div th:each="study, iter: *{studies_list}" class="row educations">
 								<div class="col-sm-1 logo_education">
 									<img class="img-logo-education" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQyyiZicL1IjF4El8aN6SML1MIwXh20zMFU8Be7mHCHKrpGfyrmQ"  alt="logo-image"> </img>
 								</div>
@@ -103,7 +103,7 @@
 								</div>
 								
 								<div class="col-sm-1 btns_education">
-									<button class="btn btn_add" >
+									<button class="btn btn_add" th:onclick="|updateEducation(${iter.index})|">
 										<i class="fa fa-pencil"></i>
 									</button>
 								</div>
@@ -160,6 +160,7 @@
         <th:block th:include="_new_experience"></th:block>
         <th:block th:include="_update_experience"></th:block>
         <th:block th:include="_new_study"></th:block>
+        <th:block th:include="_update_study"></th:block>
 
 		<script>
 			window.onclick = function(event) {
@@ -174,6 +175,9 @@
 			    }
 				if (event.target == education_modal) {
 			        education_modal.style.display = "none";
+			    }
+				if (event.target == update_education_modal) {
+			        update_education_modal.style.display = "none";
 			    }
 			}
 		</script>

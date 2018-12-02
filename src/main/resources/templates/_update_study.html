@@ -1,0 +1,109 @@
+<link rel="stylesheet" href="/resources/css/popups.css">
+
+<!-- The Modal -->
+<div id="update-education-modal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+  	<div class="top-header">
+  		<div class="top-title">
+  			<a class="text-title">Educacion</a>
+  		</div>
+  		<button class="close-button" onclick="closeUpdateEducation()">&times;</button>
+	</div>
+  	<div class="profile-card">
+  		<div class="form-group full-form">
+		    <label for="update-university">Universidad <a class="asterisc">*</a></label>
+  			<input type="text" class="form-control" id="update-university" placeholder="P. ej. Universitat de Barcelona" required>
+  		</div>
+  		<div class="form-group full-form">
+		    <label for="update-study-title">Titulo <a class="asterisc">*</a></label>
+  			<input type="text" class="form-control" id="update-study-title" placeholder="P. ej. gerente">
+  		</div>
+  		<div class="form-group full-form">
+		    <label for="update-mark">Nota</label>
+  			<input type="text" class="form-control" id="update-mark">
+  		</div>
+  		<div class="region-box">
+			<div class="form-group half-form-left">
+			    <label for="update-study-beginYear">Ano de inicio <a class="asterisc">*</a></label>
+  				<input type="number" class="form-control" id="update-study-beginYear" placeholder="Ano de inicio">
+	  		</div>
+	  		<div class="form-group half-form-right">
+			    <label for="update-study-endYear">Ano de finalizacion (o previsto) <a class="asterisc">*</a></label>
+  				<input type="number" class="form-control" id="update-study-endYear" placeholder="Ano de finalizacion">
+	  		</div>
+		</div>
+		<div class="form-group full-form big-box">
+		    <label for="update-comment">Descripcion</label>
+  			<textarea class="form-control" id="update-comment" rows="4"></textarea>
+  		</div>
+	</div>
+	<div class="bottom-footer">
+		<button type="button" class="btn btn-primary store-button" onclick="storeUpdateEducation()">Guardar</button>
+	</div>
+  </div>
+</div>
+
+<script th:inline="javascript">
+	//Get the modal
+	var update_education_modal = document.getElementById('update-education-modal');
+	var education_index = -1;
+
+    var education_list = [[${appUser.studies_list}]];
+    
+	// When the user clicks on the button, open the modal 
+	function closeUpdateEducation() {
+	    update_education_modal.style.display = "none";
+	}
+	
+	function updateEducation(index) {
+		education_index = index;
+		var curr_education = education_list[index];
+		
+		document.getElementById('update-university').value = curr_education.university;
+		document.getElementById('update-study-beginYear').value = curr_education.beginYear;
+		document.getElementById('update-study-endYear').value = curr_education.endYear;
+		document.getElementById('update-study-title').value = curr_education.title;
+		document.getElementById('update-mark').value = curr_education.mark;
+		document.getElementById('update-comment').value = curr_education.comment;
+		
+		update_education_modal.style.display = "block";
+	}
+	
+	function storeUpdateEducation() {		
+		var update_study_obj = {};
+
+		var inputUniversity = document.getElementById('update-university');
+		var inputBeginYear = document.getElementById('update-study-beginYear');
+		var inputTitle = document.getElementById('update-study-title');
+		var inputEndYear = document.getElementById('update-study-endYear');
+		var inputMark = document.getElementById('update-mark');
+		var inputComment = document.getElementById('update-comment');
+		
+		update_study_obj["university"] = inputUniversity.value;
+		update_study_obj["beginYear"] = inputBeginYear.value;
+		update_study_obj["endYear"] = inputEndYear.value;
+		update_study_obj["title"] = inputTitle.value;
+		update_study_obj["mark"] = inputMark.value;
+		update_study_obj["comment"] = inputComment.value;
+		update_study_obj["index"] = education_index;
+		
+		var update_study_json = JSON.stringify(update_study_obj);
+		console.log(update_study_json);
+		
+		$.ajax({
+			  url:"/users/updateStudies",
+			  type:"POST",
+			  data:update_study_json,
+			  contentType:"application/json; charset=utf-8",
+			  dataType:"json",
+			  success: function(){
+					$.post("/users/updateStudies ", json, function(data, status) {
+						alert("Data: " + data + "\nStatus: " + status);
+					});
+					window.location.href = "/user";
+			  }
+			})
+		update_education_modal.style.display = "none";
+	}
+</script>
