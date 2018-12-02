@@ -35,7 +35,7 @@
                                 <a th:if="${appUser == null || appUser.studies_list.isEmpty()}">No tiene estudios</a>
                             </div>
                             <div class = "col-sm-4 card-body4">
-                                <button id="update-button">
+                                <button id="update-button" onclick="showProfile()">
                                     <i class="fa fa-pencil"></i>
                                 </button>
                                 <a th:if="${appUser != null && !appUser.experiences.isEmpty()}" th:utext="${appUser.experiences.get(appUser.experiences.size()-1).title + ' en ' +  appUser.experiences.get(appUser.experiences.size()-1).company_Name}"></a>
@@ -57,7 +57,7 @@
 								<h1 class="text_header_container_educacio">Educación</h1 >
 							</div>
 							<div class="col-sm-1">
-								<button class="btn btn_add" id="education-button">
+								<button class="btn btn_add">
 									<i class="fa fa-plus"></i>
 								</button>
 							</div>
