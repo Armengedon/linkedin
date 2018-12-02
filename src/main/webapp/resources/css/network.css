@@ -1,0 +1,75 @@
+/*Network */
+
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+
+.contacts {
+	position: relative;
+	width: 100%;
+	height:100%;
+	margin-left: 50px;
+	margin-top: 80px;
+	border: 1px solid rgb(196, 196, 196);
+    box-shadow: 0px 15px 10px -15px #111;
+    height: auto;
+    width: 800px;
+}
+
+.text_header_contacts {
+	position: relative;
+    font-size: 20px;
+    font-weight: 350;
+    padding-left: 20px;
+    padding-top: 15px;
+}
+
+.contacts-list {
+	padding-top: 20px;
+}
+
+.contact-img {
+    width: 70x;
+    height: 70px;
+    border-radius: 50%;
+    margin-left: 5px;
+    margin-bottom: 15px;
+    margin-right: 10px;
+}
+
+.contact-info {
+	position: relative;
+	height: auto;
+    float: left;
+    font-size: 15px;
+    font-weight: 400;
+    padding-left: 40px;
+    padding-bottom: 15px;
+}
+.name-contact {
+	font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.info-contact {
+	font-weight: 400;
+    margin-bottom: 5px;
+}
+
+.btn-delete {
+	margin-left: 30%;
+	margin-right: 30%;
+	margin-up: 50%;
+	margin-bottom: 50%;
+    border: none;
+    border-radius: 4px;
+    background-color:tomato;
+    color: white;
+    display: inline-block;
+}
+
+.btn-add {
+    border: none;
+    border-radius: 4px;
+    background-color:MediumSeaGreen;
+    color: white;
+    display: inline-block;
+}

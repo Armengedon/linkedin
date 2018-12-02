@@ -5,17 +5,58 @@
         <meta name="description" content="">
         <meta name="author" content="">
 
-        <title th:utext="${title}"></title>
-
         <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 		<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		
-		<link rel="stylesheet" href="/resources/css/navbar.css">
-   </head>
+		<link rel="stylesheet" href="/resources/css/network.css">
+		
+	</head>
 
 	<body>
 		<header>
 			<th:block th:include="_navbar"></th:block>
 		</header>
+		
+
+			<div class="container contacts">
+				<div class="row num-contacts">
+					<h1 class="text_header_contacts"> N contactos</h1 >
+				</div>
+				
+				<!-- <div class="row contacts-list" th:if="${appUser != null && !appUser.studies_list.isEmpty()}"> -->
+				<div class="row contacts-list">
+					<!--  <div  th:each="contact : ${appUser.getFriends()}">-->
+						<div class="col-sm-1 contact-img">
+							<!--  
+							<img alt="profile-image" class="profile-image" th:if="${contact != null && contact.photoUser != null}" th:src="${contact.photoUser}">
+							<img alt="profile-image" class="profile-image" th:unless="${contact != null && contact.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
+							-->
+							<img alt="profile-image" class="contact-img" th:if="${appUser != null && appUser.photoUser != null}" th:src="${appUser.photoUser}">
+							<img alt="profile-image" class="contact-img" th:unless="${appUser != null && appUser.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
+						</div>
+						
+						<div class="col-sm-9 contact-info">
+							<p class="name-contact">
+								Name contact
+							</p>
+							<p class="info-contact"> 
+								Student info
+							</p>
+						</div>
+						
+						<div class="col-sm-1 add-delete-contact">
+							<button class="button btn-delete">Elimina</button>
+						</div>
+						
+						<hr size="1px" color="silver"></hr>
+						
+					<!-- </div-->
+				</div>
+			
+			</div>
+		
+		
 	</body>
+	
+</html>
