@@ -148,17 +148,7 @@ public class AppUser {
 		this.studies_list.remove(studies);
 	}
 	
-	public int updateStudies(Studies s) {
-		
-		for (int i = 0; i < this.studies_list.size(); i++) {
-			if ((s.getUniversity().equals(this.studies_list.get(i).getUniversity()) && s.getTitle().equals(this.studies_list.get(i).getTitle()))) {
-				return i;
-			}
-		}
-		
-		return -1;
-		
-	}
+
 	
 	public void addJobExperience(JobExperience job) {
 		experiences.add(job);
