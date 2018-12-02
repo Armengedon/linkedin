@@ -273,11 +273,22 @@ p{
     margin-left: 5px;
 }
 
+#person{
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+#date{
+    margin-left:5px;
+    font-weight: bold;
+}
+
 .container3-1{
     width: 552px;
     height: auto;
     border: 1px solid rgb(196, 196, 196);
     margin-bottom: 30px;
+    overflow: hidden;
 }
 
 
