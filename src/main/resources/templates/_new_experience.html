@@ -16,12 +16,12 @@
   			<input type="text" class="form-control" id="company_name" placeholder="P. ej. Microsoft" required>
   		</div>
   		<div class="form-group full-form">
-		    <label for="beginYear">Ano de inicio <a class="asterisc">*</a></label>
-  			<input type="number" class="form-control" id="beginYear" placeholder="Ano" required>
+		    <label for="exp-beginYear">Ano de inicio <a class="asterisc">*</a></label>
+  			<input type="number" class="form-control" id="exp-beginYear" placeholder="Ano" required>
   		</div>
 		<div class="form-group full-form">
-		    <label for="title">Titulo <a class="asterisc">*</a></label>
-  			<input type="text" class="form-control" id="title" placeholder="P. ej. gerente" required>
+		    <label for="exp-title">Titulo <a class="asterisc">*</a></label>
+  			<input type="text" class="form-control" id="exp-title" placeholder="P. ej. gerente" required>
   		</div>
 	</div>
 	<div class="bottom-footer">
@@ -54,8 +54,8 @@
 		var experience_obj = {};
 
 		var inputCompany = document.getElementById('company_name');
-		var inputYear = document.getElementById('beginYear');
-		var inputPosition = document.getElementById('title');
+		var inputYear = document.getElementById('exp-beginYear');
+		var inputPosition = document.getElementById('exp-title');
 		
 		experience_obj["company_Name"] = inputCompany.value;
 		experience_obj["beginYear"] = inputYear.value;
