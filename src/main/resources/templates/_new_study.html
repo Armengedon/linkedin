@@ -1,0 +1,90 @@
+<link rel="stylesheet" href="/resources/css/popups.css">
+
+<!-- The Modal -->
+<div id="education-modal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+  	<div class="top-header">
+  		<div class="top-title">
+  			<a class="text-title">Educacion</a>
+  		</div>
+  		<button class="close-button" onclick="closeEducation()">&times;</button>
+	</div>
+  	<div class="profile-card">
+  		<div class="form-group full-form">
+		    <label for="university">Universidad <a class="asterisc">*</a></label>
+  			<input type="text" class="form-control" id="university" placeholder="P. ej. Universitat de Barcelona" required>
+  		</div>
+  		<div class="form-group full-form">
+		    <label for="study-title">Titulo <a class="asterisc">*</a></label>
+  			<input type="text" class="form-control" id="study-title" placeholder="P. ej. gerente">
+  		</div>
+  		<div class="region-box">
+			<div class="form-group half-form-left">
+			    <label for="study-beginYear">Ano de inicio <a class="asterisc">*</a></label>
+  				<input type="number" class="form-control" id="study-beginYear" placeholder="Ano de inicio">
+	  		</div>
+	  		<div class="form-group half-form-right">
+			    <label for="study-endYear">Ano de finalizacion (o previsto) <a class="asterisc">*</a></label>
+  				<input type="number" class="form-control" id="study-endYear" placeholder="Ano de finalizacion">
+	  		</div>
+		</div>
+	</div>
+	<div class="bottom-footer">
+		<button type="button" class="btn btn-primary store-button" onclick="storeEducation()">Guardar</button>
+	</div>
+  </div>
+</div>
+
+<script>
+	//Get the modal
+	var education_modal = document.getElementById('education-modal');
+	
+	// When the user clicks on the button, open the modal 
+	function closeEducation() {
+	    education_modal.style.display = "none";
+	}
+	
+	function showEducation() {
+		profile_modal.style.display = "none";
+		education_modal.style.display = "block";
+	}
+	
+	// When the user clicks on <span> (x), close the modal
+	function openEducation() {
+	    education_modal.style.display = "block";
+	}
+	
+	function storeEducation() {
+		
+		var study_obj = {};
+
+		var inputUniversity = document.getElementById('university');
+		var inputBeginYear = document.getElementById('study-beginYear');
+		var inputTitle = document.getElementById('study-title');
+		var inputEndYear = document.getElementById('study-endYear');
+		
+		study_obj["university"] = inputUniversity.value;
+		study_obj["beginYear"] = inputBeginYear.value;
+		study_obj["endYear"] = inputEndYear.value;
+		study_obj["title"] = inputTitle.value;
+		
+		var study_json = JSON.stringify(study_obj);
+		console.log(study_json);
+		
+		$.ajax({
+			  url:"/users/addStudies",
+			  type:"POST",
+			  data:study_json,
+			  contentType:"application/json; charset=utf-8",
+			  dataType:"json",
+			  success: function(){
+					$.post("/users/addStudies ", json, function(data, status) {
+						alert("Data: " + data + "\nStatus: " + status);
+					});
+					window.location.href = "/user";
+			  }
+			})
+		education_modal.style.display = "none";
+	}
+</script>
