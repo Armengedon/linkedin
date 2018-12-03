@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -71,9 +72,20 @@ public class AppUser {
     @Column(name = "Postal_Code", nullable = true)
 	private long postalCode;
     
+    @OneToOne(mappedBy="user")
+    private Picture picture;
+    
 
     
-    public AppUser() {
+    public Picture getPicture() {
+		return picture;
+	}
+
+	public void setPicture(Picture picture) {
+		this.picture = picture;
+	}
+
+	public AppUser() {
     }
 
 	public String getFirstName() {

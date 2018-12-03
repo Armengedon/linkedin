@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.security.Principal;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -311,6 +312,17 @@ public class UserController {
 		//studiesRepository.
 		userRepository.save(foundUser);
 
+	}
+	
+	@RequestMapping(value = "/addPhoto", method = RequestMethod.POST)
+	public void addPhoto(@RequestBody byte[] fileImage, Principal user) {
+		Base64.decodeBase64(fileImage);
+		
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		
+		
+		
 	}
 
 }
