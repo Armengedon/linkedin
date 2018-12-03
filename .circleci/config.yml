@@ -42,8 +42,7 @@ jobs:
 
       - run:
           name: Build and test
-          command: |
-            mvn package -B  #run your tests
+          command: mvn package -B  #run your tests
 
       - store_test_results:
-	  path: target/surefire-reports
+         path: target/surefire-reports
