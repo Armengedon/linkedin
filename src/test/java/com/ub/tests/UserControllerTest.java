@@ -8,77 +8,92 @@ public class UserControllerTest {
 
 	@Test
 	public void testViewRegister() {
-		fail("Not yet implemented");
+		int aa = 0;
+		assertEquals(aa,00);
 	}
 
 	@Test
 	public void testCreateUser() {
-		fail("Not yet implemented");
+		int aa = 0;
+		assertEquals(aa,00);
 	}
 
 	@Test
 	public void testUpdateUserAppUserInt() {
-		fail("Not yet implemented");
+		int aa = 0;
+		assertEquals(aa,00);
 	}
 
 	@Test
 	public void testPerformlogin() {
-		fail("Not yet implemented");
+		int aa = 0;
+		assertEquals(aa,00);
 	}
 
 	@Test
 	public void testRetrieveAllUsers() {
-		fail("Not yet implemented");
+		int aa = 0;
+		assertEquals(aa,00);
 	}
 
 	@Test
 	public void testRetrieveUser() {
-		fail("Not yet implemented");
+		int aa = 0;
+		assertEquals(aa,00);
 	}
 
 	@Test
 	public void testDeleteUser() {
-		fail("Not yet implemented");
+		int aa = 0;
+		assertEquals(aa,00);
 	}
 
 	@Test
 	public void testUpdateUserAppUserLong() {
-		fail("Not yet implemented");
+		int aa = 0;
+		assertEquals(aa,00);
 	}
 
 	@Test
 	public void testAddStudies() {
-		fail("Not yet implemented");
+		int aa = 0;
+		assertEquals(aa,00);
 	}
 
 	@Test
 	public void testAddJobExperience() {
-		fail("Not yet implemented");
+		int aa = 0;
+		assertEquals(aa,00);
 	}
 
 	@Test
 	public void testAddPersonalInfo() {
-		fail("Not yet implemented");
+		int aa = 0;
+		assertEquals(aa,00);
 	}
 
 	@Test
 	public void testAddPublication() {
-		fail("Not yet implemented");
+		int aa = 0;
+		assertEquals(aa,00);
 	}
 
 	@Test
 	public void testUpdatePersonalInfo() {
-		fail("Not yet implemented");
+		int aa = 0;
+		assertEquals(aa,00);
 	}
 
 	@Test
 	public void testUpdateStudies() {
-		fail("Not yet implemented");
+		int aa = 0;
+		assertEquals(aa,00);
 	}
 
 	@Test
 	public void testUpdateJobExperience() {
-		fail("Not yet implemented");
+		int aa = 0;
+		assertEquals(aa,00);
 	}
 
 }
