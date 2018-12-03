@@ -55,8 +55,8 @@
                                 <button id="update-button" onclick="showProfile()">
                                     <i class="fa fa-pencil"></i>
                                 </button>
-                                <a th:if="${appUser != null && !appUser.experiences.isEmpty()}" th:utext="${appUser.experiences.get(appUser.experiences.size()-1).title + ' en ' +  appUser.experiences.get(appUser.experiences.size()-1).company_Name}"></a>
-                                <a th:if="${appUser != null && !appUser.studies_list.isEmpty()}" th:utext="${'Estudiante en ' + appUser.studies_list.get(appUser.studies_list.size()-1).university}"></a>
+                                <a th:if="${appUser != null && !appUser.experiences.isEmpty()}" th:utext="${appUser.experiences.get(appUser.getjIndex()).title + ' en ' +  appUser.experiences.get(appUser.getjIndex()).company_Name}"></a>
+                                <a th:if="${appUser != null && !appUser.studies_list.isEmpty()}" th:utext="${'Estudiante en ' + appUser.studies_list.get(appUser.getsIndex()).university}"></a>
                                 <a th:if="${appUser == null || (appUser.experiences.isEmpty() && appUser.studies_list.isEmpty())}">
                                     No tiene estudios ni experiencia
                                 </a>
