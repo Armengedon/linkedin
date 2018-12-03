@@ -239,7 +239,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/updateStudies", method = RequestMethod.POST)
-	public void updateStudies(@RequestBody Object studies, Principal user) {
+	public ResponseEntity<Object> updateStudies(@RequestBody Object studies, Principal user) {
 		
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
@@ -278,11 +278,12 @@ public class UserController {
 		
 		//studiesRepository.
 		userRepository.save(foundUser);
+		return ResponseEntity.noContent().build();
 
 	}
 	
 	@RequestMapping(value = "/updateJobExperience", method = RequestMethod.POST)
-	public void updateJobExperience(@RequestBody Object job, Principal user) {
+	public ResponseEntity<Object> updateJobExperience(@RequestBody Object job, Principal user) {
 		
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
@@ -310,6 +311,7 @@ public class UserController {
 		
 		//studiesRepository.
 		userRepository.save(foundUser);
+		return ResponseEntity.noContent().build();
 
 	}
 
