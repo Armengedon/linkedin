@@ -2,17 +2,19 @@
 
 @import url("//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 
+
 /*
 .wrapper { position: relative; }
 */
 
 .profile-box {
-    height: 480px;
+    height: auto;
     width: 800px;
     padding-left: 10px;
     padding-right: 5px;
     position: relative;
     left: -135px;
+    margin-bottom: 25px;
 }
 
 .profile-card-4 .card-img-block{
@@ -38,6 +40,7 @@
     width: 272px;
     height: 192px;
     position: relative;
+    
 }
 
 .profile-card-4 .profile-base {
@@ -195,4 +198,14 @@
     float:right;
     border: 0px;
     background-color: white;
+}
+
+.dropdown {
+	padding-left: 30px;
+    margin-top: 15px;
+}
+
+.dropdown-menu{
+	height: auto;
+	width: 190px;
 }
