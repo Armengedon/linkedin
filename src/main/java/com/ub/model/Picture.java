@@ -29,6 +29,7 @@ public class Picture {
 	
 	/* maximum 10Mb */
 	@Column(name = "Picture_Byte", nullable = false, length = 1073741824)
+	@JsonIgnore
 	private byte[] pictureFile;
 	
 	@Column(name = "original_name", nullable = false, length = 127)

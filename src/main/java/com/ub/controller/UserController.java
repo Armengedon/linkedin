@@ -5,6 +5,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+
+import javax.imageio.ImageIO;
+
+import java.awt.image.BufferedImage;
+import java.awt.image.DataBufferByte;
+import java.awt.image.WritableRaster;
+import java.io.File;
+import java.io.IOException;
 import java.security.Principal;
 
 import org.apache.tomcat.util.codec.binary.Base64;
@@ -29,10 +37,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ub.model.AppUser;
 
 import com.ub.model.JobExperience;
+import com.ub.model.Picture;
 import com.ub.model.Publication;
 import com.ub.model.Studies;
 
 import com.ub.repository.JobExperienceRepository;
+import com.ub.repository.PictureRepository;
 import com.ub.repository.PublicationRepository;
 import com.ub.repository.StudiesRepository;
 import com.ub.repository.UserRepository;
@@ -60,6 +70,9 @@ public class UserController {
 	
 	@Autowired
 	private PublicationRepository publicationRepository;
+	
+	@Autowired
+	private PictureRepository picRepo;
 		
 	PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -315,13 +328,31 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/addPhoto", method = RequestMethod.POST)
-	public void addPhoto(@RequestBody byte[] fileImage, Principal user) {
-		Base64.decodeBase64(fileImage);
+	public void addPhoto(@RequestBody String fileName, Principal user) throws IOException {
+		
+		System.out.println("FILENAME"+fileName);
+		// open image
+		File imgPath = new File(fileName);
+		BufferedImage bufferedImage = ImageIO.read(imgPath);
+		
+		 // get DataBufferBytes from Raster
+		WritableRaster raster = bufferedImage .getRaster();
+		DataBufferByte data   = (DataBufferByte) raster.getDataBuffer();
+		
+		byte[] bytes =  data.getData();
+		 
+		System.out.println("AIOHFAS"+bytes);
+		 
 		
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
 		
+		Picture newPic = new Picture(fileName,"photoUser", bytes);
 		
+		foundUser.setPicture(newPic);
+		
+		picRepo.save(newPic);
+		userRepository.save(foundUser);
 		
 	}
 

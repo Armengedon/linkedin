@@ -63,27 +63,23 @@ public class AppUser {
     
     @OneToMany(mappedBy = "user")
     private List<Publication> publications_list = new ArrayList<>();
-    
-    
-    @Column(name = "Photo", length = 64, nullable = true)
-	private String photoUser;
-    
-    
+        
     @Column(name = "Postal_Code", nullable = true)
 	private long postalCode;
     
     @OneToOne(mappedBy="user")
-    private Picture picture;
+    private Picture photoUser;
     
-
-    
-    public Picture getPicture() {
-		return picture;
+    public String getPhotoUser() {
+		return "data:image/png;base64,"+String.valueOf(photoUser.getPictureFile());
 	}
 
 	public void setPicture(Picture picture) {
-		this.picture = picture;
+		this.photoUser = picture;
+		picture.setUser(this);
 	}
+	
+
 
 	public AppUser() {
     }
@@ -127,7 +123,7 @@ public class AppUser {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	
 	public Set<Role> getRoles() {
 		return roles;
 	}
@@ -186,13 +182,7 @@ public class AppUser {
 	public void setStudies_list(List<Studies> studies_list) {
 		this.studies_list = studies_list;
 	}
-	
-	public String getPhotoUser() {
-		return photoUser;
-	}
- 	public void setPhotoUser(String photoUser) {
-		this.photoUser = photoUser;
-	}
+	 	
  	public long getPostalCode() {
 		return postalCode;
 	}
