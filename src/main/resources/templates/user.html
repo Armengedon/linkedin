@@ -36,7 +36,7 @@
                         <div class="row">
                             <div class = "col-sm-4 card-body3">
                                 <h5 th:if="${appUser != null}" th:utext="${appUser.firstName} + ' ' + ${appUser.secondName}"></h5>
-                                <a th:if="${appUser != null && !appUser.studies_list.isEmpty()}" th:utext="${'Graduado en ' + appUser.studies_list.get(appUser.studies_list.size()-1).title}"></a>
+                                <a th:if="${appUser != null && !appUser.studies_list.isEmpty()}" th:utext="${'Graduado en ' + appUser.studies_list.get(appUser.getsIndex()).title}"></a>
                                 <a th:if="${appUser == null || appUser.studies_list.isEmpty()}">No tiene estudios</a>
 
                             	<div class="dropdown">
