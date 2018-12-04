@@ -71,6 +71,25 @@ public class AppUser {
     @Column(name = "Postal_Code", nullable = true)
 	private long postalCode;
     
+    private Integer sIndex = 0;
+    public Integer getsIndex() {
+		return sIndex;
+	}
+
+	public void setsIndex(Integer sIndex) {
+		this.sIndex = sIndex;
+	}
+
+	public Integer getjIndex() {
+		return jIndex;
+	}
+
+	public void setjIndex(Integer jIndex) {
+		this.jIndex = jIndex;
+	}
+
+	private Integer jIndex = 0;
+    
 
     
     public AppUser() {

@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ub.model.AppUser;
+import com.ub.model.AppUser;	
 
 import com.ub.model.JobExperience;
 import com.ub.model.Publication;
@@ -239,7 +239,7 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/updateStudies", method = RequestMethod.POST)
-	public void updateStudies(@RequestBody Object studies, Principal user) {
+	public ResponseEntity<Object> updateStudies(@RequestBody Object studies, Principal user) {
 		
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
@@ -278,11 +278,12 @@ public class UserController {
 		
 		//studiesRepository.
 		userRepository.save(foundUser);
+		return ResponseEntity.noContent().build();
 
 	}
 	
 	@RequestMapping(value = "/updateJobExperience", method = RequestMethod.POST)
-	public void updateJobExperience(@RequestBody Object job, Principal user) {
+	public ResponseEntity<Object> updateJobExperience(@RequestBody Object job, Principal user) {
 		
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
@@ -310,7 +311,39 @@ public class UserController {
 		
 		//studiesRepository.
 		userRepository.save(foundUser);
+		return ResponseEntity.noContent().build();
 
+	}
+	
+	@RequestMapping(value = "/getIndex", method = RequestMethod.GET)
+	public Integer getIndex(@RequestBody String type, Principal user) {
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		if (type.equals("S")) {
+			return foundUser.getsIndex();
+		} else {
+			return foundUser.getjIndex();
+		}
+	}
+	
+	@RequestMapping(value = "/setJIndex", method = RequestMethod.POST)
+	public ResponseEntity<Object> setJIndex(@RequestBody Integer index, Principal user) {
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		foundUser.setjIndex(index);
+		
+		return ResponseEntity.noContent().build();
+		
+	}
+	
+	@RequestMapping(value = "/setSIndex", method = RequestMethod.POST)
+	public ResponseEntity<Object> setSIndex(@RequestBody Integer index, Principal user) {
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		foundUser.setsIndex(index);
+		
+		return ResponseEntity.noContent().build();
+		
 	}
 
 }
