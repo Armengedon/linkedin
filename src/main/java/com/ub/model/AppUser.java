@@ -246,4 +246,13 @@ public class AppUser {
 		
 	}
 	
+	public List<AppUser> getAppUserFriends(UserRepository repo) {
+		List<AppUser> friends = new ArrayList<AppUser>();
+		for (String friend: this.friends) {
+			friends.add(repo.findByEmail(friend));
+		}
+		return friends;
+		
+	}
+	
 }

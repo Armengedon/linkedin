@@ -266,5 +266,13 @@ public class UserController {
 		return foundUser.sortedPublications(userRepository);
 	}
 	
+	@RequestMapping(value="getAppUserFriends", method = RequestMethod.GET) 
+	public List<AppUser> getAppUserFriends(Principal user) {
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		return foundUser.getAppUserFriends(userRepository);
+		
+	}
+	
 
 }
