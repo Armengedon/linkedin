@@ -1,6 +1,7 @@
 package com.ub.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -17,6 +18,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import com.ub.repository.UserRepository;
 
 @Entity
 @Table(name = "App_User", //
@@ -224,6 +227,23 @@ public class AppUser {
 
 	public void setPublications_list(List<Publication> publications_list) {
 		this.publications_list = publications_list;
+	}
+	
+	public List<Publication> sortedPublications(UserRepository repo) {
+		
+		List<Publication> tempP = new ArrayList<Publication>();
+		List<Publication> sorted = new ArrayList<Publication>();
+		this.friends.add(this.email);
+		for (String friend: this.friends) {
+			tempP = repo.findByEmail(friend).getPublications_list();
+			for (Publication p: tempP) {
+				sorted.add(p);
+			}
+		}
+		Collections.sort(sorted);
+		this.friends.remove(this.email);
+		return sorted;
+		
 	}
 	
 }

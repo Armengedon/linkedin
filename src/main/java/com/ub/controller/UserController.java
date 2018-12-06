@@ -259,5 +259,12 @@ public class UserController {
 		
 	}
 	
+	@RequestMapping(value="getSortedPubli", method = RequestMethod.GET)
+	public List<Publication> getSortedList(Principal user) {
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		return foundUser.sortedPublications(userRepository);
+	}
+	
 
 }
