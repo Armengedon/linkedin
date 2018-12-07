@@ -158,20 +158,16 @@ public class UserController {
 	@RequestMapping(value = "/addStudies", method = RequestMethod.POST)
 	public ResponseEntity<Object> addStudies(@RequestBody Studies studies, Principal user) {
 		
+
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
-		
-		for (int i = 0; i < foundUser.getStudies_list().size(); i++) { //update
-			int bYear = foundUser.getStudies_list().get(i).getBeginYear();
-			int eYear = foundUser.getStudies_list().get(i).getEndYear();
-			studiesRepository.delete(foundUser.getStudies_list().get(i));
-			foundUser.getStudies_list().remove(i);
-			studies.setBeginYear(bYear);
-			studies.setEndYear(eYear);
-		}
 		foundUser.addStudies(studies);
+		
+			
 		studiesRepository.save(studies);
+
 		userRepository.save(foundUser);
+		
 		return ResponseEntity.noContent().build();
 	}
 	
@@ -179,11 +175,7 @@ public class UserController {
 	public ResponseEntity<Object> addJobExperience(@RequestBody JobExperience job, Principal user) {
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
-		
-		if (foundUser.getExperiences().size() > 0) {
-			jobExperienceRepository.deleteAll();
-		}
-				
+
 		foundUser.addJobExperience(job);
 
 		jobExperienceRepository.save(job);	
@@ -206,9 +198,12 @@ public class UserController {
 
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
+		
 		foundUser.addPublication(p);
+		
 		publicationRepository.save(p);
 		userRepository.save(foundUser);
+		
 		return ResponseEntity.noContent().build();
 	}
 	
@@ -243,7 +238,79 @@ public class UserController {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@RequestMapping(value = "/updateStudies", method = RequestMethod.POST)
+	public void updateStudies(@RequestBody Object studies, Principal user) {
+		
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		Map info = ((Map)studies);
+		Set s = info.keySet();
+		
+		Integer index = (Integer) info.get("index");
+
+		Studies oldStudy = foundUser.getStudies_list().get(index);
+		for (Object key: s){
+			String k = key.toString().replace("[", "").replaceAll("]","");
+			switch (k) {
+				case "title":
+					oldStudy.setTitle(info.get(key).toString());
+					break;
+				case "university":
+					oldStudy.setUniversity(info.get(key).toString());
+					break;
+				case "mark":
+					oldStudy.setMark(Integer.parseInt(info.get(key).toString()));
+					break;
+				case "comment":
+					if (info.get(key)!=null) {
+						oldStudy.setComment(info.get(key).toString());
+					}
+					
+					break;
+				case "beginYear":
+					oldStudy.setBeginYear(Integer.parseInt(info.get(key).toString()));
+					break;
+				case "endYear":
+					oldStudy.setEndYear(Integer.parseInt(info.get(key).toString()));
+					break;
+			}
+		}
+		
+		//studiesRepository.
+		userRepository.save(foundUser);
+
+	}
 	
-	
-	
+	@RequestMapping(value = "/updateJobExperience", method = RequestMethod.POST)
+	public void updateJobExperience(@RequestBody Object job, Principal user) {
+		
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		Map info = ((Map)job);
+		Set s = info.keySet();
+		
+		Integer index = (Integer) info.get("index");
+
+		JobExperience oldJob = foundUser.getExperiences().get(index);
+		
+		for (Object key: s){
+			String k = key.toString().replace("[", "").replaceAll("]","");
+			switch (k) {
+				case "title":
+					oldJob.setTitle(info.get(key).toString());
+					break;
+				case "company_Name":
+					oldJob.setCompany_Name((info.get(key).toString()));
+					break;
+				case "beginYear":
+					oldJob.setBeginYear(Integer.parseInt(info.get(key).toString()));
+					break;
+			}
+		}
+		
+		//studiesRepository.
+		userRepository.save(foundUser);
+
+	}
+
 }
