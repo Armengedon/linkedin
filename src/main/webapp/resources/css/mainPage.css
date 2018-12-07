@@ -161,7 +161,7 @@ h6 {
 }
 
 .btn-primary{
-    margin-left: 250px;
+    margin-left: 370px;
     margin-top: 2px;
 }
 
@@ -211,7 +211,7 @@ textarea {
     width: 3rem;
     border-radius: 50%;
   }
-.author .name {
+.author .name { 
     position: relative;
     float: left;
     font-size: 1rem;
@@ -231,7 +231,8 @@ textarea {
     margin: .5rem 0;
     width: 500px;
     margin-top:1px;
-    background-color: whiteS;
+    background-color: white; 
+    margin-top: -50px !important;
   }
   .post .category {
     visibility: hidden;
@@ -333,16 +334,16 @@ p{
     background-color: white;
 }
 .panel-google-plus.panel-google-plus-show-comment > .panel-footer > .input-placeholder {
-    /*display: none;*/ 
+    display: none;
 }
 .panel-google-plus > .panel-google-plus-comment {
-    /*display: none;*/
+    display: none;
     padding: 10px 20px 15px;
     border-top: 1px solid rgb(229, 229, 229);
     background-color: white;
 }
 .panel-google-plus.panel-google-plus-show-comment > .panel-google-plus-comment {
-    /*display: block;*/
+    display: block;
 }
 /*.panel-google-plus > .panel-google-plus-comment > img {
     float: left;   
