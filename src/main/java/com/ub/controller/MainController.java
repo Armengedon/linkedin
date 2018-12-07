@@ -71,7 +71,16 @@ public class MainController {
     }
 
     @RequestMapping(value = {"/mynetwork" }, method = RequestMethod.GET)
-    public String networkPage(Model model) {
+    public String networkPage(Model model, Principal principal) {
+        String userName = principal.getName();
+    	
+    	AppUser appUser = userRepository.findByEmail(userName);
+        model.addAttribute("appUser", appUser);
+        
+        String email = appUser.getEmail(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		model.addAttribute("userFriends", foundUser.getAppUserFriends(userRepository));
+		
         return "networkPage";
     }
     

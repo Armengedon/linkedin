@@ -19,41 +19,38 @@
 		</header>
 		
 
-			<div class="container contacts">
+			<div class="container contacts" th:if="${appUser != null}">
 				<div class="row num-contacts">
-					<h1 class="text_header_contacts"> N contactos</h1 >
+					<h1 th:if="${appUser.friends.size() == 1}" th:utext="${appUser.friends.size()} + ' contacto' " class="text_header_contacts"></h1>
+					<h1 th:if="${appUser.friends.size() != 1}" th:utext="${appUser.friends.size()} + ' contactos' " class="text_header_contacts"></h1>
 				</div>
 				
-				<!-- <div class="row contacts-list" th:if="${appUser != null && !appUser.studies_list.isEmpty()}"> -->
-				<div class="row contacts-list">
-					<!--  <div  th:each="contact : ${appUser.getFriends()}">-->
-						<div class="col-sm-1 contact-img">
-							<!--  
-							<img alt="profile-image" class="profile-image" th:if="${contact != null && contact.photoUser != null}" th:src="${contact.photoUser}">
-							<img alt="profile-image" class="profile-image" th:unless="${contact != null && contact.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
-							-->
-							<img alt="profile-image" class="contact-img" th:if="${appUser != null && appUser.photoUser != null}" th:src="${appUser.photoUser}">
-							<img alt="profile-image" class="contact-img" th:unless="${appUser != null && appUser.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
-						</div>
+
+					<form  th:each="friend, iter: *{userFriends}" class="row contacts-list">
+							
+							<div class="col-sm-1 contact-img">
+								<img alt="profile-image" class="contact-img" th:if="${friend != null && friend.photoUser != null}" th:src="${appUser.photoUser}">
+								<img alt="profile-image" class="contact-img" th:unless="${friend != null && friend.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
+							</div>
+							
+							<div class="col-sm-9 contact-info">
+								<p class="name-contact">
+									<a th:if="${friend != null}" th:utext="${friend.firstName} + ' ' + ${friend.secondName}"></a>
+								</p>
+								<p class="info-contact">
+	                                <a th:if="${friend != null && !friend.studies_list.isEmpty()}" th:utext="${'Graduado en ' + friend.studies_list.get(friend.studies_list.size()-1).title}"></a>
+	                                <a th:if="${friend == null || friend.studies_list.isEmpty()}">No tiene estudios</a>
+								</p>
+							</div>
+							
+							<div class="col-sm-1 add-delete-contact">
+								<button class="button btn-delete">Elimina</button>
+							</div>
+							
+							<hr size="1px" color="silver"></hr>
 						
-						<div class="col-sm-9 contact-info">
-							<p class="name-contact">
-								Name contact
-							</p>
-							<p class="info-contact"> 
-								Student info
-							</p>
-						</div>
-						
-						<div class="col-sm-1 add-delete-contact">
-							<button class="button btn-delete">Elimina</button>
-						</div>
-						
-						<hr size="1px" color="silver"></hr>
-						
-					<!-- </div-->
-				</div>
-			
+					</form>
+				
 			</div>
 		
 		
