@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.Hashtable;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -286,6 +287,34 @@ public class UserController {
 			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.notFound().build();
+		
+	}
+	
+	@RequestMapping(value = "/updateComments", method = RequestMethod.POST)
+	public ResponseEntity<Object> updateComments(@RequestBody Object comments, Principal user) {
+		
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		Map info = ((Map)comments);
+		Set s = info.keySet();
+		
+		Integer index = (Integer) info.get("index");
+		String mail = (String) info.get("email");
+
+		Publication p = foundUser.sortedPublications(userRepository).get(index);
+
+		
+		for (Object key: s){
+			String k = key.toString().replace("[", "").replaceAll("]","");
+			switch (k) {
+				case "comment":
+					p.addComment(email, info.get(key).toString());
+					publicationRepository.save(p);
+					break;
+			}
+		}
+		return ResponseEntity.noContent().build();
+		
 		
 	}
 
