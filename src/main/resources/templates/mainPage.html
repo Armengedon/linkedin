@@ -109,9 +109,9 @@
 											<div class="text">
 												<p th:utext="${publi.mainText}"></p>
 											</div>
+
 											<div class="[ panel panel-default ] panel-google-plus">
 												<div class="panel-footer">
-													<button type="button" class="[ btn btn-default ]">+1</button>
 													<div class="input-placeholder">Add a comment...</div>
 													<script>
 														$(function () {
@@ -143,11 +143,14 @@
 													<img alt="User Image" class="avatar" th:if="${appUser.photoUser != null}" th:src="${appUser.photoUser}">
 													<img alt="User Image" class="avatar" th:unless="${appUser.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
 													<div class="panel-google-plus-textarea">
-														<textarea rows="4"></textarea>
-														<button type="submit" class="btn btn-success disabled">Post comment</button>
-														<button type="reset" class="btn btn-default">Cancel</button>
+														<textarea id="messageComment" rows="1"></textarea>
+														<button type="submit" id="commentPost" class="btn btn-primary disabled">Post comment</button>
+														<button type="reset" class="btn btn-light">Cancel</button>
 													</div>
-
+												</div>
+												<div class="container comentaris">
+													<p id="person-comentari" th:utext="${publi.user.firstName} + ' ' + ${publi.user.secondName}"></p>
+													<p>Hola primer comentari</p>
 												</div>
 											</div>
 										</div>
@@ -169,6 +172,41 @@
 			}
 		}
 
+	</script>
+
+	<script type="text/javascript">
+		var textComment = document.getElementById('messageComment');
+		var datePublication = new Date();
+		var btnStorePubli = document.getElementById("commentPost");
+		
+
+		btnStorePubli.onclick = function () {
+
+			var obj = {};
+
+			obj["mainText"] = textPublication.value;
+			obj["date"] = datePublication;
+
+			var json = JSON.stringify(obj);
+			console.log(json);
+
+			$.ajax({
+				url: "/users/addPublication",
+				type: "POST",
+				data: json,
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				success: function () {
+					$.post("/users/addPublication ", json, function (data, status) {
+						alert("Data: " + data + "\nStatus: " + status);
+					});
+					window.location.href = "/feed";
+				}
+			})
+
+		}
+
+	
 	</script>
 
 	<script type="text/javascript">

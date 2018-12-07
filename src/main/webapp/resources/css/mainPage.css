@@ -279,6 +279,17 @@ p{
     font-weight: bold;
 }
 
+#person-comentari{
+    margin-left: 5px;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.comentaris p{
+    font-size: 11px;
+    margin-left: 5px;
+}
+
 #date{
     margin-left:5px;
     font-weight: bold;
@@ -292,23 +303,30 @@ p{
     overflow: hidden;
 }
 
-.filas{
-    display: table;
+.comentaris{
+    width: 535px;
+    height: auto;
+    overflow: hidden;
+    margin-bottom: 2px;
+    margin-top: 5px;
 }
 
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,700);
 
 .panel-google-plus {
     position: relative;
-    width: 100%;
+    width: 120% !important;
     border-radius: 0px;
     border-top: 1px solid rgb(196, 196, 196);
     font-family: 'Roboto', sans-serif;
-    background-color: white;
+    background-color: #f3f6f8;
+    margin-left: -19px;
+    margin-right: -17px;
+    margin-bottom: -31px;
 }
 
 .panel-google-plus > .panel-footer {
-    background-color: white;
+    background-color: #f3f6f8;
     border-width: 0px; 
     width: 100%;
 }
@@ -324,7 +342,8 @@ p{
 }
 .panel-google-plus > .panel-footer > .input-placeholder {
     display: block;
-    margin-left: 98px;
+    margin-left: 10px;
+    margin-right: 10px;
     font-size: 12px;
     font-weight: 400;
     padding: 8px 6px 7px;
@@ -340,7 +359,8 @@ p{
     display: none;
     padding: 10px 20px 15px;
     border-top: 1px solid rgb(229, 229, 229);
-    background-color: white;
+    background-color: #f3f6f8;
+    margin-bottom: 30px;
 }
 .panel-google-plus.panel-google-plus-show-comment > .panel-google-plus-comment {
     display: block;
@@ -384,7 +404,7 @@ p{
 .panel-google-plus .btn-default:hover, 
 .panel-google-plus .btn-default:focus, 
 .panel-google-plus .btn-default:active {
-    background-color: rgb(255, 255, 255);
+    background-color: #f3f6f8;
     border-color: rgb(0, 0, 0);    
 }
 
