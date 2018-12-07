@@ -38,8 +38,17 @@
 									<a th:if="${friend != null}" th:utext="${friend.firstName} + ' ' + ${friend.secondName}"></a>
 								</p>
 								<p class="info-contact">
-	                                <a th:if="${friend != null && !friend.studies_list.isEmpty()}" th:utext="${'Graduado en ' + friend.studies_list.get(friend.studies_list.size()-1).title}"></a>
-	                                <a th:if="${friend == null || friend.studies_list.isEmpty()}">No tiene estudios</a>
+									<p class="info-contact">
+	                                	<a th:if="${friend != null && !friend.experiences.isEmpty()}" th:utext="${friend.experiences.get(friend.experiences.size()-1).title + ' en ' +  friend.experiences.get(friend.experiences.size()-1).company_Name}"></a>
+                                	</p>
+                                	<p class="info-contact">
+                                		<a th:if="${friend != null && !friend.studies_list.isEmpty()}" th:utext="${'Estudiante en ' + friend.studies_list.get(friend.studies_list.size()-1).university}"></a>
+                                	</p>
+                                	<p class="info-contact">
+	                                	<a th:if="${friend == null || (friend.experiences.isEmpty() && friend.studies_list.isEmpty())}">
+	                                		No tiene estudios ni experiencia
+	                                	</a>
+                                	</p>
 								</p>
 							</div>
 							
