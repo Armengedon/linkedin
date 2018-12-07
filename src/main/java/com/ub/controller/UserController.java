@@ -351,5 +351,20 @@ public class UserController {
 		return foundUser.getAppUserFriends(userRepository);
 		
 	}
+	
+	@RequestMapping(value = "/deleteFriend", method = RequestMethod.POST)
+	public ResponseEntity<Object> deleteFriend(@RequestBody Object emailDelete, Principal user) {
+		String email = user.getName(); //Email
+		emailDelete = emailDelete.toString().replace("[", "").replaceAll("]","");
+		AppUser foundUser = userRepository.findByEmail(email);
+
+		if (foundUser.getFriends().contains(emailDelete)) {
+			foundUser.getFriends().remove(emailDelete);
+			userRepository.save(foundUser);
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.notFound().build();
+		
+	}
 
 }
