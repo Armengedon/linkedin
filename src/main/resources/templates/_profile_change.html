@@ -1,4 +1,10 @@
-<link rel="stylesheet" href="/resources/css/popups.css">
+<link rel="stylesheet" href="/resources/css/profile_change.css">
+
+<!--  Add JS -->
+<script type="application/script" src="./lib/generatorJson.js"></script>
+<script type="application/script" src="/app/user.service.js"></script>
+<script type="application/script" src="/app/general.controller.js"></script>
+<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
 <!-- The Modal -->
 <div id="myModal" class="modal">
@@ -8,7 +14,7 @@
   		<div class="top-title">
   			<a class="text-title">Editar presentación</a>
   		</div>
-  		<button class="close-button" onclick="closeProfile()">&times;</button>
+  		<button id="close-button">&times;</button>
 	</div>
   	<div class="profile-card">
 		<div class="card-img-block">
@@ -21,13 +27,13 @@
 		<div class="name-box">
 			<div class="form-group half-form-left">
 			    <label for="name">Nombre <a class="asterisc">*</a></label>
-			    <input type="text" class="form-control" name="name" id="name" th:if="${appUser != null}" th:value="${appUser.firstName}" required>
-	  			<input type="text" class="form-control" id="name" th:unless="${appUser != null}" placeholder="Nombre" required>
+			    <input type="text" class="form-control" name="name" id="name" th:if="${appUser != null}" th:value="${appUser.firstName}">
+	  			<input type="text" class="form-control" id="name" th:unless="${appUser != null}" placeholder="Nombre">
 	  		</div>
 	  		<div class="form-group half-form-right">
 			    <label for="surname">Apellidos <a class="asterisc">*</a></label>
-			    <input type="text" class="form-control" name="surname" id="surname" th:if="${appUser != null}" th:value="${appUser.secondName}" required>
-	  			<input type="text" class="form-control" id="surname" th:unless="${appUser != null}" placeholder="Apellidos" required>
+			    <input type="text" class="form-control" name="surname" id="surname" th:if="${appUser != null}" th:value="${appUser.secondName}">
+	  			<input type="text" class="form-control" id="surname" th:unless="${appUser != null}" placeholder="Apellidos">
 	  		</div>
 		</div>
 		<div th:if="${appUser != null && !appUser.studies_list.isEmpty()}" class="full-form">
@@ -38,83 +44,94 @@
 				</th:block>
 			</select>
 		</div>
-		<div class="right-button">
-			<button type="button" class="btn btn-link" onclick="showEducation()">Anadir nueva educacion</button>
-		</div>
 		<div th:if="${appUser != null && !appUser.experiences.isEmpty()}" class="full-form">
-			<label>Experiencias</label>
 			<select class="form-control form-control-lg selector-form">
+				<label>Experiencias</label>
 				<th:block th:object="${appUser}">
 					<option th:each="experience: *{experiences}" th:text="${experience.title} + ' en ' + ${experience.company_Name}" th:selected="${experience == appUser.experiences.get(appUser.experiences.size()-1)}"></option>
 				</th:block>
 			</select>
 		</div>
-		<div class="right-button">
-			<button type="button" class="btn btn-link" onclick="showExperience()">Anadir nuevo puesto</button>
-		</div>
   		<div class="region-box">
 			<div class="form-group half-form-left">
-			    <label for="name">País/Región</label>
+			    <label for="name">País/Región <a class="asterisc">*</a></label>
 			    <input type="text" class="form-control" id="country" th:if="${appUser != null}" th:value="${appUser.country}">
 	  			<input type="text" class="form-control" id="country" th:unless="${appUser != null}" placeholder="Pais">
 	  		</div>
 	  		<div class="form-group half-form-right">
-			    <label for="surname">Código Postal</label>
+			    <label for="surname">Código Postal <a class="asterisc">*</a></label>
 			    <input type="text" class="form-control" id="postalCode" th:if="${appUser != null}" th:value="${appUser.postalCode}">
 	  			<input type="text" class="form-control" id="postalCode" th:unless="${appUser != null}" placeholder="Codigo Postal">
 	  		</div>
 		</div>
 	</div>
 	<div class="bottom-footer">
-		<button type="button" class="btn btn-primary store-button" onclick="storeProfile()">Guardar</button>
+		<button type="button" class="btn btn-primary store-button" id="store-button">Guardar</button>
 	</div>
   </div>
 </div>
 
 <script>
 	//Get the modal
-	var profile_modal = document.getElementById('myModal');
+	var modal = document.getElementById('myModal');
+	
+	// Get the button that opens the modal
+	var btn = document.getElementById("update-button");
+	
+	// Get the <span> element that closes the modal
+	var span = document.getElementById("close-button");
+	
+	var store = document.getElementById("store-button")
 	
 	// When the user clicks on the button, open the modal 
-	function showProfile() {
-	    profile_modal.style.display = "block";
+	btn.onclick = function() {
+	    modal.style.display = "block";
 	}
 	
 	// When the user clicks on <span> (x), close the modal
-	function closeProfile() {
-	    profile_modal.style.display = "none";
+	span.onclick = function() {
+	    modal.style.display = "none";
 	}
 	
-	function storeProfile() {
+	store.onclick = function() {
 		
-		var profile_obj = {};
+		var obj = {};
 		
 		var inputName = document.getElementById('name');
 		var inputSurname = document.getElementById('surname');
 		var inputCountry = document.getElementById('country');
 		var inputPostalCode = document.getElementById('postalCode');
 		
-		profile_obj["firstName"] = inputName.value;
-		profile_obj["secondName"] = inputSurname.value;
-		profile_obj["country"] = inputCountry.value;
-		profile_obj["postalCode"] = inputPostalCode.value;
+		obj["firstName"] = inputName.value;
+		obj["secondName"] = inputSurname.value;
+		obj["country"] = inputCountry.value;
+		obj["postalCode"] = inputPostalCode.value;
 		
-		var profile_json = JSON.stringify(profile_obj);
-		console.log(profile_json);
+		var json = JSON.stringify(obj);
+		console.log(json);
 		
 		$.ajax({
 			  url:"/users/updatePersonalInfo",
 			  type:"POST",
-			  data:profile_json,
+			  data:json,
 			  contentType:"application/json; charset=utf-8",
 			  dataType:"json",
 			  success: function(){
-					$.post("/users/updatePersonalInfo ", profile_json, function(data, status) {
+					$.post("/users/updatePersonalInfo ", json, function(data, status) {
 						alert("Data: " + data + "\nStatus: " + status);
 					});
-					profile_modal.style.display = "none";
-					location.reload();
+					modal.style.display = "none";
+					window.location.href = "/user";
 			  }
 			})
+		
+		
+	}
+	
+	// When the user clicks anywhere outside of the modal, close it
+	window.onclick = function(event) {
+	    if (event.target == modal) {
+	        modal.style.display = "none";
+	    }
 	}
 </script>

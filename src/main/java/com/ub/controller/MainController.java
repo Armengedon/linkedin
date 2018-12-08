@@ -32,6 +32,11 @@ public class MainController {
         return "register_1";
     }
 
+    @RequestMapping(value = {"/register_2" }, method = RequestMethod.GET)
+    public String register_2(Model model) {
+        return "register_2";
+    }
+
     @RequestMapping(value = {"/register_3" }, method = RequestMethod.GET)
     public String register_3(Model model) {
         return "register_3";
@@ -49,13 +54,7 @@ public class MainController {
     }
 
     @RequestMapping(value = {"/register_5" }, method = RequestMethod.GET)
-    public String register_5(Model model, Principal principal) {
-        String userName = principal.getName();
-    	
-    	AppUser appUser = userRepository.findByEmail(userName);
-    	
-        model.addAttribute("appUser", appUser);
-    	
+    public String register_5(Model model) {
         return "register_5";
     }
 
