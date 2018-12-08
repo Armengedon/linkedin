@@ -271,8 +271,21 @@ public class UserController {
 		
 	}
 	
-	@RequestMapping(value="/search", method = RequestMethod.GET)
-	public List<AppUser> search(@RequestBody String input, Principal user) {
+	@RequestMapping(value = "/search", method = RequestMethod.POST)
+	public ResponseEntity<Object> search(@RequestBody String input, Principal user) {
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		foundUser.setUserSearch(input);
+		userRepository.save(foundUser);
+		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value="/getSearch", method = RequestMethod.GET)
+	public List<AppUser> getSearch(Principal user) {
+		
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		String input = foundUser.getUserSearch();
 
 		Map<Integer,List<AppUser>> scores = new HashMap<Integer,List<AppUser>>();
 		List<AppUser> users = userRepository.findAll();
