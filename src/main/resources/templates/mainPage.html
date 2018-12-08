@@ -143,8 +143,8 @@
 													<img alt="User Image" class="avatar" th:if="${appUser.photoUser != null}" th:src="${appUser.photoUser}">
 													<img alt="User Image" class="avatar" th:unless="${appUser.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
 													<div class="panel-google-plus-textarea">
-														<textarea id="messageComment" rows="1"></textarea>
-														<button type="submit" id="commentPost" class="btn btn-primary disabled">Post comment</button>
+														<textarea th:id="'messageComment ' + ${iter.index}" rows="1"></textarea>
+														<button type="submit" id="commentPost" class="btn btn-primary disabled" th:onclick="|storeComment(${iter.index})|">Post comment</button>
 														<button type="reset" class="btn btn-light">Cancel</button>
 													</div>
 												</div>
@@ -174,39 +174,43 @@
 
 	</script>
 
-	<script type="text/javascript">
-		var textComment = document.getElementById('messageComment');
-		var datePublication = new Date();
-		var btnStorePubli = document.getElementById("commentPost");
-		
+	<script th:inline="javascript">
 
-		btnStorePubli.onclick = function () {
+		function storeComment(index) {
+			var publication_index = -1;
+			console.log(publication_index);
+			var email = [[${appUser.email}]];
+			var textComment = document.getElementById('messageComment '+index);
+			
+			publication_index = index;
+
+			console.log(email);
+			console.log(textComment);
+			console.log(publication_index);
 
 			var obj = {};
 
-			obj["mainText"] = textPublication.value;
-			obj["date"] = datePublication;
-
+			obj["index"] = index;
+			obj["comment"] = textComment.value;
+			obj["email"] = email;
+			
 			var json = JSON.stringify(obj);
 			console.log(json);
 
 			$.ajax({
-				url: "/users/addPublication",
+				url: "/users/updateComment",
 				type: "POST",
 				data: json,
 				contentType: "application/json; charset=utf-8",
 				dataType: "json",
 				success: function () {
-					$.post("/users/addPublication ", json, function (data, status) {
+					$.post("/users/updateComment ", json, function (data, status) {
 						alert("Data: " + data + "\nStatus: " + status);
 					});
-					window.location.href = "/feed";
+					location.reload();
 				}
 			})
-
 		}
-
-	
 	</script>
 
 	<script type="text/javascript">

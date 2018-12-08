@@ -382,9 +382,17 @@ p{
     box-shadow: rgba(0, 0, 0, 0.0470588) 0px 1px 0px 0px;
     resize: vertical;
 }
-.panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > .btn {
+.panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > .btn-primary{
     margin-top: 10px;
     margin-right: 8px;
+    margin-left: 5px;
+    width: 100%;
+}
+
+.panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > .btn-light{
+    margin-top: 10px;
+    margin-right: 8px;
+    margin-left: 5px;
     width: 100%;
 }
 @media (min-width: 992px) {
@@ -392,7 +400,6 @@ p{
         width: auto;
     }    
 }
-
 
 .panel-google-plus .btn {
     border-radius: 3px;   
