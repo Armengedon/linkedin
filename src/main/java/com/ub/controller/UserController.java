@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.Hashtable;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -239,73 +238,6 @@ public class UserController {
 		return ResponseEntity.noContent().build();
 	}
 	
-	@RequestMapping(value="/addFriends", method = RequestMethod.POST)
-	public void addFriends(@RequestBody List<String> friends, Principal user) {
-		String email = user.getName(); //Email
-		AppUser foundUser = userRepository.findByEmail(email);
-
-		
-		if (foundUser.getFriends().isEmpty()) {
-
-			foundUser.setFriends(friends);
-		} else {
-
-			for (int i = 0; i < friends.size(); i ++ ) { foundUser.addFriend(friends.get(i));}
-		}
-		
-		userRepository.save(foundUser);
-	}
-	
-	@RequestMapping(value="/getUserByMail", method= RequestMethod.GET)
-	public AppUser getUserByMail(@RequestBody Object email) {
-		String k = email.toString().replace("[", "").replaceAll("]","");
-		return userRepository.findByEmail(k);
-		
-	}
-	
-	@RequestMapping(value="getSortedPubli", method = RequestMethod.GET)
-	public List<Publication> getSortedList(Principal user) {
-		String email = user.getName(); //Email
-		AppUser foundUser = userRepository.findByEmail(email);
-		return foundUser.sortedPublications(userRepository);
-	}
-	
-	@RequestMapping(value="getAppUserFriends", method = RequestMethod.GET) 
-	public List<AppUser> getAppUserFriends(Principal user) {
-		String email = user.getName(); //Email
-		AppUser foundUser = userRepository.findByEmail(email);
-		return foundUser.getAppUserFriends(userRepository);
-		
-	}
-	
-	@RequestMapping(value = "/deleteFriend", method = RequestMethod.POST)
-	public ResponseEntity<Object> deleteFriend(@RequestBody Object emailDelete, Principal user) {
-		String email = user.getName(); //Email
-		emailDelete = emailDelete.toString().replace("[", "").replaceAll("]","");
-		AppUser foundUser = userRepository.findByEmail(email);
-
-		if (foundUser.getFriends().contains(emailDelete)) {
-			foundUser.getFriends().remove(emailDelete);
-			userRepository.save(foundUser);
-			return ResponseEntity.noContent().build();
-		}
-		return ResponseEntity.notFound().build();
-		
-	}
-	
-	@RequestMapping(value = "/updateComments", method = RequestMethod.POST)
-	public ResponseEntity<Object> updateComments(@RequestBody Object comments, Principal user) {
-		
-		String email = user.getName(); //Email
-		AppUser foundUser = userRepository.findByEmail(email);
-		Map info = ((Map)comments);
-		Set s = info.keySet();
-		
-		Integer index = (Integer) info.get("index");
-		String mail = (String) info.get("email");
-
-		Publication p = foundUser.sortedPublications(userRepository).get(index);
-    
 	@RequestMapping(value = "/updateStudies", method = RequestMethod.POST)
 	public void updateStudies(@RequestBody Object studies, Principal user) {
 		
@@ -364,13 +296,6 @@ public class UserController {
 		for (Object key: s){
 			String k = key.toString().replace("[", "").replaceAll("]","");
 			switch (k) {
-				case "comment":
-					p.addComment(email, info.get(key).toString());
-					publicationRepository.save(p);
-					break;
-			}
-		}
-		return ResponseEntity.noContent().build();
 				case "title":
 					oldJob.setTitle(info.get(key).toString());
 					break;
@@ -385,6 +310,8 @@ public class UserController {
 		
 		//studiesRepository.
 		userRepository.save(foundUser);
+
 	}
+	
 
 }
