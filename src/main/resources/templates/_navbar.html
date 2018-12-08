@@ -93,24 +93,22 @@
 		}
 		
 	});
-	
+</script>
+<script>
 	function search() {
 		var text = document.getElementById('search-text');
 		
-		var search_json = JSON.stringify(text.value);
-		console.log(search_json);
-		
 		$.ajax({
 			  url:"/users/search",
-			  type:"POST",
-			  data:search_json,
+			  type:"GET",
+			  data:text.value,
 			  contentType:"application/json; charset=utf-8",
 			  dataType:"json",
 			  success: function(){
-					$.post("/users/search ", search_json, function(data, status) {
-						alert("Data: " + data + "\nStatus: " + status);
+					$.get("/users/search ", function(data) {
+						console.log(data);
 					});
 			  }
-			})
+			});
 	}
 </script>
