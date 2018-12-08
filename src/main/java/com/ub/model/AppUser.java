@@ -153,6 +153,8 @@ public class AppUser {
 		this.studies_list.remove(studies);
 	}
 	
+
+	
 	public void addJobExperience(JobExperience job) {
 		experiences.add(job);
 		job.setUser(this);
