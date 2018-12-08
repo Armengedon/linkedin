@@ -1,5 +1,6 @@
 package com.ub.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
@@ -15,9 +16,8 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Publication {
+public class Publication implements Comparable<Publication> {
 	
-	private int i = 0;
 
 	@Id
 	@GeneratedValue
@@ -88,12 +88,19 @@ public class Publication {
 	
 	public void addComment(String email, String comment) {
 		
-		List<String> commentUser = null;
+		List<String> commentUser = new ArrayList<String>();
 		if (comments.containsKey(email)) {
 			commentUser = comments.get(email);
 		}
-		commentUser.add(i+ " "+comment);
-		i++;
+		commentUser.add(comment);
 		comments.put(email,commentUser);
+	}
+	
+	@Override
+	public int compareTo(Publication u) {
+		if (getDate() == null || u.getDate() == null) {
+			return 0;
+		}
+		return getDate().compareTo(u.getDate());
 	}
 }
