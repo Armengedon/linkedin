@@ -80,7 +80,7 @@
 						</div>
 						<div class="container6">
 							<div>
-								<button type="submit" id="publicar" class="btn btn-primary" disabled>Publicar</button>
+								<button type="submit" id="publicar" class="btn btn-primary" disabled onclick="enviarPubli()">Publicar</button>
 
 							</div>
 
@@ -198,13 +198,13 @@
 			console.log(json);
 
 			$.ajax({
-				url: "/users/updateComment",
+				url: "/users/updateComments",
 				type: "POST",
 				data: json,
 				contentType: "application/json; charset=utf-8",
 				dataType: "json",
 				success: function () {
-					$.post("/users/updateComment ", json, function (data, status) {
+					$.post("/users/updateComments ", json, function (data, status) {
 						alert("Data: " + data + "\nStatus: " + status);
 					});
 					location.reload();
@@ -214,11 +214,13 @@
 	</script>
 
 	<script type="text/javascript">
-		var textPublication = document.getElementById('messageText');
-		var datePublication = new Date();
-		var btnStorePubli = document.getElementById("publicar");
+		
 
-		btnStorePubli.onclick = function () {
+		function enviarPubli() {
+
+			var textPublication = document.getElementById('messageText');
+			var datePublication = new Date();
+			var btnStorePubli = document.getElementById("publicar");
 
 			var obj = {};
 

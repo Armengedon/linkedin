@@ -313,5 +313,32 @@ public class UserController {
 
 	}
 	
+	@RequestMapping(value = "/updateComments", method = RequestMethod.POST)
+	public ResponseEntity<Object> updateComments(@RequestBody Object comments, Principal user) {
+		
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		Map info = ((Map)comments);
+		Set s = info.keySet();
+		
+		Integer index = (Integer) info.get("index");
+		String mail = (String) info.get("email");
+
+		Publication p = foundUser.sortedPublications(userRepository).get(index);
+
+		
+		for (Object key: s){
+			String k = key.toString().replace("[", "").replaceAll("]","");
+			switch (k) {
+				case "comment":
+					p.addComment(email, info.get(key).toString());
+					publicationRepository.save(p);
+					break;
+			}
+		}
+		return ResponseEntity.noContent().build();
+		
+		
+	}
 
 }
