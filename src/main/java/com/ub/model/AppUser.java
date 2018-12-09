@@ -72,6 +72,7 @@ public class AppUser {
 	private long postalCode;
     
     private Integer sIndex = 0;
+    
     public Integer getsIndex() {
 		return sIndex;
 	}

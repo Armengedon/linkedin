@@ -315,32 +315,45 @@ public class UserController {
 
 	}
 	
-	@RequestMapping(value = "/getIndex", method = RequestMethod.GET)
-	public Integer getIndex(@RequestBody String type, Principal user) {
+	@RequestMapping(value = "/getSIndex", method = RequestMethod.GET)
+	public Integer getSIndex(Principal user) {
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
-		if (type.equals("S")) {
-			return foundUser.getsIndex();
-		} else {
-			return foundUser.getjIndex();
-		}
+		return foundUser.getsIndex();
 	}
 	
-	@RequestMapping(value = "/setJIndex", method = RequestMethod.POST)
-	public ResponseEntity<Object> setJIndex(@RequestBody Integer index, Principal user) {
+	@RequestMapping(value = "/getJIndex", method = RequestMethod.GET)
+	public Integer getJIndex(Principal user) {
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
+		return foundUser.getjIndex();
+	}
+	
+	
+	
+	@RequestMapping(value = "/setJIndex", method = RequestMethod.POST)
+	public ResponseEntity<Object> setJIndex(@RequestBody Object indexJSON, Principal user) {
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		Map info = ((Map)indexJSON);
+		Set s = info.keySet();
+		Integer index = (Integer) info.get("index");
 		foundUser.setjIndex(index);
+		userRepository.save(foundUser);
 		
 		return ResponseEntity.noContent().build();
 		
 	}
 	
 	@RequestMapping(value = "/setSIndex", method = RequestMethod.POST)
-	public ResponseEntity<Object> setSIndex(@RequestBody Integer index, Principal user) {
+	public ResponseEntity<Object> setSIndex(@RequestBody Object indexJSON, Principal user) {
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
+		Map info = ((Map)indexJSON);
+		Set s = info.keySet();
+		Integer index = (Integer) info.get("index");
 		foundUser.setsIndex(index);
+		userRepository.save(foundUser);
 		
 		return ResponseEntity.noContent().build();
 		
