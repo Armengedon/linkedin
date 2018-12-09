@@ -77,9 +77,7 @@ public class MainController {
     	AppUser appUser = userRepository.findByEmail(userName);
         model.addAttribute("appUser", appUser);
         
-        String email = appUser.getEmail(); //Email
-		AppUser foundUser = userRepository.findByEmail(email);
-		model.addAttribute("userFriends", foundUser.getAppUserFriends(userRepository));
+		model.addAttribute("userRepository",userRepository);
 		
         return "networkPage";
     }
