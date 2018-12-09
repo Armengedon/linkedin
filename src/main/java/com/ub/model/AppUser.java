@@ -76,6 +76,8 @@ public class AppUser {
     @Column(name = "Postal_Code", nullable = true)
 	private long postalCode;
     
+    private String userSearch;
+    
 
     
     public AppUser() {
@@ -227,5 +229,15 @@ public class AppUser {
 	public void setPublications_list(List<Publication> publications_list) {
 		this.publications_list = publications_list;
 	}
+
+	public String getUserSearch() {
+		return userSearch;
+	}
+
+	public void setUserSearch(String userSearch) {
+		this.userSearch = userSearch;
+	}
+	
+
 	
 }
