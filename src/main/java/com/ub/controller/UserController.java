@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.Hashtable;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -159,11 +158,14 @@ public class UserController {
 	@RequestMapping(value = "/addStudies", method = RequestMethod.POST)
 	public ResponseEntity<Object> addStudies(@RequestBody Studies studies, Principal user) {
 		
+
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
-		
 		foundUser.addStudies(studies);
+		
+			
 		studiesRepository.save(studies);
+
 		userRepository.save(foundUser);
 		
 		return ResponseEntity.noContent().build();
@@ -235,7 +237,7 @@ public class UserController {
 		userRepository.save(foundUser);
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@RequestMapping(value = "/updateStudies", method = RequestMethod.POST)
 	public void updateStudies(@RequestBody Object studies, Principal user) {
 		
@@ -311,7 +313,6 @@ public class UserController {
 
 	}
 
-
 	@RequestMapping(value="/addFriends", method = RequestMethod.POST)
 	public void addFriends(@RequestBody List<String> friends, Principal user) {
 		String email = user.getName(); //Email
@@ -350,47 +351,5 @@ public class UserController {
 		return foundUser.getAppUserFriends(userRepository);
 		
 	}
-	
-	@RequestMapping(value = "/deleteFriend", method = RequestMethod.POST)
-	public ResponseEntity<Object> deleteFriend(@RequestBody Object emailDelete, Principal user) {
-		String email = user.getName(); //Email
-		emailDelete = emailDelete.toString().replace("[", "").replaceAll("]","");
-		AppUser foundUser = userRepository.findByEmail(email);
 
-		if (foundUser.getFriends().contains(emailDelete)) {
-			foundUser.getFriends().remove(emailDelete);
-			userRepository.save(foundUser);
-			return ResponseEntity.noContent().build();
-		}
-		return ResponseEntity.notFound().build();
-		
-	}
-	
-	@RequestMapping(value = "/updateComments", method = RequestMethod.POST)
-	public ResponseEntity<Object> updateComments(@RequestBody Object comments, Principal user) {
-		
-		String email = user.getName(); //Email
-		AppUser foundUser = userRepository.findByEmail(email);
-		Map info = ((Map)comments);
-		Set s = info.keySet();
-		
-		Integer index = (Integer) info.get("index");
-		String mail = (String) info.get("email");
-
-		Publication p = foundUser.sortedPublications(userRepository).get(index);
-
-		
-		for (Object key: s){
-			String k = key.toString().replace("[", "").replaceAll("]","");
-			switch (k) {
-				case "comment":
-					p.addComment(email, info.get(key).toString());
-					publicationRepository.save(p);
-					break;
-			}
-		}
-		return ResponseEntity.noContent().build();
-		
-		
-	}
 }

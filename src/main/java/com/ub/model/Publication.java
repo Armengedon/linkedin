@@ -1,6 +1,5 @@
 package com.ub.model;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
@@ -18,6 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 public class Publication implements Comparable<Publication> {
 	
+	private int i = 0;
 
 	@Id
 	@GeneratedValue
@@ -88,11 +88,12 @@ public class Publication implements Comparable<Publication> {
 	
 	public void addComment(String email, String comment) {
 		
-		List<String> commentUser = new ArrayList<String>();
+		List<String> commentUser = null;
 		if (comments.containsKey(email)) {
 			commentUser = comments.get(email);
 		}
-		commentUser.add(comment);
+		commentUser.add(i+ " "+comment);
+		i++;
 		comments.put(email,commentUser);
 	}
 	
