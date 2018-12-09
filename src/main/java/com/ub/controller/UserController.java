@@ -327,20 +327,24 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/setJIndex", method = RequestMethod.POST)
-	public ResponseEntity<Object> setJIndex(@RequestBody Integer index, Principal user) {
+	public ResponseEntity<Object> setJIndex(@RequestBody Object index, Principal user) {
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
-		foundUser.setjIndex(index);
+		Map info = ((Map)index);
+		Integer index_num = (Integer) info.get("index");
+		foundUser.setjIndex(index_num);
 		
 		return ResponseEntity.noContent().build();
 		
 	}
 	
 	@RequestMapping(value = "/setSIndex", method = RequestMethod.POST)
-	public ResponseEntity<Object> setSIndex(@RequestBody Integer index, Principal user) {
+	public ResponseEntity<Object> setSIndex(@RequestBody Object index, Principal user) {
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
-		foundUser.setsIndex(index);
+		Map info = ((Map)index);
+		Integer index_num = (Integer) info.get("index");
+		foundUser.setsIndex(index_num);
 		
 		return ResponseEntity.noContent().build();
 		
