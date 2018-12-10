@@ -1,22 +1,28 @@
 package com.ub.controller;
 
+
 import java.util.ArrayList;
+<<<<<<< HEAD
+=======
+
+>>>>>>> feature-112
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -243,6 +249,69 @@ public class UserController {
 		return ResponseEntity.noContent().build();
 	}
 
+	@RequestMapping(value="/addFriends", method = RequestMethod.POST)
+	public void addFriends(@RequestBody List<String> friends, Principal user) {
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+
+		
+		if (foundUser.getFriends().isEmpty()) {
+
+			foundUser.setFriends(friends);
+		} else {
+
+			for (int i = 0; i < friends.size(); i ++ ) { foundUser.addFriend(friends.get(i));}
+		}
+		
+		userRepository.save(foundUser);
+	}
+	
+	@RequestMapping(value="/getUserByMail", method= RequestMethod.GET)
+	public AppUser getUserByMail(@RequestBody Object email) {
+		String k = email.toString().replace("[", "").replaceAll("]","");
+		return userRepository.findByEmail(k);
+		
+	}
+	
+	@RequestMapping(value="/getSearch", method = RequestMethod.GET)
+	public List<AppUser> getSearch(Principal user) {
+		
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		String input = foundUser.getUserSearch();
+
+		Map<Integer,List<AppUser>> scores = new HashMap<Integer,List<AppUser>>();
+		List<AppUser> users = userRepository.findAll();
+
+		Integer score;
+		
+		
+		for (int i = 0; i < users.size(); i++) {
+			List<AppUser> temp = new ArrayList<AppUser>();
+			
+			score = lDist.getDistance(input, (users.get(i).getFirstName()+users.get(i).getSecondName()));
+
+			if (scores.containsKey(score)) {
+				temp = scores.get(score);
+			}
+			temp.add(users.get(i));
+			scores.put(score, temp);
+		}
+		
+		ArrayList<Integer> sortedKeys = new ArrayList<Integer>(scores.keySet()); 
+	    Collections.sort(sortedKeys);
+
+	    
+	    List<AppUser> results = new ArrayList<AppUser>();
+	    for (Integer s: sortedKeys) {
+	    	for (AppUser u: scores.get(s)) {
+	    		results.add(u);
+	    	}
+	    	
+	    }
+	    return results;
+	}
+  
 	@RequestMapping(value = "/updateStudies", method = RequestMethod.POST)
 	public ResponseEntity<Object> updateStudies(@RequestBody Object studies, Principal user) {
 		
@@ -336,7 +405,6 @@ public class UserController {
 		
 		userRepository.save(foundUser);
 		return ResponseEntity.noContent().build();
-		
 	}
 	
 	@RequestMapping(value="/getUserByMail", method= RequestMethod.GET)
@@ -435,4 +503,5 @@ public class UserController {
 		userRepository.save(foundUser);
 		
 		return ResponseEntity.noContent().build();
+	}
 }

@@ -88,6 +88,7 @@ public class AppUser {
     @Column(name = "Postal_Code", nullable = true)
 	private long postalCode;
     
+    private String userSearch;
     private Integer sIndex = 0;
     public Integer getsIndex() {
 		return sIndex;
@@ -106,6 +107,7 @@ public class AppUser {
 	}
 
 	private Integer jIndex = 0;
+
     
 
     
@@ -258,6 +260,16 @@ public class AppUser {
 	public void setPublications_list(List<Publication> publications_list) {
 		this.publications_list = publications_list;
 	}
+
+	public String getUserSearch() {
+		return userSearch;
+	}
+
+	public void setUserSearch(String userSearch) {
+		this.userSearch = userSearch;
+	}
+	
+
 	
 	public List<Publication> sortedPublications(UserRepository repo) {
 		
