@@ -401,6 +401,7 @@ public class UserController {
 		return foundUser.getsIndex();
 	}
 	
+	
 	@RequestMapping(value = "/getJIndex", method = RequestMethod.GET)
 	public Integer getJIndex(Principal user) {
 		String email = user.getName(); //Email
