@@ -2,8 +2,10 @@ package com.ub.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -16,10 +18,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 import com.ub.repository.UserRepository;
+import com.ub.utils.LevenshteinDistance;
 
 @Entity
 @Table(name = "App_User", //
@@ -51,6 +55,8 @@ public class AppUser {
     @ElementCollection
     private List<String> friends = new ArrayList<String>();
 
+    private Integer sIndex = 0;
+	private Integer jIndex = 0;
 
 	@ManyToMany(cascade = { 
     	    CascadeType.PERSIST, 
@@ -71,13 +77,18 @@ public class AppUser {
     @OneToMany(mappedBy = "user")
     private List<Publication> publications_list = new ArrayList<>();
     
+    @OneToOne(mappedBy="user")
+    private PhotoUser pic;
     
-    @Column(name = "Photo", length = 64, nullable = true)
-	private String photoUser;
-    
-    
+
     @Column(name = "Postal_Code", nullable = true)
 	private long postalCode;
+    
+
+
+	@Column(name = "Photo", length = 64, nullable = true)
+	private String photoUser;
+    
     
 
     
@@ -182,13 +193,7 @@ public class AppUser {
 	public void setStudies_list(List<Studies> studies_list) {
 		this.studies_list = studies_list;
 	}
-	
-	public String getPhotoUser() {
-		return photoUser;
-	}
- 	public void setPhotoUser(String photoUser) {
-		this.photoUser = photoUser;
-	}
+
  	public long getPostalCode() {
 		return postalCode;
 	}
@@ -223,7 +228,6 @@ public class AppUser {
 		if (!this.friends.contains(email) && !this.email.equals(email)) {
 			this.friends.add(email);
 		}
-		
 	}
 
 	public List<Publication> getPublications_list() {
@@ -260,5 +264,80 @@ public class AppUser {
 		return friends;
 		
 	}
+	
+
+	
+	public List<AppUser> makeSearch(UserRepository repo, String input, LevenshteinDistance lDist) {
+		
+		Map<Integer,List<AppUser>> scores = new HashMap<Integer,List<AppUser>>();
+		List<AppUser> users = repo.findAll();
+
+		Integer score;
+		
+		
+		for (int i = 0; i < users.size(); i++) {
+			List<AppUser> temp = new ArrayList<AppUser>();
+			
+			score = lDist.getDistance(input, (users.get(i).getFirstName()+users.get(i).getSecondName()));
+
+			if (scores.containsKey(score)) {
+				temp = scores.get(score);
+			}
+			temp.add(users.get(i));
+			scores.put(score, temp);
+		}
+		
+		ArrayList<Integer> sortedKeys = new ArrayList<Integer>(scores.keySet()); 
+	    Collections.sort(sortedKeys);
+
+	    
+	    List<AppUser> results = new ArrayList<AppUser>();
+	    for (Integer i: sortedKeys) {
+	    	for (AppUser u: scores.get(i)) {
+	    		results.add(u);
+	    	}
+	    	
+	    }
+	    return results;
+	}
+	
+	
+    
+    public Integer getsIndex() {
+		return sIndex;
+	}
+
+	public void setsIndex(Integer sIndex) {
+		this.sIndex = sIndex;
+	}
+
+	public Integer getjIndex() {
+		return jIndex;
+	}
+
+	public void setjIndex(Integer jIndex) {
+		this.jIndex = jIndex;
+	}
+
+	public PhotoUser getPic() {
+		return pic;
+	}
+
+	public void setPic(PhotoUser pic) {
+		pic.setUser(this);
+		this.pic = pic;
+	}
+	
+    public String getPhotoUser() {
+		return photoUser;
+	}
+
+	public void setPhotoUser(String photoUser) {
+		this.photoUser = photoUser;
+	}
+
+	
+	
+	
 	
 }
