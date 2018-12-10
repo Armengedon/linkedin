@@ -96,18 +96,24 @@
 </script>
 <script>
 	function search() {
+		var search_text_obj = {};
 		var text = document.getElementById('search-text');
+		search_text_obj["search"] = text.value;
+		var search_text_json = JSON.stringify(search_text_obj);
+		console.log(search_text_json);
 		
 		$.ajax({
 			  url:"/users/search",
-			  type:"GET",
-			  data:text.value,
+			  type:"POST",
+			  data:search_text_json,
 			  contentType:"application/json; charset=utf-8",
 			  dataType:"json",
 			  success: function(){
 					$.get("/users/search ", function(data) {
 						console.log(data);
 					});
+					
+					window.location.href = "/search_results";
 			  }
 			});
 	}

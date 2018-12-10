@@ -89,7 +89,7 @@ public class AppUser {
 	private long postalCode;
     
     private String userSearch;
-    private Integer sIndex = 0;
+
     public Integer getsIndex() {
 		return sIndex;
 	}
@@ -105,12 +105,7 @@ public class AppUser {
 	public void setjIndex(Integer jIndex) {
 		this.jIndex = jIndex;
 	}
-
-	private Integer jIndex = 0;
-
-    
-
-    
+  
     public AppUser() {
     }
 
@@ -331,28 +326,5 @@ public class AppUser {
 	    	
 	    }
 	    return results;
-	}
-	
-	
-    
-    public Integer getsIndex() {
-		return sIndex;
-	}
-
-	public void setsIndex(Integer sIndex) {
-		this.sIndex = sIndex;
-	}
-
-	public Integer getjIndex() {
-		return jIndex;
-	}
-
-	public void setjIndex(Integer jIndex) {
-		this.jIndex = jIndex;
-	}
-
-	
-	
-	
-	
+	}	
 }

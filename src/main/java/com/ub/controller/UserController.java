@@ -2,10 +2,7 @@ package com.ub.controller;
 
 
 import java.util.ArrayList;
-<<<<<<< HEAD
-=======
 
->>>>>>> feature-112
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -248,30 +245,6 @@ public class UserController {
 		userRepository.save(foundUser);
 		return ResponseEntity.noContent().build();
 	}
-
-	@RequestMapping(value="/addFriends", method = RequestMethod.POST)
-	public void addFriends(@RequestBody List<String> friends, Principal user) {
-		String email = user.getName(); //Email
-		AppUser foundUser = userRepository.findByEmail(email);
-
-		
-		if (foundUser.getFriends().isEmpty()) {
-
-			foundUser.setFriends(friends);
-		} else {
-
-			for (int i = 0; i < friends.size(); i ++ ) { foundUser.addFriend(friends.get(i));}
-		}
-		
-		userRepository.save(foundUser);
-	}
-	
-	@RequestMapping(value="/getUserByMail", method= RequestMethod.GET)
-	public AppUser getUserByMail(@RequestBody Object email) {
-		String k = email.toString().replace("[", "").replaceAll("]","");
-		return userRepository.findByEmail(k);
-		
-	}
 	
 	@RequestMapping(value="/getSearch", method = RequestMethod.GET)
 	public List<AppUser> getSearch(Principal user) {
@@ -454,9 +427,8 @@ public class UserController {
 		Set s = info.keySet();
 		
 		String input = (String) info.get("search");
-
-		
-		foundUser.makeSearch(userRepository,input,lDist);
+		foundUser.setUserSearch(input);
+		userRepository.save(foundUser);
 
 	    return ResponseEntity.noContent().build();
 	}

@@ -13,12 +13,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.ub.model.AppUser;
 import com.ub.repository.UserRepository;
 import com.ub.utils.WebUtils;
+import com.ub.utils.LevenshteinDistance;
 
 @Controller
 public class MainController {
 
 	@Autowired
 	private UserRepository userRepository;
+	
+	private LevenshteinDistance lDist = new LevenshteinDistance();
 	
 	@RequestMapping(value = { "/", "/welcome" }, method = RequestMethod.GET)
     public String welcomePage(Model model) {
@@ -70,6 +73,19 @@ public class MainController {
         return "mainPage";
     }
 
+    @RequestMapping(value = {"/search_results" }, method = RequestMethod.GET)
+    public String searchPage(Model model, Principal principal) {
+        String userName = principal.getName();
+    	
+    	AppUser appUser = userRepository.findByEmail(userName);
+        model.addAttribute("appUser", appUser);
+        
+		model.addAttribute("userRepository",userRepository);
+		model.addAttribute("lDist", lDist);
+		
+        return "search-results";
+    }
+    
     @RequestMapping(value = {"/mynetwork" }, method = RequestMethod.GET)
     public String networkPage(Model model, Principal principal) {
         String userName = principal.getName();
