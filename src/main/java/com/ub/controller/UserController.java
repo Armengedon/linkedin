@@ -464,7 +464,6 @@ public class UserController {
 		
 		PhotoUser photo = null;
 		
-		
 		if (!file.isEmpty()) {
 			byte[] bytes = file.getBytes();
 			foundUser.setPic(photo);

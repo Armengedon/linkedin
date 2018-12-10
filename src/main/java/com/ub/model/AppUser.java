@@ -89,9 +89,6 @@ public class AppUser {
 	@Column(name = "Photo", length = 64, nullable = true)
 	private String photoUser;
     
-    
-
-    
     public AppUser() {
     }
 
@@ -251,7 +248,9 @@ public class AppUser {
 			}
 		}
 		Collections.sort(sorted);
+		Collections.reverse(sorted);
 		this.friends.remove(this.email);
+		repo.save(this);
 		return sorted;
 		
 	}
