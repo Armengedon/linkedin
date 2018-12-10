@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.io.IOException;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +27,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ub.model.AppUser;
 
 import com.ub.model.JobExperience;
+import com.ub.model.PhotoUser;
 import com.ub.model.Publication;
 import com.ub.model.Studies;
 
 import com.ub.repository.JobExperienceRepository;
+import com.ub.repository.PhotoUserRepository;
 import com.ub.repository.PublicationRepository;
 import com.ub.repository.StudiesRepository;
 import com.ub.repository.UserRepository;
@@ -62,6 +66,9 @@ public class UserController {
 	
 	@Autowired
 	private PublicationRepository publicationRepository;
+	
+	@Autowired
+	private PhotoUserRepository photoRepo;
 	
 	private LevenshteinDistance lDist = new LevenshteinDistance();
 		
@@ -438,6 +445,28 @@ public class UserController {
 		return ResponseEntity.noContent().build();
 		
 	}
+	
+	@RequestMapping(value = "/addPhoto", method  = RequestMethod.POST)
+	public ResponseEntity<Object> addPhoto(@RequestBody MultipartFile file, Principal user) throws IOException {
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		
+		PhotoUser photo = null;
+		
+		
+		if (!file.isEmpty()) {
+			byte[] bytes = file.getBytes();
+			foundUser.setPic(photo);
+			userRepository.save(foundUser);
+			return ResponseEntity.noContent().build();
+        }
+		
+		return ResponseEntity.notFound().build();
+		
+		
+	}
+	
+	
 
 	
 	
