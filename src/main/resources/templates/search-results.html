@@ -1,0 +1,65 @@
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title th:utext="${title}"></title>
+
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		
+		<link rel="stylesheet" href="/resources/css/navbar.css">
+   </head>
+
+	<body>
+		<header>
+			<th:block th:include="_navbar"></th:block>
+		</header>
+		
+		<div class="container contacts" th:if="${appUser != null}">
+			<div class="row num-contacts">
+				<h1 th:if="${appUser.friends.size() == 1}" th:utext="${appUser.friends.size()} + ' contacto' " class="text_header_contacts"></h1>
+				<h1 th:if="${appUser.friends.size() != 1}" th:utext="${appUser.friends.size()} + ' contactos' " class="text_header_contacts"></h1>
+			</div>
+			
+
+				<form  th:each="friend, iter: *{userFriends}" class="row contacts-list">
+						
+						<div class="col-sm-1 contact-img">
+							<img alt="profile-image" class="contact-img" th:if="${friend != null && friend.photoUser != null}" th:src="${appUser.photoUser}">
+							<img alt="profile-image" class="contact-img" th:unless="${friend != null && friend.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
+						</div>
+						
+						<div class="col-sm-9 contact-info">
+							<p class="name-contact">
+								<a th:if="${friend != null}" th:utext="${friend.firstName} + ' ' + ${friend.secondName}"></a>
+							</p>
+							<p class="info-contact">
+								<p class="info-contact">
+                                	<a th:if="${friend != null && !friend.experiences.isEmpty()}" th:utext="${friend.experiences.get(friend.experiences.size()-1).title + ' en ' +  friend.experiences.get(friend.experiences.size()-1).company_Name}"></a>
+                               	</p>
+                               	<p class="info-contact">
+                               		<a th:if="${friend != null && !friend.studies_list.isEmpty()}" th:utext="${'Estudiante en ' + friend.studies_list.get(friend.studies_list.size()-1).university}"></a>
+                               	</p>
+                               	<p class="info-contact">
+                                	<a th:if="${friend == null || (friend.experiences.isEmpty() && friend.studies_list.isEmpty())}">
+                                		No tiene estudios ni experiencia
+                                	</a>
+                               	</p>
+							</p>
+						</div>
+						
+						<div class="col-sm-1 add-delete-contact">
+							<button class="button btn-delete">Elimina</button>
+						</div>
+						
+						<hr size="1px" color="silver"></hr>
+					
+				</form>
+			
+		</div>
+	
+	</body>

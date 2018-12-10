@@ -30,10 +30,10 @@
 			        			<img alt="profile-image" class="profile" th:unless="${appUser != null && appUser.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
 								<h5 class="card-title text-center" th:if="${appUser != null}" th:utext="${appUser.firstName} + ' ' + ${appUser.secondName}"></h5>
 								<p class="card-text text-center">
-									<a th:if="${appUser != null && !appUser.experiences.isEmpty()}" th:utext="${'Trabaja en ' + appUser.experiences.get(appUser.experiences.size()-1).company_Name}"></a>
+									<a th:if="${appUser != null && !appUser.experiences.isEmpty()}" th:utext="${'Trabaja en ' + appUser.experiences.get(appUser.getjIndex()).company_Name}"></a>
 								</p>
 								<p class="card-text text-center">
-									<a th:if="${appUser != null && !appUser.studies_list.isEmpty()}" th:utext="${'Estudiante en ' + appUser.studies_list.get(appUser.studies_list.size()-1).university}"></a>
+									<a th:if="${appUser != null && !appUser.studies_list.isEmpty()}" th:utext="${'Estudiante en ' + appUser.studies_list.get(appUser.getsIndex()).university}"></a>
 								</p>
 								<p class="card-text text-center">
 									<a th:if="${appUser == null || (appUser.experiences.isEmpty() && appUser.studies_list.isEmpty())}">No tiene estudios ni experiencia</a>
