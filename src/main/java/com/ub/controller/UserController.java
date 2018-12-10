@@ -237,7 +237,7 @@ public class UserController {
 		userRepository.save(foundUser);
 		return ResponseEntity.noContent().build();
 	}
-	
+
 	@RequestMapping(value = "/updateStudies", method = RequestMethod.POST)
 	public void updateStudies(@RequestBody Object studies, Principal user) {
 		
@@ -311,6 +311,60 @@ public class UserController {
 		//studiesRepository.
 		userRepository.save(foundUser);
 
+	}
+
+	@RequestMapping(value="/addFriends", method = RequestMethod.POST)
+	public void addFriends(@RequestBody List<String> friends, Principal user) {
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+
+		
+		if (foundUser.getFriends().isEmpty()) {
+
+			foundUser.setFriends(friends);
+		} else {
+
+			for (int i = 0; i < friends.size(); i ++ ) { foundUser.addFriend(friends.get(i));}
+		}
+		
+		userRepository.save(foundUser);
+	}
+	
+	@RequestMapping(value="/getUserByMail", method= RequestMethod.GET)
+	public AppUser getUserByMail(@RequestBody Object email) {
+		String k = email.toString().replace("[", "").replaceAll("]","");
+		return userRepository.findByEmail(k);
+		
+	}
+	
+	@RequestMapping(value="getSortedPubli", method = RequestMethod.GET)
+	public List<Publication> getSortedList(Principal user) {
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		return foundUser.sortedPublications(userRepository);
+	}
+	
+	@RequestMapping(value="getAppUserFriends", method = RequestMethod.GET) 
+	public List<AppUser> getAppUserFriends(Principal user) {
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		return foundUser.getAppUserFriends(userRepository);
+		
+	}
+	
+	@RequestMapping(value = "/deleteFriend", method = RequestMethod.POST)
+	public ResponseEntity<Object> deleteFriend(@RequestBody Object emailDelete, Principal user) {
+		String email = user.getName(); //Email
+		emailDelete = emailDelete.toString().replace("[", "").replaceAll("]","");
+		AppUser foundUser = userRepository.findByEmail(email);
+
+		if (foundUser.getFriends().contains(emailDelete)) {
+			foundUser.getFriends().remove(emailDelete);
+			userRepository.save(foundUser);
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.notFound().build();
+		
 	}
 
 }
