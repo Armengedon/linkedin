@@ -329,17 +329,28 @@ public class UserController {
 	}
 
 	@RequestMapping(value="/addFriends", method = RequestMethod.POST)
-	public ResponseEntity<Object> addFriends(@RequestBody List<String> friends, Principal user) {
+	public ResponseEntity<Object> addFriends(@RequestBody Object friends, Principal user) {
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
-
+		
+		Map info = ((Map)friends);
+		Set s = info.keySet();
+		
+		List<String> addFriends = (List<String>) info.get("list");
+		
+		
+		String temp = "";
 		
 		if (foundUser.getFriends().isEmpty()) {
 
-			foundUser.setFriends(friends);
-		} else {
-
-			for (int i = 0; i < friends.size(); i ++ ) { foundUser.addFriend(friends.get(i));}
+			for (int i = 0; i < addFriends.size(); i ++ ) { 
+				temp = addFriends.get(i);
+				if (!temp.equals(email) && !foundUser.getFriends().contains(temp)) {
+					System.out.println("SAOFHUAUUAOS EMAIL"+temp+"thisemail"+email);
+					
+					foundUser.addFriend(temp);
+				}
+			}
 		}
 		
 		userRepository.save(foundUser);
@@ -457,6 +468,7 @@ public class UserController {
 		if (!file.isEmpty()) {
 			byte[] bytes = file.getBytes();
 			foundUser.setPic(photo);
+			photoRepo.save(photo);
 			userRepository.save(foundUser);
 			return ResponseEntity.noContent().build();
         }

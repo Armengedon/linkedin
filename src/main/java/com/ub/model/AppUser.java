@@ -84,6 +84,10 @@ public class AppUser {
     @Column(name = "Postal_Code", nullable = true)
 	private long postalCode;
     
+
+
+	@Column(name = "Photo", length = 64, nullable = true)
+	private String photoUser;
     
     
 
@@ -221,7 +225,9 @@ public class AppUser {
 	
 	public void addFriend(String email) {
 
-		this.friends.add(email);
+		if (!this.friends.contains(email) && !this.email.equals(email)) {
+			this.friends.add(email);
+		}
 	}
 
 	public List<Publication> getPublications_list() {
@@ -317,7 +323,16 @@ public class AppUser {
 	}
 
 	public void setPic(PhotoUser pic) {
+		pic.setUser(this);
 		this.pic = pic;
+	}
+	
+    public String getPhotoUser() {
+		return photoUser;
+	}
+
+	public void setPhotoUser(String photoUser) {
+		this.photoUser = photoUser;
 	}
 
 	
