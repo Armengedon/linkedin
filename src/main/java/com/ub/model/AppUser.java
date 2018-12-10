@@ -220,7 +220,10 @@ public class AppUser {
 	
 	public void addFriend(String email) {
 
-		this.friends.add(email);
+		if (!this.friends.contains(email) && !this.email.equals(email)) {
+			this.friends.add(email);
+		}
+		
 	}
 
 	public List<Publication> getPublications_list() {
@@ -235,6 +238,7 @@ public class AppUser {
 		
 		List<Publication> tempP = new ArrayList<Publication>();
 		List<Publication> sorted = new ArrayList<Publication>();
+		
 		this.friends.add(this.email);
 		for (String friend: this.friends) {
 			tempP = repo.findByEmail(friend).getPublications_list();

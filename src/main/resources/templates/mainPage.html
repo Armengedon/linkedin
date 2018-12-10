@@ -1,249 +1,279 @@
 <html xmlns:th="http://www.thymeleaf.org">
-   <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
 
-		<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-		<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		
-		<link rel="stylesheet" href="/resources/css/mainPage.css">
-   </head>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
 
-	<body>
-		<header>
-			<th:block th:include="_navbar"></th:block>
-		</header>
-		<!--PROFILE SUMMARY-->
-		<div class="con">
-			<div class="row">
-				<div class="col-md-4 mt-4">
-					<div class="container profile-box">
-						<div class="card profile-card-4"> 
-							<div class="card-img-block">
-								<img class="img-fluid" src="https://previews.123rf.com/images/foodandmore/foodandmore1403/foodandmore140300067/26700838-frontera-n%C3%A1utica-delicado-con-la-red-de-pesca-conchas-de-mar-y-estrellas-de-mar-sobre-un-fondo-de-colo.jpg" alt="Card image cap">
+	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<link rel="stylesheet" href="/resources/css/mainPage.css">
+</head>
+
+<body>
+	<header>
+		<th:block th:include="_navbar"></th:block>
+	</header>
+	<!--PROFILE SUMMARY-->
+	<div class="con">
+		<div class="row">
+			<div class="col-md-4 mt-4">
+				<div class="container profile-box">
+					<div class="card profile-card-4">
+						<div class="card-img-block">
+							<img class="img-fluid" src="https://previews.123rf.com/images/foodandmore/foodandmore1403/foodandmore140300067/26700838-frontera-n%C3%A1utica-delicado-con-la-red-de-pesca-conchas-de-mar-y-estrellas-de-mar-sobre-un-fondo-de-colo.jpg"
+							 alt="Card image cap">
+						</div>
+						<div class="card-body pt-5">
+							<img alt="profile-image" class="profile" th:if="${appUser != null && appUser.photoUser != null}" th:src="${appUser.photoUser}">
+							<img alt="profile-image" class="profile" th:unless="${appUser != null && appUser.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
+							<h5 class="card-title text-center" th:if="${appUser != null}" th:utext="${appUser.firstName} + ' ' + ${appUser.secondName}"></h5>
+							<p class="card-text text-center">
+								<a th:if="${appUser != null && !appUser.experiences.isEmpty()}" th:utext="${'Trabaja en ' + appUser.experiences.get(appUser.experiences.size()-1).company_Name}"></a>
+							</p>
+							<p class="card-text text-center">
+								<a th:if="${appUser != null && !appUser.studies_list.isEmpty()}" th:utext="${'Estudiante en ' + appUser.studies_list.get(appUser.studies_list.size()-1).university}"></a>
+							</p>
+							<p class="card-text text-center">
+								<a th:if="${appUser == null || (appUser.experiences.isEmpty() && appUser.studies_list.isEmpty())}">No tiene
+									estudios ni experiencia</a>
+							</p>
+						</div>
+						<div class="card-body1">
+							<div class="basic_text">
+								<p>Contactos</p>
+								<p>Amplía tu red</p>
 							</div>
-							<div class="card-body pt-5">
-								<img alt="profile-image" class="profile" th:if="${appUser != null && appUser.photoUser != null}" th:src="${appUser.photoUser}">
-			        			<img alt="profile-image" class="profile" th:unless="${appUser != null && appUser.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
-								<h5 class="card-title text-center" th:if="${appUser != null}" th:utext="${appUser.firstName} + ' ' + ${appUser.secondName}"></h5>
-								<p class="card-text text-center">
-									<a th:if="${appUser != null && !appUser.experiences.isEmpty()}" th:utext="${'Trabaja en ' + appUser.experiences.get(appUser.experiences.size()-1).company_Name}"></a>
-								</p>
-								<p class="card-text text-center">
-									<a th:if="${appUser != null && !appUser.studies_list.isEmpty()}" th:utext="${'Estudiante en ' + appUser.studies_list.get(appUser.studies_list.size()-1).university}"></a>
-								</p>
-								<p class="card-text text-center">
-									<a th:if="${appUser == null || (appUser.experiences.isEmpty() && appUser.studies_list.isEmpty())}">No tiene estudios ni experiencia</a>
-								</p>
+							<div class="reversed_text" th:if="${appUser != null}">
+								<a th:utext="${appUser.experiences.size()}"></a>
 							</div>
-							<div class="card-body1">
-								<div class="basic_text">
-									<p>Contactos</p>
-									<p>Amplía tu red</p>
-								</div>
-								<div class="reversed_text" th:if="${appUser != null}">
-									<a th:utext="${appUser.experiences.size()}"></a>
-								</div>
-							</div>
-							<div class="card-body2">
-								<p class="card-text text-center">Accede a información y herraminetas exclusivas</p>
-							</div>
+						</div>
+						<div class="card-body2">
+							<p class="card-text text-center">Accede a información y herraminetas exclusivas</p>
 						</div>
 					</div>
 				</div>
+			</div>
 
-				
-				<div class="col-xs-12 col-sm-6 col-md-4">
-					<div class="container2">
-						<div class="container3">
-							<div class="container4">
-								<div class="row">
-									<div class="col-xs-12 col-sm-6 col-md-4">	
-										<img class= "avatar" th:if="${appUser != null && appUser.photoUser != null}" th:src="${appUser.photoUser}">
-			        					<img class= "avatar" th:unless="${appUser != null && appUser.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
-									</div>
-									<h6 th:if="${appUser != null}" th:utext="${appUser.firstName} + ' ' + ${appUser.secondName}"></h6>
-								</div>	
-							</div>
-							<div class="container5">
-								<textarea rows="3" placeholder="Escribe aquí" id="messageText"
-								name="messageText" form="messageTextPost" onkeyup="success()"></textarea>
-								
-								<img id="output" class="avatar1" src="" style="display: none;"/>
-								<input type="file" id="my_file" style="display: none;" form="messageTextPost" onchange="loadFile(event)"/>
-								
-							</div>
-							<div class="container6">
-								<div>
-									<a class="btn btn-light" href="#" onclick="buttonCam()">
-										<i class="fa fa-camera fa-lg"></i>
-									</a>
+
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="container2">
+					<div class="container3">
+						<div class="container4">
+							<div class="row">
+								<div class="col-xs-12 col-sm-6 col-md-4">
+									<img class="avatar" th:if="${appUser != null && appUser.photoUser != null}" th:src="${appUser.photoUser}">
+									<img class="avatar" th:unless="${appUser != null && appUser.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
 								</div>
-								<div>
-									<a class="btn btn-light" href="#" onclick="buttonPencil()">
-										<i class="fa fa-pencil fa-lg"></i>
-									</a>
-								</div>
-							 	<div>
-									<button type="submit" id="publicar" class="btn btn-primary" disabled>Publicar</button>
-									
-								</div>
-									
+								<h6 th:if="${appUser != null}" th:utext="${appUser.firstName} + ' ' + ${appUser.secondName}"></h6>
 							</div>
 						</div>
-					<hr>
-					 
+						<div class="container5">
+							<textarea rows="3" placeholder="Escribe aquí" id="messageText" name="messageText" form="messageTextPost" onkeyup="success()"></textarea>
+
+							<img id="output" class="avatar1" src="" style="display: none;" />
+							<input type="file" id="my_file" style="display: none;" form="messageTextPost" onchange="loadFile(event)" />
+
+						</div>
+						<div class="container6">
+							<div>
+								<button type="submit" id="publicar" class="btn btn-primary" disabled onclick="enviarPubli()">Publicar</button>
+
+							</div>
+
+						</div>
 					</div>
-					<div class="col-xs-12 col-sm-6 col-md-4">
-						<!-- <div class="post" id="post2"> -->
+					<hr>
 
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-4">
+					<div th:if="${appUser != null && !appUser.sortedPublications(userRepository).isEmpty()}">
+						<div th:each="publi, iter: *{appUser.sortedPublications(userRepository)}" class="container3-1">
+							<div class="caption">
+								<div class="content">
+									<div class="row">
+										<div class="author">
+											<img class="avatar" th:if="${publi.user.photoUser != null}" th:src="${publi.user.photoUser}">
+											<img class="avatar" th:unless="${publi.user.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
+											<div class="name">
+												<div class="col">
+													<p id="person" th:utext="${publi.user.firstName} + ' ' + ${publi.user.secondName}"></p>
+													<p id="date" th:utext="${publi.date}"></p>
+												</div>
+											</div>
+										</div>
+										<div class="text">
+											<p th:utext="${publi.mainText}"></p>
+										</div>
 
-						<div th:if="${appUser != null && !appUser.publication.isEmpty()}">
-							<th:block th:object="${appUser}">
-								<div th:each="publi, iter: *{publication}" class="container3-1">
-									<div class="caption">
-										<div class="content">
-											<div class="row">
-												<div class="author">
-													<img class= "avatar" th:if="${publi.user.photoUser != null}" th:src="${publi.user.photoUser}">
-													<img class= "avatar" th:unless="${publi.user.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
-													<div class="name">
-														<div class="col">
-															<p id="person" th:utext="${publi.user.firstName} + ' ' + ${publi.user.secondName}"></p>
-															<p id="date" th:utext="${publi.date}"></p>
-														</div>
-													</div>
+										<div class="[ panel panel-default ] panel-google-plus">
+											<div class="panel-footer">
+												<div class="input-placeholder">Add a comment...</div>
+												<script>
+													$(function () {
+														$('.panel-google-plus > .panel-footer > .input-placeholder, .panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > button[type="reset"]').on('click', function(event) {
+															var $panel = $(this).closest('.panel-google-plus');
+																$comment = $panel.find('.panel-google-plus-comment');
+
+															$comment.find('.btn:first-child').addClass('disabled');
+															$comment.find('textarea').val('');
+
+															$panel.toggleClass('panel-google-plus-show-comment');
+
+															if ($panel.hasClass('panel-google-plus-show-comment')) {
+																$comment.find('textarea').focus();
+															}
+														});
+														$('.panel-google-plus-comment > .panel-google-plus-textarea > textarea').on('keyup', function(event) {
+															var $comment = $(this).closest('.panel-google-plus-comment');
+
+															$comment.find('button[type="submit"]').addClass('disabled');
+															if ($(this).val().length >= 1) {
+																$comment.find('button[type="submit"]').removeClass('disabled');
+															}
+														});
+													});
+												</script>
+											</div>
+											<div class="panel-google-plus-comment">
+												<img alt="User Image" class="avatar" th:if="${appUser.photoUser != null}" th:src="${appUser.photoUser}">
+												<img alt="User Image" class="avatar" th:unless="${appUser.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
+												<div class="panel-google-plus-textarea">
+													<textarea th:id="'messageComment ' + ${iter.index}" rows="1"></textarea>
+													<button type="submit" id="commentPost" class="btn btn-primary disabled" th:onclick="|storeComment(${iter.index})|">Post comment</button>
+													<button type="reset" class="btn btn-light">Cancel</button>
 												</div>
-												<div class="text">
-													<p th:utext="${publi.mainText}"></p>
-												</div>
-												<div class="[ panel panel-default ] panel-google-plus">
-													<div class="panel-footer">
-														<button type="button" class="[ btn btn-default ]">+1</button>
-														
-													</div>
-													<div class="panel-google-plus-comment">
-														<img alt="User Image" class="avatar" th:if="${appUser.photoUser != null}" th:src="${appUser.photoUser}">
-														<img alt="User Image" class="avatar" th:unless="${appUser.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
-														<div class="panel-google-plus-textarea">
-															<textarea rows="4"></textarea>
-															<button type="submit" class="btn btn-success">Post comment</button>
-															<button type="reset" class="btn btn-default">Cancel</button>
-														</div>
-														
-													</div>
-												</div>
+											</div>
+											<div class="container comentaris">
+												<p id="person-comentari" th:utext="${publi.user.firstName} + ' ' + ${publi.user.secondName}"></p>
+												<p>Hola primer comentari</p>
 											</div>
 										</div>
 									</div>
 								</div>
-							</th:block>
+							</div>
 						</div>
-					</div>		
+					</div>
 				</div>
 			</div>
 		</div>
-		<script type="text/javascript">
-			function success() {
-				if(document.getElementById("messageText").value==="") { 
-					document.getElementById('publicar').disabled = true; 
-				} else { 
-					document.getElementById('publicar').disabled = false;
+	</div>
+	<script type="text/javascript">
+		function success() {
+			if (document.getElementById("messageText").value === "") {
+				document.getElementById('publicar').disabled = true;
+			} else {
+				document.getElementById('publicar').disabled = false;
+			}
+		}
+
+	</script>
+
+	<script th:inline="javascript">
+
+		function storeComment(index) {
+			var publication_index = -1;
+			console.log(publication_index);
+			var email = [[${appUser.email}]];
+			var textComment = document.getElementById('messageComment '+index);
+
+			publication_index = index;
+
+			console.log(email);
+			console.log(textComment);
+			console.log(publication_index);
+
+			var obj = {};
+
+			obj["index"] = index;
+			obj["comment"] = textComment.value;
+			obj["email"] = email;
+
+			var json = JSON.stringify(obj);
+			console.log(json);
+
+			$.ajax({
+				url: "/users/updateComments",
+				type: "POST",
+				data: json,
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				success: function () {
+					$.post("/users/updateComments ", json, function (data, status) {
+						alert("Data: " + data + "\nStatus: " + status);
+					});
+					location.reload();
 				}
-			}
-			
-		</script>
-		
-		<script type="text/javascript">
-			var textPublication = document.getElementById('messageText');
+			})
+		}
+	</script>
+
+	<script type="text/javascript">
+
+
+		function enviarPubli() {
+
+			var textPublication = document.getElementById('messageText').value;
+			document.getElementById("messageText").value = "";
+			document.getElementById("publicar").disabled;
 			var datePublication = new Date();
-			var btnStorePubli = document.getElementById("publicar");
-		
-			btnStorePubli.onclick = function() {
-		
-				var obj = {};
-				
-				obj["mainText"] = textPublication.value;
-				obj["date"] 	= datePublication;
-				
-				var json = JSON.stringify(obj);
-				console.log(json);
-				
-				$.ajax({
-					  url:"/users/addPublication",
-					  type:"POST",
-					  data:json,
-					  contentType:"application/json; charset=utf-8",
-					  dataType:"json",
-					  success: function(){
-							$.post("/users/addPublication ", json, function(data, status) {
-								alert("Data: " + data + "\nStatus: " + status);
-							});
-							window.location.href = "/feed";
-					  }
-					})
-		
-			}
-		
-		</script>
-		
-		
-		<script type="text/javascript">
-			function buttonCam(){
-				document.getElementById("messageText").style.display="none";
-				document.getElementById("my_file").style.display="block";
-				document.getElementById("output").style.display="block";
-				document.getElementById("publicar").disabled = false;
-				document.getElementById("my_file").click();
-			}
-		</script>
-		
-		
-		<script type="text/javascript">
-			function buttonPencil(){
-				document.getElementById("output").style.display="none";
-				document.getElementById("my_file").style.display="none";
-				document.getElementById("messageText").style.display="block";
-				document.getElementById("publicar").disabled = true; 
-			}
-		</script>
-		
-		<script>
-			var loadFile = function(event) {
+
+			var obj = {};
+
+			obj["mainText"] = textPublication;
+			obj["date"] = datePublication;
+
+			var json = JSON.stringify(obj);
+			console.log(json);
+
+			$.ajax({
+				url: "/users/addPublication",
+				type: "POST",
+				data: json,
+				contentType: "application/json; charset=utf-8",
+				dataType: "json",
+				success: function () {
+					$.post("/users/addPublication ", json, function (data, status) {
+						alert("Data: " + data + "\nStatus: " + status);
+					});
+					location.reload();
+				}
+			})
+
+		}
+
+	</script>
+
+
+	<script type="text/javascript">
+		function buttonCam() {
+			document.getElementById("messageText").style.display = "none";
+			document.getElementById("my_file").style.display = "block";
+			document.getElementById("output").style.display = "block";
+			document.getElementById("publicar").disabled = false;
+			document.getElementById("my_file").click();
+		}
+	</script>
+
+
+	<script type="text/javascript">
+		function buttonPencil() {
+			document.getElementById("output").style.display = "none";
+			document.getElementById("my_file").style.display = "none";
+			document.getElementById("messageText").style.display = "block";
+			document.getElementById("publicar").disabled = true;
+		}
+	</script>
+
+	<script>
+		var loadFile = function (event) {
 			var output = document.getElementById('output');
 			output.src = URL.createObjectURL(event.target.files[0]);
-			};
-		</script>
+		};
+	</script>
+</body>
 
-		<script>
-			function close(event) {
-				
-					var $panel = $(this).closest('.panel-google-plus');
-					$comment = $panel.find('.panel-google-plus-comment');
-							
-					$comment.find('.btn:first-child').addClass('disabled');
-					$comment.find('textarea').val('');
-						
-					$panel.toggleClass('panel-google-plus-show-comment');
-						
-					if ($panel.hasClass('panel-google-plus-show-comment')) {
-						$comment.find('textarea').focus();
-					}
-				}
-		</script>
-		<script>
-			function comment(event){
-				var $comment = $(this).closest('.panel-google-plus-comment');										
-				$comment.find('button[type="submit"]').addClass('disabled');
-				if ($(this).val().length >= 1) {
-					$comment.find('button[type="submit"]').removeClass('disabled');
-				}
-			}
-		</script>
-
-	</body>
 </html>
-
