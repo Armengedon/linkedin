@@ -273,13 +273,27 @@ p{
     margin-left: 5px;
 }
 
+#person{
+    margin-left: 5px;
+    font-weight: bold;
+}
+
+#date{
+    margin-left:5px;
+    font-weight: bold;
+}
+
 .container3-1{
     width: 552px;
     height: auto;
     border: 1px solid rgb(196, 196, 196);
     margin-bottom: 30px;
+    overflow: hidden;
 }
 
+.filas{
+    display: table;
+}
 
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,700);
 
@@ -319,16 +333,16 @@ p{
     background-color: white;
 }
 .panel-google-plus.panel-google-plus-show-comment > .panel-footer > .input-placeholder {
-    display: none;   
+    /*display: none;*/ 
 }
 .panel-google-plus > .panel-google-plus-comment {
-    display: none;
+    /*display: none;*/
     padding: 10px 20px 15px;
     border-top: 1px solid rgb(229, 229, 229);
     background-color: white;
 }
 .panel-google-plus.panel-google-plus-show-comment > .panel-google-plus-comment {
-    display: block;
+    /*display: block;*/
 }
 /*.panel-google-plus > .panel-google-plus-comment > img {
     float: left;   
