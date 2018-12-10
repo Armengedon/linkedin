@@ -242,6 +242,7 @@ public class AppUser {
 		
 		List<Publication> tempP = new ArrayList<Publication>();
 		List<Publication> sorted = new ArrayList<Publication>();
+		
 		this.friends.add(this.email);
 		for (String friend: this.friends) {
 			tempP = repo.findByEmail(friend).getPublications_list();
