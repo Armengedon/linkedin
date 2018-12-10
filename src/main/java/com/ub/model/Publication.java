@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-public class Publication {
+public class Publication implements Comparable<Publication> {
 	
 	private int i = 0;
 
@@ -95,5 +95,13 @@ public class Publication {
 		commentUser.add(i+ " "+comment);
 		i++;
 		comments.put(email,commentUser);
+	}
+	
+	@Override
+	public int compareTo(Publication u) {
+		if (getDate() == null || u.getDate() == null) {
+			return 0;
+		}
+		return getDate().compareTo(u.getDate());
 	}
 }

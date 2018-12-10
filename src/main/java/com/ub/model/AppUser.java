@@ -1,12 +1,16 @@
 package com.ub.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -16,6 +20,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
+
+import com.ub.repository.UserRepository;
+import com.ub.utils.LevenshteinDistance;
 
 @Entity
 @Table(name = "App_User", //
@@ -42,9 +49,19 @@ public class AppUser {
     
     @Column(name = "User_Country", length = 128, nullable = true)
     private String country;
+    
+    @Column(name = "Friends", nullable = true)
+    @ElementCollection
+    private List<String> friends = new ArrayList<String>();
+
+    
+    private Integer sIndex = 0;
+	private Integer jIndex = 0;
+    
+    
 
 
-    @ManyToMany(cascade = { 
+	@ManyToMany(cascade = { 
     	    CascadeType.PERSIST, 
     	    CascadeType.MERGE
     	})
@@ -219,5 +236,111 @@ public class AppUser {
 	public void setCountry(String country) {
 		this.country = country;
 	}
+	
+    public List<String> getFriends() {
+		return friends;
+	}
+
+	public void setFriends(List<String> friends) {
+
+		this.friends = friends;
+	}
+	
+	public void addFriend(String email) {
+
+		this.friends.add(email);
+	}
+
+	public List<Publication> getPublications_list() {
+		return publications_list;
+	}
+
+	public void setPublications_list(List<Publication> publications_list) {
+		this.publications_list = publications_list;
+	}
+	
+	public List<Publication> sortedPublications(UserRepository repo) {
+		
+		List<Publication> tempP = new ArrayList<Publication>();
+		List<Publication> sorted = new ArrayList<Publication>();
+		this.friends.add(this.email);
+		for (String friend: this.friends) {
+			tempP = repo.findByEmail(friend).getPublications_list();
+			for (Publication p: tempP) {
+				sorted.add(p);
+			}
+		}
+		Collections.sort(sorted);
+		this.friends.remove(this.email);
+		return sorted;
+		
+	}
+	
+	public List<AppUser> getAppUserFriends(UserRepository repo) {
+		List<AppUser> friends = new ArrayList<AppUser>();
+		for (String friend: this.friends) {
+			friends.add(repo.findByEmail(friend));
+		}
+		return friends;
+		
+	}
+	
+
+	
+	public List<AppUser> makeSearch(UserRepository repo, String input, LevenshteinDistance lDist) {
+		
+		Map<Integer,List<AppUser>> scores = new HashMap<Integer,List<AppUser>>();
+		List<AppUser> users = repo.findAll();
+
+		Integer score;
+		
+		
+		for (int i = 0; i < users.size(); i++) {
+			List<AppUser> temp = new ArrayList<AppUser>();
+			
+			score = lDist.getDistance(input, (users.get(i).getFirstName()+users.get(i).getSecondName()));
+
+			if (scores.containsKey(score)) {
+				temp = scores.get(score);
+			}
+			temp.add(users.get(i));
+			scores.put(score, temp);
+		}
+		
+		ArrayList<Integer> sortedKeys = new ArrayList<Integer>(scores.keySet()); 
+	    Collections.sort(sortedKeys);
+
+	    
+	    List<AppUser> results = new ArrayList<AppUser>();
+	    for (Integer i: sortedKeys) {
+	    	for (AppUser u: scores.get(i)) {
+	    		results.add(u);
+	    	}
+	    	
+	    }
+	    return results;
+	}
+	
+	
+    
+    public Integer getsIndex() {
+		return sIndex;
+	}
+
+	public void setsIndex(Integer sIndex) {
+		this.sIndex = sIndex;
+	}
+
+	public Integer getjIndex() {
+		return jIndex;
+	}
+
+	public void setjIndex(Integer jIndex) {
+		this.jIndex = jIndex;
+	}
+
+	
+	
+	
 	
 }
