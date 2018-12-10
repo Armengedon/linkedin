@@ -2,7 +2,10 @@ package com.ub.controller;
 
 
 import java.util.ArrayList;
+<<<<<<< HEAD
+=======
 
+>>>>>>> feature-112
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -245,7 +248,6 @@ public class UserController {
 		userRepository.save(foundUser);
 		return ResponseEntity.noContent().build();
 	}
-	
 
 	@RequestMapping(value="/addFriends", method = RequestMethod.POST)
 	public void addFriends(@RequestBody List<String> friends, Principal user) {
@@ -269,15 +271,6 @@ public class UserController {
 		String k = email.toString().replace("[", "").replaceAll("]","");
 		return userRepository.findByEmail(k);
 		
-	}
-	
-	@RequestMapping(value = "/search", method = RequestMethod.POST)
-	public ResponseEntity<Object> search(@RequestBody String input, Principal user) {
-		String email = user.getName(); //Email
-		AppUser foundUser = userRepository.findByEmail(email);
-		foundUser.setUserSearch(input);
-		userRepository.save(foundUser);
-		return ResponseEntity.noContent().build();
 	}
 	
 	@RequestMapping(value="/getSearch", method = RequestMethod.GET)
@@ -318,14 +311,6 @@ public class UserController {
 	    }
 	    return results;
 	}
-	
-	@RequestMapping(value="/ssearch", method = RequestMethod.GET)
-	public int ssearch() {
-		System.out.println(lDist.toString());
-		
-		
-		return lDist.getDistance("A", "Antoni");
-  }
   
 	@RequestMapping(value = "/updateStudies", method = RequestMethod.POST)
 	public ResponseEntity<Object> updateStudies(@RequestBody Object studies, Principal user) {
@@ -366,6 +351,7 @@ public class UserController {
 		}
 		
 		//studiesRepository.
+		
 		userRepository.save(foundUser);
 		return ResponseEntity.noContent().build();
 
@@ -402,40 +388,120 @@ public class UserController {
 		userRepository.save(foundUser);
 		return ResponseEntity.noContent().build();
 	}
-	
-	@RequestMapping(value = "/getIndex", method = RequestMethod.GET)
-	public Integer getIndex(@RequestBody String type, Principal user) {
+
+	@RequestMapping(value="/addFriends", method = RequestMethod.POST)
+	public ResponseEntity<Object> addFriends(@RequestBody List<String> friends, Principal user) {
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
-		if (type.equals("S")) {
-			return foundUser.getsIndex();
+
+		
+		if (foundUser.getFriends().isEmpty()) {
+
+			foundUser.setFriends(friends);
 		} else {
-			return foundUser.getjIndex();
+
+			for (int i = 0; i < friends.size(); i ++ ) { foundUser.addFriend(friends.get(i));}
 		}
+		
+		userRepository.save(foundUser);
+		return ResponseEntity.noContent().build();
 	}
 	
-	@RequestMapping(value = "/setJIndex", method = RequestMethod.POST)
-	public ResponseEntity<Object> setJIndex(@RequestBody Object index, Principal user) {
+	@RequestMapping(value="/getUserByMail", method= RequestMethod.GET)
+	public AppUser getUserByMail(@RequestBody Object email) {
+		String k = email.toString().replace("[", "").replaceAll("]","");
+		return userRepository.findByEmail(k);
+		
+	}
+	
+	@RequestMapping(value="getSortedPubli", method = RequestMethod.GET)
+	public List<Publication> getSortedList(Principal user) {
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
-		Map info = ((Map)index);
-		Integer index_num = (Integer) info.get("index");
-		foundUser.setjIndex(index_num);
+		return foundUser.sortedPublications(userRepository);
+	}
+	
+	@RequestMapping(value="getAppUserFriends", method = RequestMethod.GET) 
+	public List<AppUser> getAppUserFriends(Principal user) {
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		return foundUser.getAppUserFriends(userRepository);
+		
+	}
+	
+	@RequestMapping(value = "/deleteFriend", method = RequestMethod.POST)
+	public ResponseEntity<Object> deleteFriend(@RequestBody Object emailDelete, Principal user) {
+		String email = user.getName(); //Email
+		emailDelete = emailDelete.toString().replace("[", "").replaceAll("]","");
+		AppUser foundUser = userRepository.findByEmail(email);
+
+		if (foundUser.getFriends().contains(emailDelete)) {
+			foundUser.getFriends().remove(emailDelete);
+			userRepository.save(foundUser);
+			return ResponseEntity.noContent().build();
+		}
+		return ResponseEntity.notFound().build();
+		
+	}
+	
+	@RequestMapping(value="/search", method = RequestMethod.POST)
+	public ResponseEntity<Object> search(@RequestBody Object search, Principal user) {
+		
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		
+		Map info = ((Map)search);
+		Set s = info.keySet();
+		
+		String input = (String) info.get("search");
+
+		
+		foundUser.makeSearch(userRepository,input,lDist);
+
+	    return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value = "/getSIndex", method = RequestMethod.GET)
+	public Integer getSIndex(Principal user) {
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		return foundUser.getsIndex();
+	}
+	
+	
+	@RequestMapping(value = "/getJIndex", method = RequestMethod.GET)
+	public Integer getJIndex(Principal user) {
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		return foundUser.getjIndex();
+	}
+	
+	
+	
+	@RequestMapping(value = "/setJIndex", method = RequestMethod.POST)
+	public ResponseEntity<Object> setJIndex(@RequestBody Object indexJSON, Principal user) {
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		Map info = ((Map)indexJSON);
+		Set s = info.keySet();
+		Integer index = (Integer) info.get("index");
+		foundUser.setjIndex(index);
+		userRepository.save(foundUser);
 		
 		return ResponseEntity.noContent().build();
 		
 	}
 	
 	@RequestMapping(value = "/setSIndex", method = RequestMethod.POST)
-	public ResponseEntity<Object> setSIndex(@RequestBody Object index, Principal user) {
+	public ResponseEntity<Object> setSIndex(@RequestBody Object indexJSON, Principal user) {
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
-		Map info = ((Map)index);
-		Integer index_num = (Integer) info.get("index");
-		foundUser.setsIndex(index_num);
+		Map info = ((Map)indexJSON);
+		Set s = info.keySet();
+		Integer index = (Integer) info.get("index");
+		foundUser.setsIndex(index);
+		userRepository.save(foundUser);
 		
 		return ResponseEntity.noContent().build();
-		
 	}
-
 }
