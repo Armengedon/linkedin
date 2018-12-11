@@ -423,9 +423,8 @@ public class UserController {
 		Set s = info.keySet();
 		
 		String input = (String) info.get("search");
-
-		
-		foundUser.makeSearch(userRepository,input,lDist);
+		foundUser.setUserSearch(input);
+		userRepository.save(foundUser);
 
 	    return ResponseEntity.noContent().build();
 	}
@@ -491,7 +490,14 @@ public class UserController {
         }
 		
 		return ResponseEntity.notFound().build();
-		
+
+	}
+	
+	@RequestMapping(value= "/g", method = RequestMethod.GET)
+	public List<AppUser> get(Principal user) {
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		return foundUser.makeSearch(userRepository, foundUser.getUserSearch(), lDist);
 		
 	}
 	

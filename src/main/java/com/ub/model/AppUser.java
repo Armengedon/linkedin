@@ -55,7 +55,10 @@ public class AppUser {
     @ElementCollection
     private List<String> friends = new ArrayList<String>();
 
+    @Column(name = "Study_Index", nullable = true)
     private Integer sIndex = 0;
+
+    @Column(name = "Job_Index", nullable = true)
 	private Integer jIndex = 0;
 
 	@ManyToMany(cascade = { 
@@ -88,6 +91,9 @@ public class AppUser {
     
 	@Column(name = "Photo", length = 64, nullable = true)
 	private String photoUser;
+
+	@Column(name = "Last_Search", nullable=true)
+	private String userSearch;
     
     public AppUser() {
     }
@@ -265,20 +271,25 @@ public class AppUser {
 		
 		Map<Integer,List<AppUser>> scores = new HashMap<Integer,List<AppUser>>();
 		List<AppUser> users = repo.findAll();
+		
 
 		Integer score;
 		
 		
 		for (int i = 0; i < users.size(); i++) {
-			List<AppUser> temp = new ArrayList<AppUser>();
+			if (!users.get(i).getEmail().equals(this.email)) {
+				
 			
-			score = lDist.getDistance(input, (users.get(i).getFirstName()+users.get(i).getSecondName()));
-
-			if (scores.containsKey(score)) {
-				temp = scores.get(score);
+				List<AppUser> temp = new ArrayList<AppUser>();
+				
+				score = lDist.getDistance(input, (users.get(i).getFirstName()+users.get(i).getSecondName()));
+	
+				if (scores.containsKey(score)) {
+					temp = scores.get(score);
+				}
+				temp.add(users.get(i));
+				scores.put(score, temp);
 			}
-			temp.add(users.get(i));
-			scores.put(score, temp);
 		}
 		
 		ArrayList<Integer> sortedKeys = new ArrayList<Integer>(scores.keySet()); 
@@ -287,8 +298,10 @@ public class AppUser {
 	    
 	    List<AppUser> results = new ArrayList<AppUser>();
 	    for (Integer i: sortedKeys) {
-	    	for (AppUser u: scores.get(i)) {
-	    		results.add(u);
+	    	if (i < 5) {
+		    	for (AppUser u: scores.get(i)) {
+		    		results.add(u);
+		    	}
 	    	}
 	    	
 	    }
@@ -329,6 +342,14 @@ public class AppUser {
 	public void setPhotoUser(String photoUser) {
 		this.photoUser = photoUser;
 	}
+
+	public String getUserSearch() {
+		return userSearch;
+	}
+
+	public void setUserSearch(String userSearch) {
+		this.userSearch = userSearch;
+}
 
 	
 	
