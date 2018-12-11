@@ -71,7 +71,7 @@
   </div>
 </div>
 
-<script>
+<script th:inline="javascript">
 	//Get the modal
 	var profile_modal = document.getElementById('myModal');
 	
@@ -113,8 +113,20 @@
 						alert("Data: " + data + "\nStatus: " + status);
 					});
 					
-					var selected_experience = document.getElementById("experiences-selector").selectedIndex;
-					changeExperienceIndex(selected_experience);
+					var experience_list_check = /*[[${appUser.experiences.size()}]]*/ 0;
+					var studies_list_check = /*[[${appUser.studies_list.size()}]]*/ 0;
+					if (experience_list_check > 0) {
+						var selected_experience = document.getElementById("experiences-selector").selectedIndex;
+						changeExperienceIndex(selected_experience);
+					}
+					else if (studies_list_check > 0) {
+						var selected_study = document.getElementById("studies-selector").selectedIndex;
+						changeStudyIndex(selected_study);
+					}
+					else {
+						profile_modal.style.display = "none";
+					    location.reload();
+					}
 			  }
 			})
 	}
@@ -136,8 +148,15 @@
 						alert("Data: " + data + "\nStatus: " + status);
 					});
 					
-					var selected_study = document.getElementById("studies-selector").selectedIndex;
-					changeStudyIndex(selected_study);
+					var studies_list_check = /*[[${appUser.studies_list.size()}]]*/ 0;
+					if (studies_list_check > 0) {
+						var selected_study = document.getElementById("studies-selector").selectedIndex;
+						changeStudyIndex(selected_study);
+					}
+					else {
+						profile_modal.style.display = "none";
+					    location.reload();
+					}
 			  }
 			})
 	}
