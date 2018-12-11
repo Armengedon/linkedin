@@ -32,7 +32,7 @@
 		</div>
 		<div th:if="${appUser != null && !appUser.studies_list.isEmpty()}" class="full-form">
 			<label>Estudios</label>
-			<select class="form-control form-control-lg  selector-form">
+			<select class="form-control form-control-lg  selector-form" id="studies-selector">
 				<th:block th:object="${appUser}">
 					<option th:each="studies: *{studies_list}" th:text="${studies.title} + ' en ' + ${studies.university}" th:selected="${studies == appUser.studies_list.get(appUser.studies_list.size()-1)}"></option>
 				</th:block>
@@ -43,7 +43,7 @@
 		</div>
 		<div th:if="${appUser != null && !appUser.experiences.isEmpty()}" class="full-form">
 			<label>Experiencias</label>
-			<select class="form-control form-control-lg selector-form">
+			<select class="form-control form-control-lg selector-form" id="experiences-selector">
 				<th:block th:object="${appUser}">
 					<option th:each="experience: *{experiences}" th:text="${experience.title} + ' en ' + ${experience.company_Name}" th:selected="${experience == appUser.experiences.get(appUser.experiences.size()-1)}"></option>
 				</th:block>
@@ -112,8 +112,55 @@
 					$.post("/users/updatePersonalInfo ", profile_json, function(data, status) {
 						alert("Data: " + data + "\nStatus: " + status);
 					});
+					
+					var selected_experience = document.getElementById("experiences-selector").selectedIndex;
+					changeExperienceIndex(selected_experience);
+			  }
+			})
+	}
+	
+	function changeExperienceIndex(index) {
+		var experience_selected_obj = {};
+		experience_selected_obj["index"] = index;
+		var experience_selected_json = JSON.stringify(experience_selected_obj);
+		console.log(experience_selected_json);
+		
+		$.ajax({
+			  url:"/users/setJIndex",
+			  type:"POST",
+			  data:experience_selected_json,
+			  contentType:"application/json; charset=utf-8",
+			  dataType:"json",
+			  success: function(){
+					$.post("/users/setJIndex ", experience_selected_json, function(data, status) {
+						alert("Data: " + data + "\nStatus: " + status);
+					});
+					
+					var selected_study = document.getElementById("studies-selector").selectedIndex;
+					changeStudyIndex(selected_study);
+			  }
+			})
+	}
+	
+	function changeExperienceIndex(index) {
+		var study_selected_obj = {};
+		study_selected_obj["index"] = index;
+		var study_selected_json = JSON.stringify(study_selected_obj);
+		console.log(study_selected_json);
+		
+		$.ajax({
+			  url:"/users/setSIndex",
+			  type:"POST",
+			  data:study_selected_json,
+			  contentType:"application/json; charset=utf-8",
+			  dataType:"json",
+			  success: function(){
+					$.post("/users/setSIndex ", study_selected_json, function(data, status) {
+						alert("Data: " + data + "\nStatus: " + status);
+					});
+					
 					profile_modal.style.display = "none";
-					location.reload();
+				    location.reload();
 			  }
 			})
 	}

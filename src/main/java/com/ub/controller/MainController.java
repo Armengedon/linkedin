@@ -66,8 +66,8 @@ public class MainController {
     	AppUser appUser = userRepository.findByEmail(userName);
     	
         model.addAttribute("appUser", appUser);
-		model.addAttribute("userRepository", userRepository);
-
+		model.addAttribute("userRepository",userRepository);
+        
         return "mainPage";
     }
 

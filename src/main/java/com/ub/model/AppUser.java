@@ -85,7 +85,7 @@ public class AppUser {
 
     @Column(name = "Postal_Code", nullable = true)
 	private long postalCode;
-
+    
 	@Column(name = "Photo", length = 64, nullable = true)
 	private String photoUser;
     

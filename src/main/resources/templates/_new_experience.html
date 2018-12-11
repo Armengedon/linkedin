@@ -30,7 +30,7 @@
   </div>
 </div>
 
-<script>
+<script th:inline="javascript">
 	//Get the modal
 	var experience_modal = document.getElementById('experience-modal');
 	
@@ -74,6 +74,30 @@
 					$.post("/users/addJobExperience ", experience_json, function(data, status) {
 						alert("Data: " + data + "\nStatus: " + status);
 					});
+					
+					var new_selected_experience = /*[[${appUser.experiences.size()}]]*/ 0;
+					newExperienceIndex(new_selected_experience);
+			  }
+			})
+	}
+	
+	function newExperienceIndex(index) {
+		var new_experience_selected_obj = {};
+		new_experience_selected_obj["index"] = index;
+		var new_experience_selected_json = JSON.stringify(new_experience_selected_obj);
+		console.log(new_experience_selected_json);
+		
+		$.ajax({
+			  url:"/users/setJIndex",
+			  type:"POST",
+			  data:new_experience_selected_json,
+			  contentType:"application/json; charset=utf-8",
+			  dataType:"json",
+			  success: function(){
+					$.post("/users/setJIndex ", new_experience_selected_json, function(data, status) {
+						alert("Data: " + data + "\nStatus: " + status);
+					});
+					
 					experience_modal.style.display = "none";
 				    location.reload();
 			  }
