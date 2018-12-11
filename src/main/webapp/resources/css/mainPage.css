@@ -111,7 +111,7 @@ i.fa-camera { margin-left: 5px; margin-top:5px;}
 }
 
 .container5{
-    height: 82px; 
+    height: 82px;
     border-bottom: 1px solid rgb(196, 196, 196);
     background-color: white;
 }
@@ -126,7 +126,7 @@ i.fa-camera { margin-left: 5px; margin-top:5px;}
 }
 
 .container6 > div{
-    display: inline-block; 
+    display: inline-block;
 
     margin-right: 5px;
     margin-left: 20px;
@@ -157,19 +157,19 @@ h6 {
     margin-left: 5px;
     margin-top:10px;
     margin-bottom: 10px;
-    
+
 }
 
 .btn-primary{
-    margin-left: 250px;
+    margin-left: 370px;
     margin-top: 2px;
 }
 
-textarea { 
+textarea {
 	width:100%;
-    border-style: none; 
-    border-color: Transparent; 
-    overflow: auto;        
+    border-style: none;
+    border-color: Transparent;
+    overflow: auto;
 }
 
 .avatar1{
@@ -185,7 +185,7 @@ textarea {
     background-color: white;
     padding: 10px;
 
-    
+
     border: 1px solid rgb(196, 196, 196);
 }
 .content {
@@ -231,7 +231,8 @@ textarea {
     margin: .5rem 0;
     width: 500px;
     margin-top:1px;
-    background-color: whiteS;
+    background-color: white;
+    margin-top: -50px !important;
   }
   .post .category {
     visibility: hidden;
@@ -278,6 +279,17 @@ p{
     font-weight: bold;
 }
 
+#person-comentari{
+    margin-left: 5px;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.comentaris p{
+    font-size: 11px;
+    margin-left: 5px;
+}
+
 #date{
     margin-left:5px;
     font-weight: bold;
@@ -291,24 +303,31 @@ p{
     overflow: hidden;
 }
 
-.filas{
-    display: table;
+.comentaris{
+    width: 535px;
+    height: auto;
+    overflow: hidden;
+    margin-bottom: 2px;
+    margin-top: 5px;
 }
 
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,700);
 
 .panel-google-plus {
     position: relative;
-    width: 100%;
+    width: 120% !important;
     border-radius: 0px;
     border-top: 1px solid rgb(196, 196, 196);
     font-family: 'Roboto', sans-serif;
-    background-color: white;
+    background-color: #f3f6f8;
+    margin-left: -19px;
+    margin-right: -17px;
+    margin-bottom: -31px;
 }
 
 .panel-google-plus > .panel-footer {
-    background-color: white;
-    border-width: 0px; 
+    background-color: #f3f6f8;
+    border-width: 0px;
     width: 100%;
 }
 
@@ -323,7 +342,8 @@ p{
 }
 .panel-google-plus > .panel-footer > .input-placeholder {
     display: block;
-    margin-left: 98px;
+    margin-left: 10px;
+    margin-right: 10px;
     font-size: 12px;
     font-weight: 400;
     padding: 8px 6px 7px;
@@ -333,19 +353,20 @@ p{
     background-color: white;
 }
 .panel-google-plus.panel-google-plus-show-comment > .panel-footer > .input-placeholder {
-    /*display: none;*/ 
+    display: none;
 }
 .panel-google-plus > .panel-google-plus-comment {
-    /*display: none;*/
+    display: none;
     padding: 10px 20px 15px;
     border-top: 1px solid rgb(229, 229, 229);
-    background-color: white;
+    background-color: #f3f6f8;
+    margin-bottom: 30px;
 }
 .panel-google-plus.panel-google-plus-show-comment > .panel-google-plus-comment {
-    /*display: block;*/
+    display: block;
 }
 /*.panel-google-plus > .panel-google-plus-comment > img {
-    float: left;   
+    float: left;
 }*/
 .panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea {
     float: right;
@@ -361,30 +382,37 @@ p{
     box-shadow: rgba(0, 0, 0, 0.0470588) 0px 1px 0px 0px;
     resize: vertical;
 }
-.panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > .btn {
+.panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > .btn-primary{
     margin-top: 10px;
     margin-right: 8px;
+    margin-left: 5px;
+    width: 100%;
+}
+
+.panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > .btn-light{
+    margin-top: 10px;
+    margin-right: 8px;
+    margin-left: 5px;
     width: 100%;
 }
 @media (min-width: 992px) {
     .panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > .btn {
         width: auto;
-    }    
+    }
 }
 
-
 .panel-google-plus .btn {
-    border-radius: 3px;   
+    border-radius: 3px;
 }
 .panel-google-plus .btn-default {
     border: 1px solid rgb(217, 217, 217);
     box-shadow: rgba(0, 0, 0, 0.0470588) 0px 1px 0px 0px;
 }
-.panel-google-plus .btn-default:hover, 
-.panel-google-plus .btn-default:focus, 
+.panel-google-plus .btn-default:hover,
+.panel-google-plus .btn-default:focus,
 .panel-google-plus .btn-default:active {
-    background-color: rgb(255, 255, 255);
-    border-color: rgb(0, 0, 0);    
+    background-color: #f3f6f8;
+    border-color: rgb(0, 0, 0);
 }
 
 body{
