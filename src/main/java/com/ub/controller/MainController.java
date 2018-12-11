@@ -158,9 +158,5 @@ public class MainController {
         return "403Page";
     }
 	
-    @RequestMapping(value = "/error", method = RequestMethod.GET)
-    public String error404(Model model) {
-    	return "error404";
-    }
 	
 }
