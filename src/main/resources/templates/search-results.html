@@ -10,42 +10,40 @@
 		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 		
 		<link rel="stylesheet" href="/resources/css/network.css">
-		
-	</head>
+   </head>
 
 	<body>
 		<header>
 			<th:block th:include="_navbar"></th:block>
 		</header>
 		
-
 			<div class="container contacts" th:if="${appUser != null}">
 				<div class="row num-contacts">
-					<h1 th:if="${appUser.friends.size() == 1}" th:utext="${appUser.friends.size()} + ' contacto' " class="text_header_contacts"></h1>
-					<h1 th:if="${appUser.friends.size() != 1}" th:utext="${appUser.friends.size()} + ' contactos' " class="text_header_contacts"></h1>
+					<h1 th:if="${appUser.makeSearch(userRepository, appUser.getUserSearch(), lDist).size() == 1}" th:utext="${appUser.makeSearch(userRepository, appUser.getUserSearch(), lDist).size()} + ' resultado' " class="text_header_contacts"></h1>
+					<h1 th:if="${appUser.makeSearch(userRepository, appUser.getUserSearch(), lDist).size() != 1}" th:utext="${appUser.makeSearch(userRepository, appUser.getUserSearch(), lDist).size()} + ' resultados' " class="text_header_contacts"></h1>
 				</div>
 				
 
-					<form  th:each="friend, iter: *{appUser.getAppUserFriends(userRepository)}" class="row contacts-list">
+					<form  th:each="contact, iter: *{appUser.makeSearch(userRepository, appUser.getUserSearch(), lDist)}" class="row contacts-list">
 							
-							<div class="col-sm-1 contact-img" th:if="${friend != null}">
-								<img alt="profile-image" class="contact-img" th:if="${friend != null && friend.photoUser != null}" th:src="${friend.photoUser}">
-								<img alt="profile-image" class="contact-img" th:unless="${friend != null && friend.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
+							<div class="col-sm-1 contact-img" th:if="${contact != null}">
+								<img alt="profile-image" class="contact-img" th:if="${contact != null && contact.photoUser != null}" th:src="${contact.photoUser}">
+								<img alt="profile-image" class="contact-img" th:unless="${contact != null && contact.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
 							</div>
 							
-							<div class="col-sm-9 contact-info" th:if="${friend != null}">
+							<div class="col-sm-9 contact-info" th:if="${contact != null}">
 								<p class="name-contact">
-									<a th:utext="${friend.firstName} + ' ' + ${friend.secondName}"></a>
+									<a th:utext="${contact.firstName} + ' ' + ${contact.secondName}"></a>
 								</p>
 								<p class="info-contact">
 									<p class="info-contact">
-	                                	<a th:if="${!friend.experiences.isEmpty()}" th:utext="${friend.experiences.get(friend.jIndex).title + ' en ' +  friend.experiences.get(friend.jIndex).company_Name}"></a>
+	                                	<a th:if="${!contact.experiences.isEmpty()}" th:utext="${contact.experiences.get(contact.jIndex).title + ' en ' +  contact.experiences.get(contact.jIndex).company_Name}"></a>
                                 	</p>
                                 	<p class="info-contact">
-                                		<a th:if="${!friend.studies_list.isEmpty()}" th:utext="${'Estudiante en ' + friend.studies_list.get(friend.sIndex).university}"></a>
+                                		<a th:if="${!contact.studies_list.isEmpty()}" th:utext="${'Estudiante en ' + contact.studies_list.get(contact.sIndex).university}"></a>
                                 	</p>
                                 	<p class="info-contact">
-	                                	<a th:if="${(friend.experiences.isEmpty() && friend.studies_list.isEmpty())}">
+	                                	<a th:if="${(contact.experiences.isEmpty() && contact.studies_list.isEmpty())}">
 	                                		No tiene estudios ni experiencia
 	                                	</a>
                                 	</p>
@@ -54,28 +52,26 @@
 							
 							<div class="col-sm-1 add-delete-contact">
 							
-								<button th:id="${friend.email}" class="button btn-delete" onclick="deleteFriend(this)">Elimina</button>
+								<button th:id="${contact.email}" class="button btn-delete" onclick="contactFriend(this)">Contact</button>
 							</div>
 							
 							<hr size="1px" color="silver"></hr>
 						
 					</form>
-				
-			</div>
-		
-		
-	</body>
+			
+		</div>
 	
+	</body>
 </html>
 
 <script>
 
-	function deleteFriend(item) {
+	function contactFriend(item) {
 			
-		var delete_obj = item.id;
+		var contact_obj = item.id;
 
-		var friend_json = JSON.stringify(delete_obj);
-		console.log(friend_json);
+		var contact_json = JSON.stringify(contact_obj);
+		console.log(contact_json);
 		
 		$.ajax({
 			  url:"/users/deleteFriend",

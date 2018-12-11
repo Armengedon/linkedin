@@ -11,9 +11,9 @@
 	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	        <form class="form-inline my-2 my-lg-0">
 	             <div class="input-group input-group-sm">
-	                 <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Busqueda">
+	                 <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Busqueda" id="search-text">
 	                 <div class="input-group-append">
-	                     <button type="button" class="btn btn-secondary btn-number">
+	                     <button type="button" class="btn btn-secondary btn-number" onclick="search()">
 	                         <i class="fa fa-search"></i>
 	                     </button>
 	                 </div>
@@ -93,4 +93,28 @@
 		}
 		
 	});
+</script>
+<script>
+	function search() {
+		var search_text_obj = {};
+		var text = document.getElementById('search-text');
+		search_text_obj["search"] = text.value;
+		var search_text_json = JSON.stringify(search_text_obj);
+		console.log(search_text_json);
+		
+		$.ajax({
+			  url:"/users/search",
+			  type:"POST",
+			  data:search_text_json,
+			  contentType:"application/json; charset=utf-8",
+			  dataType:"json",
+			  success: function(){
+					$.get("/users/search ", function(data) {
+						console.log(data);
+					});
+					
+					window.location.href = "/search_results";
+			  }
+			});
+	}
 </script>
