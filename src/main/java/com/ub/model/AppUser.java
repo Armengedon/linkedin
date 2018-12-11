@@ -271,20 +271,25 @@ public class AppUser {
 		
 		Map<Integer,List<AppUser>> scores = new HashMap<Integer,List<AppUser>>();
 		List<AppUser> users = repo.findAll();
+		
 
 		Integer score;
 		
 		
 		for (int i = 0; i < users.size(); i++) {
-			List<AppUser> temp = new ArrayList<AppUser>();
+			if (!users.get(i).getEmail().equals(this.email)) {
+				
 			
-			score = lDist.getDistance(input, (users.get(i).getFirstName()+users.get(i).getSecondName()));
-
-			if (scores.containsKey(score)) {
-				temp = scores.get(score);
+				List<AppUser> temp = new ArrayList<AppUser>();
+				
+				score = lDist.getDistance(input, (users.get(i).getFirstName()+users.get(i).getSecondName()));
+	
+				if (scores.containsKey(score)) {
+					temp = scores.get(score);
+				}
+				temp.add(users.get(i));
+				scores.put(score, temp);
 			}
-			temp.add(users.get(i));
-			scores.put(score, temp);
 		}
 		
 		ArrayList<Integer> sortedKeys = new ArrayList<Integer>(scores.keySet()); 
@@ -293,8 +298,10 @@ public class AppUser {
 	    
 	    List<AppUser> results = new ArrayList<AppUser>();
 	    for (Integer i: sortedKeys) {
-	    	for (AppUser u: scores.get(i)) {
-	    		results.add(u);
+	    	if (i < 5) {
+		    	for (AppUser u: scores.get(i)) {
+		    		results.add(u);
+		    	}
 	    	}
 	    	
 	    }
