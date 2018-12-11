@@ -51,8 +51,8 @@
 							</div>
 							
 							<div class="col-sm-1 add-delete-contact">
-							
-								<button th:id="${contact.email}" class="button btn-delete" onclick="contactFriend(this)">Contact</button>
+								<button th:if="${appUser.friends.contains(contact.email)}" th:id="${contact.email}" class="button btn-delete" disabled>Contacted</button>
+								<button th:unless="${appUser.friends.contains(contact.email)}" th:id="${contact.email}" class="button btn-delete" onclick="contactFriend(this)">Contact</button>
 							</div>
 							
 							<hr size="1px" color="silver"></hr>
@@ -68,23 +68,23 @@
 
 	function contactFriend(item) {
 			
-		var contact_obj = item.id;
+		var contact_obj = {};
+		contact_obj["list"] = [item.id];
 
 		var contact_json = JSON.stringify(contact_obj);
 		console.log(contact_json);
 		
 		$.ajax({
-			  url:"/users/deleteFriend",
+			  url:"/users/addFriends",
 			  type:"POST",
-			  data:friend_json,
+			  data:contact_json,
 			  contentType:"application/json; charset=utf-8",
 			  dataType:"json",
 			  success: function(){
-					$.post("/users/deleteFriend ", friend_json, function(data, status) {
+					$.post("/users/addFriends ", contact_json, function(data, status) {
 						alert("Data: " + data + "\nStatus: " + status);
 					});
-					//experience_modal.style.display = "none";
-				    //location.reload();
+				    location.reload();
 			  }
 			})
 	}
