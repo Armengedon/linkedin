@@ -11,9 +11,9 @@
 	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	        <form class="form-inline my-2 my-lg-0">
 	             <div class="input-group input-group-sm">
-	                 <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Busqueda" id="search-text">
+	                 <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Busqueda" id="search-text" onkeyup="stoppedTyping()">
 	                 <div class="input-group-append">
-	                     <button type="button" class="btn btn-secondary btn-number" onclick="search()">
+	                     <button type="button" class="btn btn-secondary btn-number" onclick="search()" id="search-button">
 	                         <i class="fa fa-search"></i>
 	                     </button>
 	                 </div>
@@ -66,6 +66,9 @@
 		      	</li>
 	        </ul>
 	        <a class="premium" href="#">Abonate gratis a Premium</a>
+	        <div class="logout-cont">
+	        	<button type="button" class="btn btn-outline-primary logout-button" onclick="logout()">Log out</button>
+	        </div>
 	    </div>
 	</div>
 </nav>
@@ -116,5 +119,17 @@
 					window.location.href = "/search_results";
 			  }
 			});
+	}
+	
+	function stoppedTyping(){
+        if(this.value.length > 0) { 
+            document.getElementById('search_button').disabled = false; 
+        } else { 
+            document.getElementById('search_button').disabled = true;
+        }
+    }
+	
+	function logout() {
+		window.location.href="/logout";
 	}
 </script>
