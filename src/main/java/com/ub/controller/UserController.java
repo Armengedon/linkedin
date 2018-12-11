@@ -423,9 +423,8 @@ public class UserController {
 		Set s = info.keySet();
 		
 		String input = (String) info.get("search");
-
-		
-		foundUser.makeSearch(userRepository,input,lDist);
+		foundUser.setUserSearch(input);
+		userRepository.save(foundUser);
 
 	    return ResponseEntity.noContent().build();
 	}
