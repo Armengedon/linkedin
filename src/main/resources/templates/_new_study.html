@@ -44,7 +44,7 @@
   </div>
 </div>
 
-<script>
+<script th:inline="javascript">
 	//Get the modal
 	var education_modal = document.getElementById('education-modal');
 	
@@ -96,7 +96,7 @@
 					});
 					
 					var new_selected_study = /*[[${appUser.studies_list.size()}]]*/ 0;
-					newExperienceIndex(new_selected_study);
+					newStudyIndex(new_selected_study);
 			  }
 			})
 	}

@@ -34,7 +34,7 @@
 			<label>Estudios</label>
 			<select class="form-control form-control-lg  selector-form" id="studies-selector">
 				<th:block th:object="${appUser}">
-					<option th:each="studies: *{studies_list}" th:text="${studies.title} + ' en ' + ${studies.university}" th:selected="${studies == appUser.studies_list.get(appUser.studies_list.size()-1)}"></option>
+					<option th:each="studies: *{studies_list}" th:text="${studies.title} + ' en ' + ${studies.university}" th:selected="${studies == appUser.studies_list.get(appUser.getsIndex())}"></option>
 				</th:block>
 			</select>
 		</div>
@@ -45,7 +45,7 @@
 			<label>Experiencias</label>
 			<select class="form-control form-control-lg selector-form" id="experiences-selector">
 				<th:block th:object="${appUser}">
-					<option th:each="experience: *{experiences}" th:text="${experience.title} + ' en ' + ${experience.company_Name}" th:selected="${experience == appUser.experiences.get(appUser.experiences.size()-1)}"></option>
+					<option th:each="experience: *{experiences}" th:text="${experience.title} + ' en ' + ${experience.company_Name}" th:selected="${experience == appUser.experiences.get(appUser.getjIndex())}"></option>
 				</th:block>
 			</select>
 		</div>
@@ -71,7 +71,7 @@
   </div>
 </div>
 
-<script>
+<script th:inline="javascript">
 	//Get the modal
 	var profile_modal = document.getElementById('myModal');
 	
@@ -113,8 +113,20 @@
 						alert("Data: " + data + "\nStatus: " + status);
 					});
 					
-					var selected_experience = document.getElementById("experiences-selector").selectedIndex;
-					changeExperienceIndex(selected_experience);
+					var experience_list_check = /*[[${appUser.experiences.size()}]]*/ 0;
+					var studies_list_check = /*[[${appUser.studies_list.size()}]]*/ 0;
+					if (experience_list_check > 0) {
+						var selected_experience = document.getElementById("experiences-selector").selectedIndex;
+						changeExperienceIndex(selected_experience);
+					}
+					else if (studies_list_check > 0) {
+						var selected_study = document.getElementById("studies-selector").selectedIndex;
+						changeStudyIndex(selected_study);
+					}
+					else {
+						profile_modal.style.display = "none";
+					    location.reload();
+					}
 			  }
 			})
 	}
@@ -136,13 +148,20 @@
 						alert("Data: " + data + "\nStatus: " + status);
 					});
 					
-					var selected_study = document.getElementById("studies-selector").selectedIndex;
-					changeStudyIndex(selected_study);
+					var studies_list_check = /*[[${appUser.studies_list.size()}]]*/ 0;
+					if (studies_list_check > 0) {
+						var selected_study = document.getElementById("studies-selector").selectedIndex;
+						changeStudyIndex(selected_study);
+					}
+					else {
+						profile_modal.style.display = "none";
+					    location.reload();
+					}
 			  }
 			})
 	}
 	
-	function changeExperienceIndex(index) {
+	function changeStudyIndex(index) {
 		var study_selected_obj = {};
 		study_selected_obj["index"] = index;
 		var study_selected_json = JSON.stringify(study_selected_obj);

@@ -67,5 +67,4 @@ public class LevenshteinDistance {
 	      // actually has the most recent cost counts
 		return p[n];
 	}
-
 }
