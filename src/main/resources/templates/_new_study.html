@@ -94,6 +94,30 @@
 					$.post("/users/addStudies ", study_json, function(data, status) {
 						alert("Data: " + data + "\nStatus: " + status);
 					});
+					
+					var new_selected_study = /*[[${appUser.studies_list.size()}]]*/ 0;
+					newExperienceIndex(new_selected_study);
+			  }
+			})
+	}
+	
+	function newStudyIndex(index) {
+		var new_study_selected_obj = {};
+		new_study_selected_obj["index"] = index;
+		var new_study_selected_json = JSON.stringify(new_study_selected_obj);
+		console.log(new_study_selected_json);
+		
+		$.ajax({
+			  url:"/users/setSIndex",
+			  type:"POST",
+			  data:new_study_selected_json,
+			  contentType:"application/json; charset=utf-8",
+			  dataType:"json",
+			  success: function(){
+					$.post("/users/setSIndex ", new_study_selected_json, function(data, status) {
+						alert("Data: " + data + "\nStatus: " + status);
+					});
+					
 					education_modal.style.display = "none";
 				    location.reload();
 			  }

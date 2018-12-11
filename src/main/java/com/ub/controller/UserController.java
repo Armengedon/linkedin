@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.ub.model.AppUser;
+import com.ub.model.AppUser;	
 
 import com.ub.model.JobExperience;
 import com.ub.model.PhotoUser;
@@ -325,7 +325,6 @@ public class UserController {
 		//studiesRepository.
 		userRepository.save(foundUser);
 		return ResponseEntity.noContent().build();
-
 	}
 
 	@RequestMapping(value="/addFriends", method = RequestMethod.POST)
