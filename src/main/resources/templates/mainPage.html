@@ -87,8 +87,7 @@
 
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-4">
-					<div th:if="${appUser != null && !appUser.sortedPublications(userRepository).isEmpty()}">
-						<div th:each="publi, iter: *{appUser.sortedPublications(userRepository)}" class="container3-1">
+					<div th:if="${appUser != null}" th:each="publi, iter: *{appUser.sortedPublications(userRepository)}" class="container3-1">
 							<div class="caption">
 								<div class="content">
 									<div class="row">
@@ -140,13 +139,14 @@
 												<img alt="User Image" class="avatar" th:unless="${appUser.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
 												<div class="panel-google-plus-textarea">
 													<textarea th:id="'messageComment ' + ${iter.index}" rows="1"></textarea>
-													<button type="submit" id="commentPost" class="btn btn-primary disabled" th:onclick="|storeComment(${iter.index})|">Post comment</button>
+													<button type="submit" id="commentPost" class="btn btn-primary disabled" th:onclick="|enviarComment(${publi.id}, ${iter.index})|">Post comment</button>
 													<button type="reset" class="btn btn-light">Cancel</button>
 												</div>
 											</div>
 											<div class="container comentaris">
-												<p id="person-comentari" th:utext="${publi.user.firstName} + ' ' + ${publi.user.secondName}"></p>
-												<p>Hola primer comentari</p>
+											<div th:if="${publi != null}" th:each="comment, iter: *{publi.getSortedComments()}" class="container3-1">
+												<p id="person-comentari" th:utext="${comment.user.firstName} + ' ' + ${comment.user.secondName}"></p>
+												<p th:utext="${comment.mainText}" ></p>
 											</div>
 										</div>
 									</div>
@@ -157,7 +157,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
 	<script type="text/javascript">
 		function success() {
 			if (document.getElementById("messageText").value === "") {
@@ -171,35 +170,28 @@
 
 	<script th:inline="javascript">
 
-		function storeComment(index) {
-			var publication_index = -1;
-			console.log(publication_index);
-			var email = [[${appUser.email}]];
+		function enviarComment(publi_id, index) {
+			var publication_id = publi_id;
+			var user = [[${appUser}]];
 			var textComment = document.getElementById('messageComment '+index);
-
-			publication_index = index;
-
-			console.log(email);
-			console.log(textComment);
-			console.log(publication_index);
+			var date = new Date();
 
 			var obj = {};
 
-			obj["index"] = index;
-			obj["comment"] = textComment.value;
-			obj["email"] = email;
+			obj["user"] = user;
+			obj["mainText"] = textComment.value;
+			obj["date"] = date;
 
 			var json = JSON.stringify(obj);
-			console.log(json);
 
 			$.ajax({
-				url: "/users/updateComments",
+				url: "/users/addComment/" + publication_id ,
 				type: "POST",
 				data: json,
 				contentType: "application/json; charset=utf-8",
 				dataType: "json",
 				success: function () {
-					$.post("/users/updateComments ", json, function (data, status) {
+					$.post("/users/addComment/"+publication_id, json, function (data, status) {
 						alert("Data: " + data + "\nStatus: " + status);
 					});
 					location.reload();

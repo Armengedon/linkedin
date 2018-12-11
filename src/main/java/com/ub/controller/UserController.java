@@ -22,6 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,12 +31,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ub.model.AppUser;	
-
+import com.ub.model.Comment;
 import com.ub.model.JobExperience;
 import com.ub.model.PhotoUser;
 import com.ub.model.Publication;
 import com.ub.model.Studies;
-
+import com.ub.repository.CommentRepository;
 import com.ub.repository.JobExperienceRepository;
 import com.ub.repository.PhotoUserRepository;
 import com.ub.repository.PublicationRepository;
@@ -66,6 +67,9 @@ public class UserController {
 	
 	@Autowired
 	private PublicationRepository publicationRepository;
+	
+	@Autowired
+	private CommentRepository commentRepository;
 	
 	@Autowired
 	private PhotoUserRepository photoRepo;
@@ -208,6 +212,7 @@ public class UserController {
 	@RequestMapping(value = "/addPublication", method = RequestMethod.POST)
 	public ResponseEntity<Object> addPublication(@RequestBody Publication p, Principal user) {
 
+		p.setId(Long.MAX_VALUE);
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
 		
@@ -215,6 +220,20 @@ public class UserController {
 		
 		publicationRepository.save(p);
 		userRepository.save(foundUser);
+		
+		return ResponseEntity.noContent().build();
+	}
+	
+	@PostMapping(value = "/addComment/{id}")
+	public ResponseEntity<Object> addComment(@PathVariable long id, @RequestBody Comment comment, Principal user) {
+		
+		Optional<Publication> publi = publicationRepository.findById(id);
+		
+		if (publi.isPresent()) {
+			publi.get().addComment(comment);
+			commentRepository.save(comment);
+			publicationRepository.save(publi.get());
+		}
 		
 		return ResponseEntity.noContent().build();
 	}
@@ -462,7 +481,6 @@ public class UserController {
 		AppUser foundUser = userRepository.findByEmail(email);
 		
 		PhotoUser photo = null;
-		
 		
 		if (!file.isEmpty()) {
 			byte[] bytes = file.getBytes();
