@@ -55,7 +55,10 @@ public class AppUser {
     @ElementCollection
     private List<String> friends = new ArrayList<String>();
 
+    @Column(name = "Study_Index", nullable = true)
     private Integer sIndex = 0;
+
+    @Column(name = "Job_Index", nullable = true)
 	private Integer jIndex = 0;
 
 	@ManyToMany(cascade = { 
@@ -88,6 +91,9 @@ public class AppUser {
     
 	@Column(name = "Photo", length = 64, nullable = true)
 	private String photoUser;
+
+	@Column(name = "Last_Search", nullable=true)
+	private String userSearch;
     
     public AppUser() {
     }
@@ -329,6 +335,14 @@ public class AppUser {
 	public void setPhotoUser(String photoUser) {
 		this.photoUser = photoUser;
 	}
+
+	public String getUserSearch() {
+		return userSearch;
+	}
+
+	public void setUserSearch(String userSearch) {
+		this.userSearch = userSearch;
+}
 
 	
 	
