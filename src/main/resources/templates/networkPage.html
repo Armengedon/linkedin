@@ -29,7 +29,7 @@
 					<form  th:each="friend, iter: *{appUser.getAppUserFriends(userRepository)}" class="row contacts-list">
 							
 							<div class="col-sm-1 contact-img" th:if="${friend != null}">
-								<img alt="profile-image" class="contact-img" th:if="${friend != null && friend.photoUser != null}" th:src="${appUser.photoUser}">
+								<img alt="profile-image" class="contact-img" th:if="${friend != null && friend.photoUser != null}" th:src="${friend.photoUser}">
 								<img alt="profile-image" class="contact-img" th:unless="${friend != null && friend.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
 							</div>
 							
@@ -39,10 +39,10 @@
 								</p>
 								<p class="info-contact">
 									<p class="info-contact">
-	                                	<a th:if="${!friend.experiences.isEmpty()}" th:utext="${friend.experiences.get(friend.experiences.size()-1).title + ' en ' +  friend.experiences.get(friend.experiences.size()-1).company_Name}"></a>
+	                                	<a th:if="${!friend.experiences.isEmpty()}" th:utext="${friend.experiences.get(friend.jIndex).title + ' en ' +  friend.experiences.get(friend.jIndex).company_Name}"></a>
                                 	</p>
                                 	<p class="info-contact">
-                                		<a th:if="${!friend.studies_list.isEmpty()}" th:utext="${'Estudiante en ' + friend.studies_list.get(friend.studies_list.size()-1).university}"></a>
+                                		<a th:if="${!friend.studies_list.isEmpty()}" th:utext="${'Estudiante en ' + friend.studies_list.get(friend.sIndex).university}"></a>
                                 	</p>
                                 	<p class="info-contact">
 	                                	<a th:if="${(friend.experiences.isEmpty() && friend.studies_list.isEmpty())}">
