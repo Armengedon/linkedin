@@ -77,14 +77,14 @@ public class AppUser {
     @OneToMany(mappedBy = "user")
     private List<Publication> publications_list = new ArrayList<>();
     
+    @OneToMany(mappedBy = "user")
+    private List<Comment> comments_list = new ArrayList<>();
+    
     @OneToOne(mappedBy="user")
     private PhotoUser pic;
-    
 
     @Column(name = "Postal_Code", nullable = true)
 	private long postalCode;
-    
-
 
 	@Column(name = "Photo", length = 64, nullable = true)
 	private String photoUser;
@@ -163,8 +163,6 @@ public class AppUser {
 	public void removeStudies(Studies studies) {
 		this.studies_list.remove(studies);
 	}
-	
-
 	
 	public void addJobExperience(JobExperience job) {
 		experiences.add(job);
@@ -261,10 +259,7 @@ public class AppUser {
 			friends.add(repo.findByEmail(friend));
 		}
 		return friends;
-		
 	}
-	
-
 	
 	public List<AppUser> makeSearch(UserRepository repo, String input, LevenshteinDistance lDist) {
 		
