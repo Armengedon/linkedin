@@ -2,6 +2,7 @@ package com.ub.controller;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -472,14 +474,14 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/addPhoto", method  = RequestMethod.POST)
-	public ResponseEntity<Object> addPhoto(@RequestBody MultipartFile file, Principal user) throws IOException {
+	public ResponseEntity<Object> addPhoto(@RequestParam MultipartFile file, Principal user) throws IOException {
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
-		
-		PhotoUser photo = null;
-		
+
 		if (!file.isEmpty()) {
 			byte[] bytes = file.getBytes();
+			
+			PhotoUser photo = new PhotoUser(file.getOriginalFilename(), new String(Base64.getEncoder().encode(bytes)));
 			foundUser.setPic(photo);
 			photoRepo.save(photo);
 			userRepository.save(foundUser);
@@ -487,7 +489,8 @@ public class UserController {
         }
 		
 		return ResponseEntity.notFound().build();
-
+		
+		
 	}
 	
 	@RequestMapping(value= "/g", method = RequestMethod.GET)

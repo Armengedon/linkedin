@@ -30,8 +30,8 @@
                             <img class="image-portada" src="https://previews.123rf.com/images/foodandmore/foodandmore1403/foodandmore140300067/26700838-frontera-n%C3%A1utica-delicado-con-la-red-de-pesca-conchas-de-mar-y-estrellas-de-mar-sobre-un-fondo-de-colo.jpg" alt="Card image cap">
                         </div>
                         <div class="card-body-base pt-5">
-                            <img alt="profile-image" class="profile-base" th:if="${appUser != null && appUser.photoUser != null}" th:src="${appUser.photoUser}">
-			        		<img alt="profile-image" class="profile-base" th:unless="${appUser != null && appUser.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
+                            <img alt="profile-image" class="profile-base" th:if="${appUser != null && appUser.pic != null}" th:src="${ 'data:image/jpeg;base64,' + appUser.pic.data }">
+			        		<img alt="profile-image" class="profile-base" th:unless="${appUser != null && appUser.pic != null}" th:src="@{/resources/images/img_avatar.png}">
                         </div> 
                         <div class="row">
                             <div class = "col-sm-4 card-body3">

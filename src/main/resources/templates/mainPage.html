@@ -27,8 +27,8 @@
 							<img class="img-fluid" src="https://previews.123rf.com/images/foodandmore/foodandmore1403/foodandmore140300067/26700838-frontera-n%C3%A1utica-delicado-con-la-red-de-pesca-conchas-de-mar-y-estrellas-de-mar-sobre-un-fondo-de-colo.jpg" alt="Card image cap">
 						</div>
 						<div class="card-body pt-5">
-							<img alt="profile-image" class="profile" th:if="${appUser != null && appUser.photoUser != null}" th:src="${appUser.photoUser}">
-		        			<img alt="profile-image" class="profile" th:unless="${appUser != null && appUser.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
+							<img alt="profile-image" class="profile" th:if="${appUser != null && appUser.pic != null}" th:src="${ 'data:image/jpeg;base64,' + appUser.pic.data}">
+							<img alt="profile-image" class="profile" th:unless="${appUser != null && appUser.pic != null}" th:src="@{/resources/images/img_avatar.png}">
 							<h5 class="card-title text-center" th:if="${appUser != null}" th:utext="${appUser.firstName} + ' ' + ${appUser.secondName}"></h5>
 							<p class="card-text text-center">
 								<a th:if="${appUser != null && !appUser.experiences.isEmpty()}" th:utext="${'Trabaja en ' + appUser.experiences.get(appUser.getjIndex()).company_Name}"></a>
@@ -63,8 +63,8 @@
 						<div class="container4">
 							<div class="row">
 								<div class="col-xs-12 col-sm-6 col-md-4">
-									<img class="avatar" th:if="${appUser != null && appUser.photoUser != null}" th:src="${appUser.photoUser}">
-									<img class="avatar" th:unless="${appUser != null && appUser.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
+									<img class="avatar" th:if="${appUser != null && appUser.pic != null}" th:src="${ 'data:image/jpeg;base64,' + appUser.pic.data}">
+									<img class="avatar" th:unless="${appUser != null && appUser.pic != null}" th:src="@{/resources/images/img_avatar.png}">
 								</div>
 								<h6 th:if="${appUser != null}" th:utext="${appUser.firstName} + ' ' + ${appUser.secondName}"></h6>
 							</div>
@@ -93,8 +93,8 @@
 								<div class="content">
 									<div class="row">
 										<div class="author">
-											<img class="avatar" th:if="${publi.user.photoUser != null}" th:src="${publi.user.photoUser}">
-											<img class="avatar" th:unless="${publi.user.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
+											<img class="avatar" th:if="${publi.user.pic != null}" th:src="${ 'data:image/jpeg;base64,' + publi.user.pic.data}">
+											<img class="avatar" th:unless="${publi.user.pic != null}" th:src="@{/resources/images/img_avatar.png}">
 											<div class="name">
 												<div class="col">
 													<p id="person" th:utext="${publi.user.firstName} + ' ' + ${publi.user.secondName}"></p>
@@ -136,8 +136,8 @@
 												</script>
 											</div>
 											<div class="panel-google-plus-comment">
-												<img alt="User Image" class="avatar" th:if="${appUser.photoUser != null}" th:src="${appUser.photoUser}">
-												<img alt="User Image" class="avatar" th:unless="${appUser.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
+												<img alt="User Image" class="avatar" th:if="${appUser.pic != null}" th:src="${ 'data:image/jpeg;base64,' + appUser.pic.data}">
+												<img alt="User Image" class="avatar" th:unless="${appUser.pic != null}" th:src="@{/resources/images/img_avatar.png}">
 												<div class="panel-google-plus-textarea">
 													<textarea th:id="'messageComment ' + ${iter.index}" rows="1"></textarea>
 													<button type="submit" id="commentPost" class="btn btn-primary disabled" th:onclick="|enviarComment(${publi.id}, ${iter.index})|">Post comment</button>

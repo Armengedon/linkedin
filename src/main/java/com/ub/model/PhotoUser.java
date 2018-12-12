@@ -29,11 +29,14 @@ public class PhotoUser {
 	private String filename;
 	
 	@Lob
-	private byte[] data;
+	private String data;
 	
-	public PhotoUser(String filename,byte[] data) {
+	public PhotoUser() {
+	}
+	
+	public PhotoUser(String filename,String string) {
 		this.filename = filename;
-		this.data = data;
+		this.data = string;
 	}
 
 	public AppUser getUser() {
@@ -52,11 +55,11 @@ public class PhotoUser {
 		this.filename = filename;
 	}
 
-	public byte[] getData() {
+	public String getData() {
 		return data;
 	}
 
-	public void setData(byte[] data) {
+	public void setData(String data) {
 		this.data = data;
 	}
 	

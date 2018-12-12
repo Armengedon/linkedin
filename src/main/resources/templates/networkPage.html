@@ -29,8 +29,8 @@
 					<form  th:each="friend, iter: *{appUser.getAppUserFriends(userRepository)}" class="row contacts-list">
 							
 							<div class="col-sm-1 contact-img" th:if="${friend != null}">
-								<img alt="profile-image" class="contact-img" th:if="${friend != null && friend.photoUser != null}" th:src="${friend.photoUser}">
-								<img alt="profile-image" class="contact-img" th:unless="${friend != null && friend.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
+								<img alt="profile-image" class="contact-img" th:if="${friend != null && friend.pic != null}" th:src="${ 'data:image/jpeg;base64,' + friend.pic.data }">
+								<img alt="profile-image" class="contact-img" th:unless="${friend != null && friend.pic != null}" th:src="@{/resources/images/img_avatar.png}">
 							</div>
 							
 							<div class="col-sm-9 contact-info" th:if="${friend != null}">

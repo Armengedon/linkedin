@@ -27,8 +27,8 @@
 					<form  th:each="contact, iter: *{appUser.makeSearch(userRepository, appUser.getUserSearch(), lDist)}" class="row contacts-list">
 							
 							<div class="col-sm-1 contact-img" th:if="${contact != null}">
-								<img alt="profile-image" class="contact-img" th:if="${contact != null && contact.photoUser != null}" th:src="${contact.photoUser}">
-								<img alt="profile-image" class="contact-img" th:unless="${contact != null && contact.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
+								<img alt="profile-image" class="contact-img" th:if="${contact != null && contact.pic != null}" th:src="${ 'data:image/jpeg;base64,' + contact.pic.data }">
+								<img alt="profile-image" class="contact-img" th:unless="${contact != null && contact.pic != null}" th:src="@{/resources/images/img_avatar.png}">
 							</div>
 							
 							<div class="col-sm-9 contact-info" th:if="${contact != null}">

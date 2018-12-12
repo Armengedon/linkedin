@@ -25,7 +25,7 @@
 		<script type="application/script" src="./lib/generatorJson.js"></script>
 		<script type="application/script" src="/app/user.service.js"></script>
 		<script type="application/script" src="/app/general.controller.js"></script>
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     </head>
 
     <body>
@@ -46,7 +46,7 @@
                         <div class="row">
                             <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
                                 <div class = "container3">
-                                    <form id="register3" action="/register_5">
+                                    <form id="register3" action="/register_4">
                                         <label for="uni">Universidad o centro de estudios *</label>
                                         
                                         <input type="textregister" id="university" name="university"required>
@@ -109,7 +109,7 @@
 							$.post("/users/addStudies ", json, function(data, status) {
 								alert("Data: " + data + "\nStatus: " + status);
 							});
-							window.location.href = "/register_5";
+							window.location.href = "/register_4";
 					  }
 					})
 				//output.innerHTML = json

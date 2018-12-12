@@ -89,9 +89,6 @@ public class AppUser {
     @Column(name = "Postal_Code", nullable = true)
 	private long postalCode;
     
-	@Column(name = "Photo", length = 64, nullable = true)
-	private String photoUser;
-
 	@Column(name = "Last_Search", nullable=true)
 	private String userSearch;
     
@@ -333,14 +330,6 @@ public class AppUser {
 	public void setPic(PhotoUser pic) {
 		pic.setUser(this);
 		this.pic = pic;
-	}
-	
-    public String getPhotoUser() {
-		return photoUser;
-	}
-
-	public void setPhotoUser(String photoUser) {
-		this.photoUser = photoUser;
 	}
 
 	public String getUserSearch() {

@@ -15,8 +15,8 @@
 			<img class="img-fluid" src="https://previews.123rf.com/images/foodandmore/foodandmore1403/foodandmore140300067/26700838-frontera-n%C3%A1utica-delicado-con-la-red-de-pesca-conchas-de-mar-y-estrellas-de-mar-sobre-un-fondo-de-colo.jpg" alt="Card image cap">
 		</div>
 		<div class="card-body pt-5">
-			<img alt="profile-image" class="profile" th:if="${appUser != null && appUser.photoUser != null}" th:src="${appUser.photoUser}">
- 			<img alt="profile-image" class="profile" th:unless="${appUser != null && appUser.photoUser != null}" th:src="@{/resources/images/img_avatar.png}">
+			<img alt="profile-image" class="profile" th:if="${appUser != null && appUser.pic != null}" th:src="${appUser.pic}">
+ 			<img alt="profile-image" class="profile" th:unless="${appUser != null && appUser.pic != null}" th:src="@{/resources/images/img_avatar.png}">
 		</div>
 		<div class="name-box">
 			<div class="form-group half-form-left">
