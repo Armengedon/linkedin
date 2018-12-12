@@ -1,23 +1,18 @@
 package com.ub.controller;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
+import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.io.IOException;
-import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +25,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.ub.model.AppUser;	
+import com.ub.model.AppUser;
 import com.ub.model.Comment;
 import com.ub.model.JobExperience;
 import com.ub.model.PhotoUser;
@@ -349,7 +344,7 @@ public class UserController {
 	@RequestMapping(value="/addFriends", method = RequestMethod.POST)
 	public ResponseEntity<Object> addFriends(@RequestBody Object friends, Principal user) {
 		String email = user.getName(); //Email
-		AppUser foundUser = userRepository.findByEmail(email);
+		AppUser loggedUser = userRepository.findByEmail(email);
 		
 		Map info = ((Map)friends);
 		Set s = info.keySet();
@@ -357,21 +352,18 @@ public class UserController {
 		List<String> addFriends = (List<String>) info.get("list");
 		
 		
-		String temp = "";
+		String friendEmail = "";
 		
-		if (foundUser.getFriends().isEmpty()) {
-
-			for (int i = 0; i < addFriends.size(); i ++ ) { 
-				temp = addFriends.get(i);
-				if (!temp.equals(email) && !foundUser.getFriends().contains(temp)) {
-					System.out.println("SAOFHUAUUAOS EMAIL"+temp+"thisemail"+email);
-					
-					foundUser.addFriend(temp);
-				}
+		for (int i = 0; i < addFriends.size(); i ++ ) { 
+			friendEmail = addFriends.get(i);
+			if (!friendEmail.equals(email) && !loggedUser.getFriends().contains(friendEmail)) {				
+				loggedUser.addFriend(friendEmail);
+				AppUser friendRequested = userRepository.findByEmail(friendEmail);
+				friendRequested.addFriend(email);
 			}
 		}
 		
-		userRepository.save(foundUser);
+		userRepository.save(loggedUser);
 		return ResponseEntity.noContent().build();
 		
 	}
