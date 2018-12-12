@@ -70,9 +70,7 @@ public class UserController {
 	
 	@Autowired
 	private PhotoUserRepository photoRepo;
-	
-	private LevenshteinDistance lDist = new LevenshteinDistance();
-		
+			
 	PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -132,12 +130,7 @@ public class UserController {
         }
         return ResponseEntity.noContent().build();
     }
-	
-	@GetMapping
-	public List<AppUser> retrieveAllUsers() {
-		return userRepository.findAll();
-	}
-	
+		
 	@GetMapping("/{id}")
 	public AppUser retrieveUser(@PathVariable long id) {
 		Optional<AppUser> foundUser = userRepository.findById(id);
@@ -492,18 +485,5 @@ public class UserController {
 		
 		
 	}
-	
-	@RequestMapping(value= "/g", method = RequestMethod.GET)
-	public List<AppUser> get(Principal user) {
-		String email = user.getName(); //Email
-		AppUser foundUser = userRepository.findByEmail(email);
-		return foundUser.makeSearch(userRepository, foundUser.getUserSearch(), lDist);
-		
-	}
-	
-	
-
-	
-	
 
 }

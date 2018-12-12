@@ -31,36 +31,45 @@ public class MainController {
         return "welcomePage";
     }
 
-	@RequestMapping(value = {"/register_1" }, method = RequestMethod.GET)
-    public String register_1(Model model) {
-        return "register_1";
-    }
-
     @RequestMapping(value = {"/register_3" }, method = RequestMethod.GET)
-    public String register_3(Model model) {
-        return "register_3";
+    public String register_3(Model model, Principal user) {
+    	if (user != null) {
+    		return "register_3";
+    	}
+    	return "welcomePage";
     }
 
     
     @RequestMapping(value = {"/register_31" }, method = RequestMethod.GET)
-    public String register_31(Model model) {
-        return "register_31";
+    public String register_31(Model model, Principal user) {
+    	if (user != null) {
+    		return "register_31";
+    	}
+    	return "welcomePage";
     }
 
     @RequestMapping(value = {"/register_4" }, method = RequestMethod.GET)
-    public String register_4(Model model) {
-        return "register_4";
+    public String register_4(Model model, Principal user) {
+    	if (user != null) {
+    		return "register_4";
+    	}
+    	return "welcomePage";
     }
 
     @RequestMapping(value = {"/register_5" }, method = RequestMethod.GET)
     public String register_5(Model model, Principal principal) {
-        String userName = principal.getName();
     	
-    	AppUser appUser = userRepository.findByEmail(userName);
-    	
-        model.addAttribute("appUser", appUser);
-    	
-        return "register_5";
+    	if (principal != null) {
+	        String userName = principal.getName();
+	    	
+	    	AppUser appUser = userRepository.findByEmail(userName);
+	    	
+	        model.addAttribute("appUser", appUser);
+	    	
+	        return "register_5";
+    	} else {
+    		return "welcomePage";
+    	}
     }
 
     @RequestMapping(value = {"/feed" }, method = RequestMethod.GET)
@@ -101,18 +110,21 @@ public class MainController {
     }
     
     @RequestMapping(value = {"/jobs" }, method = RequestMethod.GET)
-    public String jobsPage(Model model) {
-        return "jobs";
+    public String jobsPage(Model model, Principal user) {
+    	if (user != null) {return "jobs";}
+    	return "welcomePage";
     }
     
     @RequestMapping(value = {"/messaging" }, method = RequestMethod.GET)
-    public String messagesPage(Model model) {
-        return "messages";
+    public String messagesPage(Model model, Principal user) {
+    	if (user != null) {return "messages";}
+    	return "welcomePage";
     }
     
     @RequestMapping(value = {"/notifications" }, method = RequestMethod.GET)
-    public String notificationsPage(Model model) {
-        return "spam";
+    public String notificationsPage(Model model, Principal user) {
+    	if (user != null) {return "spam";}
+    	return "welcomePage";
     }
 
     @RequestMapping(value = {"/user"}, method = RequestMethod.GET)
@@ -125,12 +137,6 @@ public class MainController {
 
         return "loggedUserProfile";
     }
-
-    @RequestMapping(value = {"/errorLogin" }, method = RequestMethod.GET)
-    public String errorLogin(Model model) {
-        return "errorLogin";
-    }
-
  
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public String adminPage(Model model, Principal principal) {
@@ -142,38 +148,6 @@ public class MainController {
          
         return "adminPage";
     }
-    
-    public String loginPage(Model model) {
- 
-        return "userInfoPage";
-    }
-    
-    
- 
-    @RequestMapping(value = "/logoutSuccessful", method = RequestMethod.GET)
-    public String logoutSuccessfulPage(Model model) {
-        model.addAttribute("title", "Logout");
-        return "logoutSuccessfulPage";
-    }
- 
-    @RequestMapping(value = "/403", method = RequestMethod.GET)
-    public String accessDenied(Model model, Principal principal) {
- 
-        if (principal != null) {
-            User loginedUser = (User) ((Authentication) principal).getPrincipal();
- 
-            String userInfo = WebUtils.toString(loginedUser);
- 
-            model.addAttribute("userInfo", userInfo);
- 
-            String message = "Hi " + principal.getName() //
-                    + "<br> You do not have permission to access this page!";
-            model.addAttribute("message", message);
- 
-        }
- 
-        return "403Page";
-    }
-	
-	
+
+ 	
 }

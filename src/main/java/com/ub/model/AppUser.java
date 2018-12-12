@@ -295,7 +295,7 @@ public class AppUser {
 	    
 	    List<AppUser> results = new ArrayList<AppUser>();
 	    for (Integer i: sortedKeys) {
-	    	if (i < 5) {
+	    	if (i < 10) {
 		    	for (AppUser u: scores.get(i)) {
 		    		results.add(u);
 		    	}
