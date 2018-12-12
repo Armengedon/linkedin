@@ -84,7 +84,6 @@ public class AppUserTest {
 
 	@Ignore
 	public void testRemoveRole() {
-		fail("Not yet implemented");
 	}
 
 	@Test
