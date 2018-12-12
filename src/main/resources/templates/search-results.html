@@ -51,8 +51,8 @@
 							</div>
 							
 							<div class="col-sm-1 add-delete-contact">
-								<button th:if="${appUser.friends.contains(contact.email)}" th:id="${contact.email}" class="button btn-delete" disabled>Contacted</button>
-								<button th:unless="${appUser.friends.contains(contact.email)}" th:id="${contact.email}" class="button btn-delete" onclick="contactFriend(this)">Contact</button>
+								<button th:if="${appUser.friends.contains(contact.email)}" th:id="${contact.email}" class="button btn-delete" disabled>Connected</button>
+								<button th:unless="${appUser.friends.contains(contact.email)}" th:id="${contact.email}" class="button btn-delete" onclick="contactFriend(this)">Connect</button>
 							</div>
 							
 							<hr size="1px" color="silver"></hr>
