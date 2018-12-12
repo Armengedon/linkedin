@@ -146,8 +146,10 @@
 											</div>
 											<div class="container comentaris">
 											<div th:if="${publi != null}" th:each="comment, iter: *{publi.getSortedComments()}" class="container3-1">
+												<img class="avatar" th:if="${comment.user != null && comment.user.pic != null}" th:src="${ 'data:image/jpeg;base64,' + comment.user.pic.data}">
 												<p id="person-comentari" th:utext="${comment.user.firstName} + ' ' + ${comment.user.secondName}"></p>
 												<p th:utext="${comment.mainText}" ></p>
+												
 											</div>
 										</div>
 									</div>
