@@ -122,7 +122,7 @@ public class MainController {
     	
         model.addAttribute("appUser", appUser);
 
-        return "user";
+        return "loggedUserProfile";
     }
 
     @RequestMapping(value = {"/errorLogin" }, method = RequestMethod.GET)
