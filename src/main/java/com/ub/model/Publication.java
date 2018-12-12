@@ -84,7 +84,6 @@ public class Publication implements Comparable<Publication> {
 	public void addComment(Comment comment) {
 		this.comments_list.add(comment);
 		comment.setPublication(this);
-		comment.setUser(this.user);
 	}
 	
 	@Override

@@ -223,6 +223,9 @@ public class UserController {
 	public ResponseEntity<Object> addComment(@PathVariable long id, @RequestBody Comment comment, Principal user) {
 		
 		Optional<Publication> publi = publicationRepository.findById(id);
+		String email = user.getName(); //Email
+		AppUser foundUser = userRepository.findByEmail(email);
+		comment.setUser(foundUser);
 		
 		if (publi.isPresent()) {
 			publi.get().addComment(comment);
