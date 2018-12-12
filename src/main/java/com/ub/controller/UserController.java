@@ -398,6 +398,8 @@ public class UserController {
 
 		if (foundUser.getFriends().contains(emailDelete)) {
 			foundUser.getFriends().remove(emailDelete);
+			AppUser friend = userRepository.findByEmail((String)emailDelete);
+			friend.getFriends().remove(foundUser.getEmail());
 			userRepository.save(foundUser);
 			return ResponseEntity.noContent().build();
 		}
