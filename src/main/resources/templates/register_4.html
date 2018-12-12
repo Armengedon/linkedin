@@ -20,6 +20,12 @@
         <!-- Custom styles for this template -->
         <link href="/resources/css/startbootstrap-landing-page-gh-pages/css/landing-page.min.css" rel="stylesheet">
         <link rel="stylesheet" href="/resources/css/register_4.css"> 
+        
+        <!--  Add JS -->
+		<script type="application/script" src="./lib/generatorJson.js"></script>
+		<script type="application/script" src="/app/user.service.js"></script>
+		<script type="application/script" src="/app/general.controller.js"></script>
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     </head>
 
     <body>
@@ -41,7 +47,7 @@
                         <div class="row">
                             <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
                                 <div class = "container3">
-                                    <form id="register4" action="/register_5">
+                                    <form id="register4" name="formUploadImage" action="/register_5" >
                                         <div class="row">
                                             <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
 
@@ -55,10 +61,9 @@
                                                     };
                                                 </script>
 
-                                                    
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary">Añadir foto</button>
+                                        <button type="submit" class="btn btn-primary" onclick="addProfilePicture(event)" >Añadir foto</button>
                                         <button class="button">
                                         <a href="/welcome">Saltar</a></button>
                                     </form>
@@ -74,48 +79,36 @@
 
     
     </body>
-    
-<script>
-	(function() {
-		function toJSONString(form) {
-			var obj = {};
-			var elements = form.querySelectorAll("input, select, textarea");
-			for (var i = 0; i < elements.length; ++i) {
-				var element = elements[i]
-				var name = element.name;
-				var value = element.value;
-				if (name) {
-					obj[name] = value;
-				}
-			}
-			return JSON.stringify(obj);
-		}
-		document.addEventListener("DOMContentLoaded", function() {
-			var form = document.getElementById("register4");
-			form.addEventListener("submit", function(e) {
-				e.preventDefault();
-				var json = toJSONString(this);
-				console.log(json);
-				
-				$.ajax({
-					  url:"/users/additionalRegister",
-					  type:"POST",
-					  data:json,
-					  contentType:"application/json; charset=utf-8",
-					  dataType:"json",
-					  success: function(){
-							$.post("/users/additionalRegister ", json, function(data, status) {
-								alert("Data: " + data + "\nStatus: " + status);
-							});
-							window.location.href = "/register_4";
-					  }
-					})
-				//output.innerHTML = json
-				
-			}, false);
+</html>
+<script type="text/javascript">
+	function addProfilePicture(e) {
+
+		formData = new FormData();
+		formData.append("file", document.getElementById("photoUser").files[0]);
+		formData.append('properties', new Blob([JSON.stringify({
+		                "name": "root",
+		                "password": "root"                    
+		            })], {
+		                type: "application/json"
+		            }));
+
+        
+		$.ajax({
+			  url:"/users/addPhoto",
+			  type:"POST",
+			  data:formData,
+			  dataType:"json",
+			  processData: false,
+			  contentType: false,
+			  success: function(){
+					$.get("/users/addPhoto ", function(data) {
+						console.log(data);
+					});
+					window.location.href = "/register_5";
+			  }
+			});		
 			
-		});
-	})();
+		}
+	    
 </script>
 
-</html>

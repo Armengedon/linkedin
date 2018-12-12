@@ -2,6 +2,7 @@ package com.ub.controller;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.Base64;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -473,13 +474,14 @@ public class UserController {
 	}
 	
 	@RequestMapping(value = "/addPhoto", method  = RequestMethod.POST)
-	public ResponseEntity<Object> addPhoto(@RequestParam("image") MultipartFile file, Principal user) throws IOException {
+	public ResponseEntity<Object> addPhoto(@RequestParam MultipartFile file, Principal user) throws IOException {
 		String email = user.getName(); //Email
 		AppUser foundUser = userRepository.findByEmail(email);
 
 		if (!file.isEmpty()) {
 			byte[] bytes = file.getBytes();
-			PhotoUser photo = new PhotoUser(file.getOriginalFilename(),bytes);
+			
+			PhotoUser photo = new PhotoUser(file.getOriginalFilename(), new String(Base64.getEncoder().encode(bytes)));
 			foundUser.setPic(photo);
 			photoRepo.save(photo);
 			userRepository.save(foundUser);

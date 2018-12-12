@@ -1,6 +1,7 @@
 package com.ub.controller;
 
 import java.security.Principal;
+import java.util.Base64;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -80,8 +81,8 @@ public class MainController {
     	
     	AppUser appUser = userRepository.findByEmail(userName);
         model.addAttribute("appUser", appUser);
-        
-		model.addAttribute("userRepository",userRepository);
+
+    	model.addAttribute("userRepository",userRepository);
 		model.addAttribute("lDist", lDist);
 		
         return "search-results";

@@ -42,9 +42,7 @@ public class AppUserTest {
 		publi.setMainText("hola hola hola");
 		
 		appUser.addPublication(publi);
-		
-		appUser.setPhotoUser("C://pizza");
-		
+				
 		appUser.setPostalCode(22222);
 		
 		appUser.setCountry("Spain");
@@ -95,11 +93,6 @@ public class AppUserTest {
 	@Test
 	public void testGetStudies_list() {
 		assertNotNull(appUser.getStudies_list());
-	}
-
-	@Test
-	public void testGetPhotoUser() {
-		assertEquals("C://pizza", appUser.getPhotoUser());
 	}
 
 	@Test
