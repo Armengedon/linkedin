@@ -1,12 +1,12 @@
 <link rel="stylesheet" href="/resources/css/popups.css">
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <!-- The Modal -->
 <div id="education-modal" class="modal">
   <!-- Modal content -->
   <div class="modal-content">
   	<div class="top-header">
   		<div class="top-title">
-  			<a class="text-title">Educacion</a>
+  			<a class="text-title">Educación</a>
   		</div>
   		<button class="close-button" onclick="closeEducation()">&times;</button>
 	</div>
@@ -21,20 +21,20 @@
   		</div>
   		<div class="form-group full-form">
 		    <label for="study-mark">Nota</label>
-  			<input type="text" class="form-control" id="study-mark">
+  			<input type="text" class="form-control" id="study-mark" onkeypress='return validaNumericos(event)'>
   		</div>
   		<div class="region-box">
 			<div class="form-group half-form-left">
-			    <label for="study-beginYear">Ano de inicio <a class="asterisc">*</a></label>
-  				<input type="number" class="form-control" id="study-beginYear" placeholder="Ano de inicio">
+			    <label for="study-beginYear">Año de inicio <a class="asterisc">*</a></label>
+  				<input type="number" class="form-control" id="study-beginYear" placeholder="Año de inicio" onkeypress='return validaNumericos(event)'>
 	  		</div>
 	  		<div class="form-group half-form-right">
-			    <label for="study-endYear">Ano de finalizacion (o previsto) <a class="asterisc">*</a></label>
-  				<input type="number" class="form-control" id="study-endYear" placeholder="Ano de finalizacion">
+			    <label for="study-endYear">Año de finalización (o previsto) <a class="asterisc">*</a></label>
+  				<input type="number" class="form-control" id="study-endYear" placeholder="Año de finalización" onkeypress='return validaNumericos(event)'>
 	  		</div>
 		</div>
 		<div class="form-group full-form big-box">
-		    <label for="study-comment">Descripcion</label>
+		    <label for="study-comment">Descripción</label>
   			<textarea class="form-control" id="study-comment" rows="4"></textarea>
   		</div>
 	</div>
@@ -122,5 +122,12 @@
 				    location.reload();
 			  }
 			})
+	}
+	
+	function validaNumericos(event) {
+	    if(event.charCode >= 48 && event.charCode <= 57){
+	      return true;
+	     }
+	     return false;
 	}
 </script>

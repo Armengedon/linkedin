@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="/resources/css/popups.css">
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <!-- The Modal -->
 <div id="myModal" class="modal">
   <!-- Modal content -->
@@ -39,7 +39,7 @@
 			</select>
 		</div>
 		<div class="right-button">
-			<button type="button" class="btn btn-link" onclick="showEducation()">Anadir nueva educacion</button>
+			<button type="button" class="btn btn-link" onclick="showEducation()">Añadir nueva educación</button>
 		</div>
 		<div th:if="${appUser != null && !appUser.experiences.isEmpty()}" class="full-form">
 			<label>Experiencias</label>
@@ -50,7 +50,7 @@
 			</select>
 		</div>
 		<div class="right-button">
-			<button type="button" class="btn btn-link" onclick="showExperience()">Anadir nuevo puesto</button>
+			<button type="button" class="btn btn-link" onclick="showExperience()">Añadir nuevo puesto</button>
 		</div>
   		<div class="region-box">
 			<div class="form-group half-form-left">
@@ -60,8 +60,8 @@
 	  		</div>
 	  		<div class="form-group half-form-right">
 			    <label for="surname">Código Postal</label>
-			    <input type="text" class="form-control" id="postalCode" th:if="${appUser != null}" th:value="${appUser.postalCode}">
-	  			<input type="text" class="form-control" id="postalCode" th:unless="${appUser != null}" placeholder="Codigo Postal">
+			    <input type="text" class="form-control" id="postalCode" th:if="${appUser != null}" th:value="${appUser.postalCode}" onkeypress='return validaNumericos(event)'>
+	  			<input type="text" class="form-control" id="postalCode" th:unless="${appUser != null}" placeholder="Codigo Postal" onkeypress='return validaNumericos(event)'>
 	  		</div>
 		</div>
 	</div>
@@ -182,5 +182,11 @@
 				    location.reload();
 			  }
 			})
+	}
+	function validaNumericos(event) {
+	    if(event.charCode >= 48 && event.charCode <= 57){
+	      return true;
+	     }
+	     return false;
 	}
 </script>

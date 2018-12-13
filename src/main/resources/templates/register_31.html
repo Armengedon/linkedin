@@ -51,7 +51,7 @@
                                         <input type="textregister" id="company_Name" name="company_Name"required>
                                         
                                         <label for="añoInicio">Año de inicio *</label>
-                                        <input type="textregister" id="beginYear" name="beginYear"required>
+                                        <input type="textregister" id="beginYear" name="beginYear"required onkeypress='return validaNumericos(event)'>
                                         
                                         <label for="carrec">Cargo en la empresa</label>
                                         <input type="textregister" id="title" name="title"required>      
@@ -113,4 +113,11 @@
 			
 		});
 	})();
+	
+	function validaNumericos(event) {
+	    if(event.charCode >= 48 && event.charCode <= 57){
+	      return true;
+	     }
+	     return false;
+	}
 </script>

@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="/resources/css/popups.css">
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <!-- The Modal -->
 <div id="experience-modal" class="modal">
   <!-- Modal content -->
@@ -16,8 +16,8 @@
   			<input type="text" class="form-control" id="company_name" placeholder="P. ej. Microsoft" required>
   		</div>
   		<div class="form-group full-form">
-		    <label for="exp-beginYear">Ano de inicio <a class="asterisc">*</a></label>
-  			<input type="number" class="form-control" id="exp-beginYear" placeholder="Ano" required>
+		    <label for="exp-beginYear">Año de inicio <a class="asterisc">*</a></label>
+  			<input type="number" class="form-control" id="exp-beginYear" placeholder="Año" required onkeypress='return validaNumericos(event)'>
   		</div>
 		<div class="form-group full-form">
 		    <label for="exp-title">Titulo <a class="asterisc">*</a></label>
@@ -102,5 +102,12 @@
 				    location.reload();
 			  }
 			})
+	}
+	
+	function validaNumericos(event) {
+	    if(event.charCode >= 48 && event.charCode <= 57){
+	      return true;
+	     }
+	     return false;        
 	}
 </script>
