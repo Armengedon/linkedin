@@ -5,9 +5,10 @@
 
 	<groupId>com.ub</groupId>
 	<artifactId>Linkedin</artifactId>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<version>0.1.0</version>
-	<name>Linkedin Maven Webapp</name>
+	<name>linkedin-es</name>
+
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -15,15 +16,20 @@
 		<version>2.1.0.RELEASE</version>
 	</parent>
 
+	<properties>
+		<!-- The main class to start by executing java -jar -->
+		<start-class>com.ub.LinkedIn</start-class>
+		<java.version>1.8</java.version>
+	</properties>
+
 	<dependencies>
 
-		  <dependency>
-		  <groupId>junit</groupId>
-		  <artifactId>junit</artifactId>
-		  <version>4.12</version>
-		  <scope>test</scope>
-		</dependency> 
-		
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-thymeleaf</artifactId>
@@ -68,17 +74,10 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 		</dependency>
-		
-		<!--
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency> -->
 
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 
@@ -89,29 +88,43 @@
 
 	</dependencies>
 
-	<properties>
-		<!-- The main class to start by executing java -jar -->
-		<start-class>com.ub.LinkedIn</start-class>
-		<java.version>1.8</java.version>
-	</properties>
-
 	<build>
 		<finalName>Linkedin</finalName>
 		<plugins>
+		
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>2.1.1.RELEASE</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		
+			<plugin>
+				<groupId>com.heroku.sdk</groupId>
+				<artifactId>heroku-maven-plugin</artifactId>
+				<version>2.0.6</version>
+			</plugin>
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
-			  <groupId>org.apache.maven.plugins</groupId>
-			  <artifactId>maven-surefire-plugin</artifactId>
-			  <configuration>
-			  	<useSystemClassLoader>false</useSystemClassLoader>
-			    <forkCount>3</forkCount>
-			    <reuseForks>true</reuseForks>
-			    <argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
-			  </configuration>
-			</plugin>	
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<useSystemClassLoader>false</useSystemClassLoader>
+					<forkCount>3</forkCount>
+					<reuseForks>true</reuseForks>
+					<argLine>-Xmx1024m -XX:MaxPermSize=256m</argLine>
+				</configuration>
+			</plugin>
 		</plugins>
 		<resources>
 			<resource>
