@@ -89,68 +89,67 @@
 				</div>
 				<div class="col-xs-12 col-sm-6 col-md-4">
 					<div th:if="${appUser != null}" th:each="publi, iter: *{appUser.sortedPublications(userRepository)}" class="container3-1">
-							<div class="caption">
-								<div class="content">
-									<div class="row">
-										<div class="author">
-											<img class="avatar" th:if="${publi.user.pic != null}" th:src="${ 'data:image/jpeg;base64,' + publi.user.pic.data}">
-											<img class="avatar" th:unless="${publi.user.pic != null}" th:src="@{/resources/images/img_avatar.png}">
-											<div class="name">
-												<div class="col">
-													<p id="person" th:utext="${publi.user.firstName} + ' ' + ${publi.user.secondName}"></p>
-													<p id="date" th:utext="${publi.date}"></p>
-												</div>
+						<div class="caption">
+							<div class="content">
+								<div class="row">
+									<div class="author">
+										<img class="avatar" th:if="${publi.user.pic != null}" th:src="${ 'data:image/jpeg;base64,' + publi.user.pic.data}">
+										<img class="avatar" th:unless="${publi.user.pic != null}" th:src="@{/resources/images/img_avatar.png}">
+										<div class="name">
+											<div class="col">
+												<p id="person" th:utext="${publi.user.firstName} + ' ' + ${publi.user.secondName}"></p>
+												<p id="date" th:utext="${publi.date}"></p>
 											</div>
 										</div>
-										<div class="text">
-											<p th:utext="${publi.mainText}"></p>
-										</div>
+									</div>
+									<div class="text">
+										<p th:utext="${publi.mainText}"></p>
+									</div>
 
-										<div class="[ panel panel-default ] panel-google-plus">
-											<div class="panel-footer">
-												<div class="input-placeholder">Add a comment...</div>
-												<script>
-													$(function () {
-														$('.panel-google-plus > .panel-footer > .input-placeholder, .panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > button[type="reset"]').on('click', function(event) {
-															var $panel = $(this).closest('.panel-google-plus');
-																$comment = $panel.find('.panel-google-plus-comment');
+									<div class="[ panel panel-default ] panel-google-plus">
+										<div class="panel-footer">
+											<div class="input-placeholder">Add a comment...</div>
+											<script>
+												$(function () {
+													$('.panel-google-plus > .panel-footer > .input-placeholder, .panel-google-plus > .panel-google-plus-comment > .panel-google-plus-textarea > button[type="reset"]').on('click', function(event) {
+														var $panel = $(this).closest('.panel-google-plus');
+															$comment = $panel.find('.panel-google-plus-comment');
 
-															$comment.find('.btn:first-child').addClass('disabled');
-															$comment.find('textarea').val('');
+														$comment.find('.btn:first-child').addClass('disabled');
+														$comment.find('textarea').val('');
 
-															$panel.toggleClass('panel-google-plus-show-comment');
+														$panel.toggleClass('panel-google-plus-show-comment');
 
-															if ($panel.hasClass('panel-google-plus-show-comment')) {
-																$comment.find('textarea').focus();
-															}
-														});
-														$('.panel-google-plus-comment > .panel-google-plus-textarea > textarea').on('keyup', function(event) {
-															var $comment = $(this).closest('.panel-google-plus-comment');
-
-															$comment.find('button[type="submit"]').addClass('disabled');
-															if ($(this).val().length >= 1) {
-																$comment.find('button[type="submit"]').removeClass('disabled');
-															}
-														});
+														if ($panel.hasClass('panel-google-plus-show-comment')) {
+															$comment.find('textarea').focus();
+														}
 													});
-												</script>
+													$('.panel-google-plus-comment > .panel-google-plus-textarea > textarea').on('keyup', function(event) {
+														var $comment = $(this).closest('.panel-google-plus-comment');
+
+														$comment.find('button[type="submit"]').addClass('disabled');
+														if ($(this).val().length >= 1) {
+															$comment.find('button[type="submit"]').removeClass('disabled');
+														}
+													});
+												});
+											</script>
+										</div>
+										<div class="panel-google-plus-comment">
+											<img alt="User Image" class="avatar" th:if="${appUser.pic != null}" th:src="${ 'data:image/jpeg;base64,' + appUser.pic.data}">
+											<img alt="User Image" class="avatar" th:unless="${appUser.pic != null}" th:src="@{/resources/images/img_avatar.png}">
+											<div class="panel-google-plus-textarea">
+												<textarea th:id="'messageComment ' + ${iter.index}" rows="2" th:onkeyup="|enter(event,${iter.index})|"></textarea>
+												<button type="submit" id="commentPost" class="btn btn-primary disabled" th:onclick="|enviarComment(${publi.id}, ${iter.index})|">Post comment</button>
+												<button type="reset" class="btn btn-light">Cancel</button>
 											</div>
-											<div class="panel-google-plus-comment">
-												<img alt="User Image" class="avatar" th:if="${appUser.pic != null}" th:src="${ 'data:image/jpeg;base64,' + appUser.pic.data}">
-												<img alt="User Image" class="avatar" th:unless="${appUser.pic != null}" th:src="@{/resources/images/img_avatar.png}">
-												<div class="panel-google-plus-textarea">
-													<textarea th:id="'messageComment ' + ${iter.index}" rows="1"></textarea>
-													<button type="submit" id="commentPost" class="btn btn-primary disabled" th:onclick="|enviarComment(${publi.id}, ${iter.index})|">Post comment</button>
-													<button type="reset" class="btn btn-light">Cancel</button>
-												</div>
-											</div>
-											<div class="container comentaris">
-											<div th:if="${publi != null}" th:each="comment, iter: *{publi.getSortedComments()}" class="container3-1">
-												<img class="avatar" th:if="${comment.user != null && comment.user.pic != null}" th:src="${ 'data:image/jpeg;base64,' + comment.user.pic.data}">
-												<p id="person-comentari" th:utext="${comment.user.firstName} + ' ' + ${comment.user.secondName}"></p>
-												<p th:utext="${comment.mainText}" ></p>
-												
-											</div>
+										</div>
+										<div class="container comentaris">
+										<div th:if="${publi != null}" th:each="comment, iter: *{publi.getSortedComments()}" class="container3-1">
+											<img class="avatar" th:if="${comment.user != null && comment.user.pic != null}" th:src="${ 'data:image/jpeg;base64,' + comment.user.pic.data}">
+											<p id="person-comentari" th:utext="${comment.user.firstName} + ' ' + ${comment.user.secondName}"></p>
+											<p th:utext="${comment.mainText}" ></p>
+											
 										</div>
 									</div>
 								</div>
@@ -160,12 +159,26 @@
 				</div>
 			</div>
 		</div>
+	</div>
+	<script>
+		function enter(event, iter){
+			if (event.keyCode == 13){
+				document.getElementById("messageComment "+iter).disabled = true;
+				document.getElementById("commentPost").click();
+			}
+		}
+	</script>
+	
 	<script type="text/javascript">
 		function success() {
-			if (document.getElementById("messageText").value === "") {
+			if (document.getElementById("messageText").value == "") {
 				document.getElementById('publicar').disabled = true;
 			} else {
 				document.getElementById('publicar').disabled = false;
+				if (event.keyCode == 13){
+					document.getElementById("messageText").disabled = true;
+					document.getElementById("publicar").click();
+				}
 			}
 		}
 
