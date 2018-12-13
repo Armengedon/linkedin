@@ -1,6 +1,26 @@
-Projecte per Eclipse Java EE / STS
-Per executar, click dret, run as, Maven. A Goal, posar "test". A continuació, click dret a la classe _CrudApp_, run as, Java Application.
-Abans, però, heu de baixar-vos el servidor, com per exemple, Apache Tomcat (https://tomcat.apache.org/download-80.cgi)
-* A la pestanya d'eclipse de Servers, afegiu-l'ho posant com a ruta la carpeta descomprimida que us baixeu de l'enllaç anterior.
+## About
+Projecte LinkedIn corresponent a l'assignatura d'Enginyeria del Software de l'Universitat de Barcelona
 
-24/10/2018: Comença Sprint-3
+## Who
+
+* Jordi Armengol
+* Ivet Aymerich
+* Sergi Martorell
+* Martín Perez
+* Oriol Rabasseda
+* Blai Ras
+* Joan Sitjà
+
+## Technologies used
+
+### Frontend
+
+* jQuery
+* Bootstrap
+
+### Backend
+
+* Java + Spring Framework
+* SQL database
+
+_Aquest projecte es purament educacional i no pretén en cap moment ser usat amb intencions de phishing o derivats_
