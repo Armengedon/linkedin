@@ -11,18 +11,20 @@
   		<button class="close-button" onclick="closeExperience()">&times;</button>
 	</div>
   	<div class="profile-card">
-  		<div class="form-group full-form">
-		    <label for="company_name">Empresa <a class="asterisc">*</a></label>
-  			<input type="text" class="form-control" id="company_name" placeholder="P. ej. Microsoft" required>
-  		</div>
-  		<div class="form-group full-form">
-		    <label for="exp-beginYear">Ano de inicio <a class="asterisc">*</a></label>
-  			<input type="number" class="form-control" id="exp-beginYear" placeholder="Ano" required>
-  		</div>
-		<div class="form-group full-form">
-		    <label for="exp-title">Titulo <a class="asterisc">*</a></label>
-  			<input type="text" class="form-control" id="exp-title" placeholder="P. ej. gerente" required>
-  		</div>
+  		<form class="needs-validation" id="experience-form" novalidate>
+	  		<div class="form-group full-form">
+			    <label for="company_name">Empresa <a class="asterisc">*</a></label>
+	  			<input type="text" class="form-control" id="company_name" placeholder="P. ej. Microsoft" required>
+	  		</div>
+	  		<div class="form-group full-form">
+			    <label for="exp-beginYear">Ano de inicio <a class="asterisc">*</a></label>
+	  			<input type="number" class="form-control" id="exp-beginYear" placeholder="Ano" required>
+	  		</div>
+			<div class="form-group full-form">
+			    <label for="exp-title">Titulo <a class="asterisc">*</a></label>
+	  			<input type="text" class="form-control" id="exp-title" placeholder="P. ej. gerente" required>
+	  		</div>
+  		</form>
 	</div>
 	<div class="bottom-footer">
 		<button type="button" class="btn btn-primary store-button" onclick="storeExperience()">Guardar</button>
@@ -50,35 +52,37 @@
 	}
 	
 	function storeExperience() {
-		
-		var experience_obj = {};
-
-		var inputCompany = document.getElementById('company_name');
-		var inputYear = document.getElementById('exp-beginYear');
-		var inputPosition = document.getElementById('exp-title');
-		
-		experience_obj["company_Name"] = inputCompany.value;
-		experience_obj["beginYear"] = inputYear.value;
-		experience_obj["title"] = inputPosition.value;
-		
-		var experience_json = JSON.stringify(experience_obj);
-		console.log(experience_json);
-		
-		$.ajax({
-			  url:"/users/addJobExperience",
-			  type:"POST",
-			  data:experience_json,
-			  contentType:"application/json; charset=utf-8",
-			  dataType:"json",
-			  success: function(){
-					$.post("/users/addJobExperience ", experience_json, function(data, status) {
-						alert("Data: " + data + "\nStatus: " + status);
-					});
-					
-					var new_selected_experience = /*[[${appUser.experiences.size()}]]*/ 0;
-					newExperienceIndex(new_selected_experience);
-			  }
-			})
+		if (document.getElementById('experience-form').checkValidity() === true) {
+			var experience_obj = {};
+	
+			var inputCompany = document.getElementById('company_name');
+			var inputYear = document.getElementById('exp-beginYear');
+			var inputPosition = document.getElementById('exp-title');
+			
+			experience_obj["company_Name"] = inputCompany.value;
+			experience_obj["beginYear"] = inputYear.value;
+			experience_obj["title"] = inputPosition.value;
+			
+			var experience_json = JSON.stringify(experience_obj);
+			console.log(experience_json);
+			
+			$.ajax({
+				  url:"/users/addJobExperience",
+				  type:"POST",
+				  data:experience_json,
+				  contentType:"application/json; charset=utf-8",
+				  dataType:"json",
+				  success: function(){
+						$.post("/users/addJobExperience ", experience_json, function(data, status) {
+							alert("Data: " + data + "\nStatus: " + status);
+						});
+						
+						var new_selected_experience = /*[[${appUser.experiences.size()}]]*/ 0;
+						newExperienceIndex(new_selected_experience);
+				  }
+			});
+		}
+		document.getElementById('experience-form').classList.add('was-validated');
 	}
 	
 	function newExperienceIndex(index) {
@@ -101,6 +105,7 @@
 					experience_modal.style.display = "none";
 				    location.reload();
 			  }
-			})
+		});
+		
 	}
 </script>

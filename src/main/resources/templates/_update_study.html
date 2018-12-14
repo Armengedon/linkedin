@@ -11,32 +11,34 @@
   		<button class="close-button" onclick="closeUpdateEducation()">&times;</button>
 	</div>
   	<div class="profile-card">
-  		<div class="form-group full-form">
-		    <label for="update-university">Universidad <a class="asterisc">*</a></label>
-  			<input type="text" class="form-control" id="update-university" placeholder="P. ej. Universitat de Barcelona" required>
-  		</div>
-  		<div class="form-group full-form">
-		    <label for="update-study-title">Titulo <a class="asterisc">*</a></label>
-  			<input type="text" class="form-control" id="update-study-title" placeholder="P. ej. gerente">
-  		</div>
-  		<div class="form-group full-form">
-		    <label for="update-mark">Nota</label>
-  			<input type="text" class="form-control" id="update-mark">
-  		</div>
-  		<div class="region-box">
-			<div class="form-group half-form-left">
-			    <label for="update-study-beginYear">Ano de inicio <a class="asterisc">*</a></label>
-  				<input type="number" class="form-control" id="update-study-beginYear" placeholder="Ano de inicio">
+  		<form class="needs-validation" id="update-study-form" novalidate>
+	  		<div class="form-group full-form">
+			    <label for="update-university">Universidad <a class="asterisc">*</a></label>
+	  			<input type="text" class="form-control" id="update-university" placeholder="P. ej. Universitat de Barcelona" required>
 	  		</div>
-	  		<div class="form-group half-form-right">
-			    <label for="update-study-endYear">Ano de finalizacion (o previsto) <a class="asterisc">*</a></label>
-  				<input type="number" class="form-control" id="update-study-endYear" placeholder="Ano de finalizacion">
+	  		<div class="form-group full-form">
+			    <label for="update-study-title">Titulo <a class="asterisc">*</a></label>
+	  			<input type="text" class="form-control" id="update-study-title" placeholder="P. ej. gerente" required>
 	  		</div>
-		</div>
-		<div class="form-group full-form big-box">
-		    <label for="update-comment">Descripcion</label>
-  			<textarea class="form-control" id="update-comment" rows="4"></textarea>
-  		</div>
+	  		<div class="form-group full-form">
+			    <label for="update-mark">Nota</label>
+	  			<input type="text" class="form-control" id="update-mark">
+	  		</div>
+	  		<div class="region-box">
+				<div class="form-group half-form-left">
+				    <label for="update-study-beginYear">Ano de inicio <a class="asterisc">*</a></label>
+	  				<input type="number" class="form-control" id="update-study-beginYear" placeholder="Ano de inicio" required>
+		  		</div>
+		  		<div class="form-group half-form-right">
+				    <label for="update-study-endYear">Ano de finalizacion (o previsto) <a class="asterisc">*</a></label>
+	  				<input type="number" class="form-control" id="update-study-endYear" placeholder="Ano de finalizacion" required>
+		  		</div>
+			</div>
+			<div class="form-group full-form big-box">
+			    <label for="update-comment">Descripcion</label>
+	  			<textarea class="form-control" id="update-comment" rows="4"></textarea>
+	  		</div>
+  		</form>
 	</div>
 	<div class="bottom-footer">
 		<button type="button" class="btn btn-primary store-button" onclick="storeUpdateEducation()">Guardar</button>
@@ -70,40 +72,43 @@
 		update_education_modal.style.display = "block";
 	}
 	
-	function storeUpdateEducation() {		
-		var update_study_obj = {};
-
-		var inputUniversity = document.getElementById('update-university');
-		var inputBeginYear = document.getElementById('update-study-beginYear');
-		var inputTitle = document.getElementById('update-study-title');
-		var inputEndYear = document.getElementById('update-study-endYear');
-		var inputMark = document.getElementById('update-mark');
-		var inputComment = document.getElementById('update-comment');
-		
-		update_study_obj["university"] = inputUniversity.value;
-		update_study_obj["beginYear"] = inputBeginYear.value;
-		update_study_obj["endYear"] = inputEndYear.value;
-		update_study_obj["title"] = inputTitle.value;
-		update_study_obj["mark"] = inputMark.value;
-		update_study_obj["comment"] = inputComment.value;
-		update_study_obj["index"] = education_index;
-		
-		var update_study_json = JSON.stringify(update_study_obj);
-		console.log(update_study_json);
-		
-		$.ajax({
-			  url:"/users/updateStudies",
-			  type:"POST",
-			  data:update_study_json,
-			  contentType:"application/json; charset=utf-8",
-			  dataType:"json",
-			  success: function(){
-					$.post("/users/updateStudies ", update_study_json, function(data, status) {
-						alert("Data: " + data + "\nStatus: " + status);
-					});
-					update_education_modal.style.display = "none";
-					location.reload();
-			  }
-			})
+	function storeUpdateEducation() {
+		if (document.getElementById('update-study-form').checkValidity() === true) {
+			var update_study_obj = {};
+	
+			var inputUniversity = document.getElementById('update-university');
+			var inputBeginYear = document.getElementById('update-study-beginYear');
+			var inputTitle = document.getElementById('update-study-title');
+			var inputEndYear = document.getElementById('update-study-endYear');
+			var inputMark = document.getElementById('update-mark');
+			var inputComment = document.getElementById('update-comment');
+			
+			update_study_obj["university"] = inputUniversity.value;
+			update_study_obj["beginYear"] = inputBeginYear.value;
+			update_study_obj["endYear"] = inputEndYear.value;
+			update_study_obj["title"] = inputTitle.value;
+			update_study_obj["mark"] = inputMark.value;
+			update_study_obj["comment"] = inputComment.value;
+			update_study_obj["index"] = education_index;
+			
+			var update_study_json = JSON.stringify(update_study_obj);
+			console.log(update_study_json);
+			
+			$.ajax({
+				  url:"/users/updateStudies",
+				  type:"POST",
+				  data:update_study_json,
+				  contentType:"application/json; charset=utf-8",
+				  dataType:"json",
+				  success: function(){
+						$.post("/users/updateStudies ", update_study_json, function(data, status) {
+							alert("Data: " + data + "\nStatus: " + status);
+						});
+						update_education_modal.style.display = "none";
+						location.reload();
+				  }
+			});
+		}
+		document.getElementById('update-study-form').classList.add('was-validated');
 	}
 </script>
