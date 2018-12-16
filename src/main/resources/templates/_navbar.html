@@ -11,8 +11,8 @@
 	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
 	        <form class="form-inline my-2 my-lg-0">
 	             <div class="input-group input-group-sm">
-	                 <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Busqueda" id="search-text" onkeyup="stoppedTyping()">
-	                 <div class="input-group-append">
+	                 <input type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm" placeholder="Busqueda" id="search-text" onkeypress="stoppedTyping(event)">
+	                 <div class="input-group-append" onmouseover="btnCheck()">
 	                     <button type="button" class="btn btn-secondary btn-number" onclick="search()" id="search-button">
 	                         <i class="fa fa-search"></i>
 	                     </button>
@@ -120,13 +120,23 @@
 			});
 	}
 	
-	function stoppedTyping(){
-        if(this.value.length > 0) { 
-            document.getElementById('search_button').disabled = false; 
-        } else { 
-            document.getElementById('search_button').disabled = true;
-        }
+	function stoppedTyping(event){
+		event=event||window.event;
+        if (event.keyCode == 13) {
+        	event.preventDefault();
+    	    search();
+   	  	}
     }
+	
+	function btnCheck() {
+		var searchInput = document.getElementById("search-text");
+		if (searchInput.value == '' ) {
+			document.getElementById("search-button").disabled = true;
+		}
+		else {
+			document.getElementById("search-button").disabled = false;
+		}
+	}
 	
 	function logout() {
 		window.location.href="/logout";
