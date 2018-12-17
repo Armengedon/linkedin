@@ -1,42 +1,44 @@
 <link rel="stylesheet" href="/resources/css/popups.css">
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <!-- The Modal -->
 <div id="education-modal" class="modal">
   <!-- Modal content -->
   <div class="modal-content">
   	<div class="top-header">
   		<div class="top-title">
-  			<a class="text-title">Educacion</a>
+  			<a class="text-title">Educación</a>
   		</div>
   		<button class="close-button" onclick="closeEducation()">&times;</button>
 	</div>
   	<div class="profile-card">
-  		<div class="form-group full-form">
-		    <label for="university">Universidad <a class="asterisc">*</a></label>
-  			<input type="text" class="form-control" id="university" placeholder="P. ej. Universitat de Barcelona" required>
-  		</div>
-  		<div class="form-group full-form">
-		    <label for="study-title">Titulo <a class="asterisc">*</a></label>
-  			<input type="text" class="form-control" id="study-title" placeholder="P. ej. gerente">
-  		</div>
-  		<div class="form-group full-form">
-		    <label for="study-mark">Nota</label>
-  			<input type="text" class="form-control" id="study-mark">
-  		</div>
-  		<div class="region-box">
-			<div class="form-group half-form-left">
-			    <label for="study-beginYear">Ano de inicio <a class="asterisc">*</a></label>
-  				<input type="number" class="form-control" id="study-beginYear" placeholder="Ano de inicio">
+  		<form class="needs-validation" id="study-form" novalidate>
+	  		<div class="form-group full-form">
+			    <label for="university">Universidad <a class="asterisc">*</a></label>
+	  			<input type="text" class="form-control" id="university" placeholder="P. ej. Universitat de Barcelona" required>
 	  		</div>
-	  		<div class="form-group half-form-right">
-			    <label for="study-endYear">Ano de finalizacion (o previsto) <a class="asterisc">*</a></label>
-  				<input type="number" class="form-control" id="study-endYear" placeholder="Ano de finalizacion">
+	  		<div class="form-group full-form">
+			    <label for="study-title">Titulo <a class="asterisc">*</a></label>
+	  			<input type="text" class="form-control" id="study-title" placeholder="P. ej. gerente" required>
 	  		</div>
-		</div>
-		<div class="form-group full-form big-box">
-		    <label for="study-comment">Descripcion</label>
-  			<textarea class="form-control" id="study-comment" rows="4"></textarea>
-  		</div>
+	  		<div class="form-group full-form">
+			    <label for="study-mark">Nota</label>
+	  			<input type="text" class="form-control" id="study-mark">
+	  		</div>
+	  		<div class="region-box">
+				<div class="form-group half-form-left">
+				    <label for="study-beginYear">Año de inicio <a class="asterisc">*</a></label>
+	  				<input type="number" class="form-control" id="study-beginYear" placeholder="Año de inicio" required>
+		  		</div>
+		  		<div class="form-group half-form-right">
+				    <label for="study-endYear">Año de finalizacion (o previsto) <a class="asterisc">*</a></label>
+	  				<input type="number" class="form-control" id="study-endYear" placeholder="Año de finalizacion" required>
+		  		</div>
+			</div>
+			<div class="form-group full-form big-box">
+			    <label for="study-comment">Descripcion</label>
+	  			<textarea class="form-control" id="study-comment" rows="4"></textarea>
+	  		</div>
+  		</form>
 	</div>
 	<div class="bottom-footer">
 		<button type="button" class="btn btn-primary store-button" onclick="storeEducation()">Guardar</button>
@@ -64,43 +66,45 @@
 	}
 	
 	function storeEducation() {
-
-		var study_obj = {};
-
-		var inputUniversity = document.getElementById('university');
-		var inputBeginYear = document.getElementById('study-beginYear');
-		var inputTitle = document.getElementById('study-title');
-		var inputEndYear = document.getElementById('study-endYear');
-		var inputMark = document.getElementById('study-mark');
-		var inputComment = document.getElementById('study-comment');
-		
-		study_obj["university"] = inputUniversity.value;
-		study_obj["beginYear"] = inputBeginYear.value;
-		study_obj["endYear"] = inputEndYear.value;
-		study_obj["title"] = inputTitle.value;
-		study_obj["mark"] = inputMark.value;
-		study_obj["comment"] = inputComment.value;
-		
-		var study_json = JSON.stringify(study_obj);
-		console.log(study_json);
-		
-		$.ajax({
-			  url:"/users/addStudies",
-			  type:"POST",
-			  data:study_json,
-			  contentType:"application/json; charset=utf-8",
-			  dataType:"json",
-			  success: function(){
-					$.post("/users/addStudies ", study_json, function(data, status) {
-						alert("Data: " + data + "\nStatus: " + status);
-					});
-					
-					var new_selected_study = /*[[${appUser.studies_list.size()}]]*/ 0;
-					newStudyIndex(new_selected_study);
-			  }
-			})
-	}
+		if (document.getElementById('study-form').checkValidity() === true) {
+			var study_obj = {};
 	
+			var inputUniversity = document.getElementById('university');
+			var inputBeginYear = document.getElementById('study-beginYear');
+			var inputTitle = document.getElementById('study-title');
+			var inputEndYear = document.getElementById('study-endYear');
+			var inputMark = document.getElementById('study-mark');
+			var inputComment = document.getElementById('study-comment');
+			
+			study_obj["university"] = inputUniversity.value;
+			study_obj["beginYear"] = inputBeginYear.value;
+			study_obj["endYear"] = inputEndYear.value;
+			study_obj["title"] = inputTitle.value;
+			study_obj["mark"] = inputMark.value;
+			study_obj["comment"] = inputComment.value;
+			
+			var study_json = JSON.stringify(study_obj);
+			console.log(study_json);
+			
+			$.ajax({
+				  url:"/users/addStudies",
+				  type:"POST",
+				  data:study_json,
+				  contentType:"application/json; charset=utf-8",
+				  dataType:"json",
+				  success: function(){
+						$.post("/users/addStudies ", study_json, function(data, status) {
+							alert("Data: " + data + "\nStatus: " + status);
+						});
+						
+						var new_selected_study = /*[[${appUser.studies_list.size()}]]*/ 0;
+						newStudyIndex(new_selected_study);
+				  }
+			});
+		}
+		document.getElementById('study-form').classList.add('was-validated');
+	}
+		
 	function newStudyIndex(index) {
 		var new_study_selected_obj = {};
 		new_study_selected_obj["index"] = index;
@@ -121,6 +125,13 @@
 					education_modal.style.display = "none";
 				    location.reload();
 			  }
-			})
+		});
+	}
+	
+	function validaNumericos(event) {
+	    if(event.charCode >= 48 && event.charCode <= 57){
+	      return true;
+	     }
+	     return false;
 	}
 </script>

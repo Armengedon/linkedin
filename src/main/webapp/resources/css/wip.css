@@ -1,0 +1,26 @@
+/*wip*/
+
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+
+.container {
+	width: 100%;
+	margin: 0 auto !important;
+	margin-top: 300px;
+}
+
+.img {
+   	margin:0px auto;
+	display:block;
+	margin-top: 100px !important;
+	text-align: center;
+}
+
+.title {
+    font-size: 52px;
+    font-weight: 800;
+    color: #16425F;
+    text-align: left;
+    position: absolute;
+   	margin-top: 60px !important;
+   	margin-left: 10px !important;
+}

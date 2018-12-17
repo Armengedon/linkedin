@@ -111,19 +111,19 @@ public class MainController {
     
     @RequestMapping(value = {"/jobs" }, method = RequestMethod.GET)
     public String jobsPage(Model model, Principal user) {
-    	if (user != null) {return "jobs";}
+    	if (user != null) {return "wip";}
     	return "welcomePage";
     }
     
     @RequestMapping(value = {"/messaging" }, method = RequestMethod.GET)
     public String messagesPage(Model model, Principal user) {
-    	if (user != null) {return "messages";}
+    	if (user != null) {return "wip";}
     	return "welcomePage";
     }
     
     @RequestMapping(value = {"/notifications" }, method = RequestMethod.GET)
     public String notificationsPage(Model model, Principal user) {
-    	if (user != null) {return "spam";}
+    	if (user != null) {return "wip";}
     	return "welcomePage";
     }
 
