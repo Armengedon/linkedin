@@ -268,6 +268,12 @@ public class AppUser {
 		
 		Map<Integer,List<AppUser>> scores = new HashMap<Integer,List<AppUser>>();
 		List<AppUser> users = repo.findAll();
+		boolean surName = false;
+		if (input.contains(" ")) {
+			surName = true;
+		}
+		input = input.toLowerCase().replace(" ","");
+		
 		
 
 		Integer score;
@@ -276,10 +282,17 @@ public class AppUser {
 		for (int i = 0; i < users.size(); i++) {
 			if (!users.get(i).getEmail().equals(this.email)) {
 				
-			
+				String toCompare = users.get(i).getFirstName();
+				if (surName) {
+					toCompare = users.get(i).getFirstName()+users.get(i).getSecondName();
+				}
+
+				toCompare = toCompare.toLowerCase().replace(" ","");
+				System.out.println("inoput"+input+"To"+toCompare);
+
 				List<AppUser> temp = new ArrayList<AppUser>();
 				
-				score = lDist.getDistance(input, (users.get(i).getFirstName()+users.get(i).getSecondName()));
+				score = lDist.getDistance(input, toCompare);
 	
 				if (scores.containsKey(score)) {
 					temp = scores.get(score);

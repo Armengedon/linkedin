@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="/resources/css/popups.css">
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <!-- The Modal -->
 <div id="myModal" class="modal">
   <!-- Modal content -->
@@ -18,52 +18,54 @@
 			<img alt="profile-image" class="profile" th:if="${appUser != null && appUser.pic != null}" th:src="${ 'data:image/jpeg;base64,' + appUser.pic.data}">
  			<img alt="profile-image" class="profile" th:unless="${appUser != null && appUser.pic != null}" th:src="@{/resources/images/img_avatar.png}">
 		</div>
-		<div class="name-box">
-			<div class="form-group half-form-left">
-			    <label for="name">Nombre <a class="asterisc">*</a></label>
-			    <input type="text" class="form-control" name="name" id="name" th:if="${appUser != null}" th:value="${appUser.firstName}" required>
-	  			<input type="text" class="form-control" id="name" th:unless="${appUser != null}" placeholder="Nombre" required>
-	  		</div>
-	  		<div class="form-group half-form-right">
-			    <label for="surname">Apellidos <a class="asterisc">*</a></label>
-			    <input type="text" class="form-control" name="surname" id="surname" th:if="${appUser != null}" th:value="${appUser.secondName}" required>
-	  			<input type="text" class="form-control" id="surname" th:unless="${appUser != null}" placeholder="Apellidos" required>
-	  		</div>
-		</div>
-		<div th:if="${appUser != null && !appUser.studies_list.isEmpty()}" class="full-form">
-			<label>Estudios</label>
-			<select class="form-control form-control-lg  selector-form" id="studies-selector">
-				<th:block th:object="${appUser}">
-					<option th:each="studies: *{studies_list}" th:text="${studies.title} + ' en ' + ${studies.university}" th:selected="${studies == appUser.studies_list.get(appUser.getsIndex())}"></option>
-				</th:block>
-			</select>
-		</div>
-		<div class="right-button">
-			<button type="button" class="btn btn-link" onclick="showEducation()">Anadir nueva educacion</button>
-		</div>
-		<div th:if="${appUser != null && !appUser.experiences.isEmpty()}" class="full-form">
-			<label>Experiencias</label>
-			<select class="form-control form-control-lg selector-form" id="experiences-selector">
-				<th:block th:object="${appUser}">
-					<option th:each="experience: *{experiences}" th:text="${experience.title} + ' en ' + ${experience.company_Name}" th:selected="${experience == appUser.experiences.get(appUser.getjIndex())}"></option>
-				</th:block>
-			</select>
-		</div>
-		<div class="right-button">
-			<button type="button" class="btn btn-link" onclick="showExperience()">Anadir nuevo puesto</button>
-		</div>
-  		<div class="region-box">
-			<div class="form-group half-form-left">
-			    <label for="name">País/Región</label>
-			    <input type="text" class="form-control" id="country" th:if="${appUser != null}" th:value="${appUser.country}">
-	  			<input type="text" class="form-control" id="country" th:unless="${appUser != null}" placeholder="Pais">
-	  		</div>
-	  		<div class="form-group half-form-right">
-			    <label for="surname">Código Postal</label>
-			    <input type="text" class="form-control" id="postalCode" th:if="${appUser != null}" th:value="${appUser.postalCode}">
-	  			<input type="text" class="form-control" id="postalCode" th:unless="${appUser != null}" placeholder="Codigo Postal">
-	  		</div>
-		</div>
+		<form class="needs-validation" id="profile-form" novalidate>
+			<div class="name-box">
+				<div class="form-group half-form-left">
+				    <label for="name">Nombre <a class="asterisc">*</a></label>
+				    <input type="text" class="form-control" name="name" id="name" th:if="${appUser != null}" th:value="${appUser.firstName}" required>
+		  			<input type="text" class="form-control" id="name" th:unless="${appUser != null}" placeholder="Nombre" required>
+		  		</div>
+		  		<div class="form-group half-form-right">
+				    <label for="surname">Apellidos <a class="asterisc">*</a></label>
+				    <input type="text" class="form-control" name="surname" id="surname" th:if="${appUser != null}" th:value="${appUser.secondName}" required>
+		  			<input type="text" class="form-control" id="surname" th:unless="${appUser != null}" placeholder="Apellidos" required>
+		  		</div>
+			</div>
+			<div th:if="${appUser != null && !appUser.studies_list.isEmpty()}" class="full-form">
+				<label>Estudios</label>
+				<select class="form-control form-control-lg  selector-form" id="studies-selector">
+					<th:block th:object="${appUser}">
+						<option th:each="studies: *{studies_list}" th:text="${studies.title} + ' en ' + ${studies.university}" th:selected="${studies == appUser.studies_list.get(appUser.getsIndex())}"></option>
+					</th:block>
+				</select>
+			</div>
+			<div class="right-button">
+				<button type="button" class="btn btn-link" onclick="showEducation()">Anadir nueva educacion</button>
+			</div>
+			<div th:if="${appUser != null && !appUser.experiences.isEmpty()}" class="full-form">
+				<label>Experiencias</label>
+				<select class="form-control form-control-lg selector-form" id="experiences-selector">
+					<th:block th:object="${appUser}">
+						<option th:each="experience: *{experiences}" th:text="${experience.title} + ' en ' + ${experience.company_Name}" th:selected="${experience == appUser.experiences.get(appUser.getjIndex())}"></option>
+					</th:block>
+				</select>
+			</div>
+			<div class="right-button">
+				<button type="button" class="btn btn-link" onclick="showExperience()">Anadir nuevo puesto</button>
+			</div>
+	  		<div class="region-box">
+				<div class="form-group half-form-left">
+				    <label for="name">País/Región</label>
+				    <input type="text" class="form-control" id="country" th:if="${appUser != null}" th:value="${appUser.country}">
+		  			<input type="text" class="form-control" id="country" th:unless="${appUser != null}" placeholder="Pais">
+		  		</div>
+		  		<div class="form-group half-form-right">
+				    <label for="surname">Código Postal</label>
+				    <input type="text" class="form-control" id="postalCode" th:if="${appUser != null}" th:value="${appUser.postalCode}">
+		  			<input type="text" class="form-control" id="postalCode" th:unless="${appUser != null}" placeholder="Codigo Postal">
+		  		</div>
+			</div>
+		</form>
 	</div>
 	<div class="bottom-footer">
 		<button type="button" class="btn btn-primary store-button" onclick="storeProfile()">Guardar</button>
@@ -87,48 +89,51 @@
 	
 	function storeProfile() {
 		
-		var profile_obj = {};
-		
-		var inputName = document.getElementById('name');
-		var inputSurname = document.getElementById('surname');
-		var inputCountry = document.getElementById('country');
-		var inputPostalCode = document.getElementById('postalCode');
-		
-		profile_obj["firstName"] = inputName.value;
-		profile_obj["secondName"] = inputSurname.value;
-		profile_obj["country"] = inputCountry.value;
-		profile_obj["postalCode"] = inputPostalCode.value;
-		
-		var profile_json = JSON.stringify(profile_obj);
-		console.log(profile_json);
-		
-		$.ajax({
-			  url:"/users/updatePersonalInfo",
-			  type:"POST",
-			  data:profile_json,
-			  contentType:"application/json; charset=utf-8",
-			  dataType:"json",
-			  success: function(){
-					$.post("/users/updatePersonalInfo ", profile_json, function(data, status) {
-						alert("Data: " + data + "\nStatus: " + status);
-					});
-					
-					var experience_list_check = /*[[${appUser.experiences.size()}]]*/ 0;
-					var studies_list_check = /*[[${appUser.studies_list.size()}]]*/ 0;
-					if (experience_list_check > 0) {
-						var selected_experience = document.getElementById("experiences-selector").selectedIndex;
-						changeExperienceIndex(selected_experience);
-					}
-					else if (studies_list_check > 0) {
-						var selected_study = document.getElementById("studies-selector").selectedIndex;
-						changeStudyIndex(selected_study);
-					}
-					else {
-						profile_modal.style.display = "none";
-					    location.reload();
-					}
-			  }
-			})
+		if (document.getElementById('profile-form').checkValidity() === true) {
+			var profile_obj = {};
+			
+			var inputName = document.getElementById('name');
+			var inputSurname = document.getElementById('surname');
+			var inputCountry = document.getElementById('country');
+			var inputPostalCode = document.getElementById('postalCode');
+			
+			profile_obj["firstName"] = inputName.value;
+			profile_obj["secondName"] = inputSurname.value;
+			profile_obj["country"] = inputCountry.value;
+			profile_obj["postalCode"] = inputPostalCode.value;
+			
+			var profile_json = JSON.stringify(profile_obj);
+			console.log(profile_json);
+			
+			$.ajax({
+				  url:"/users/updatePersonalInfo",
+				  type:"POST",
+				  data:profile_json,
+				  contentType:"application/json; charset=utf-8",
+				  dataType:"json",
+				  success: function(){
+						$.post("/users/updatePersonalInfo ", profile_json, function(data, status) {
+							alert("Data: " + data + "\nStatus: " + status);
+						});
+						
+						var experience_list_check = /*[[${appUser.experiences.size()}]]*/ 0;
+						var studies_list_check = /*[[${appUser.studies_list.size()}]]*/ 0;
+						if (experience_list_check > 0) {
+							var selected_experience = document.getElementById("experiences-selector").selectedIndex;
+							changeExperienceIndex(selected_experience);
+						}
+						else if (studies_list_check > 0) {
+							var selected_study = document.getElementById("studies-selector").selectedIndex;
+							changeStudyIndex(selected_study);
+						}
+						else {
+							profile_modal.style.display = "none";
+						    location.reload();
+						}
+				  }
+			});
+		}
+		document.getElementById('profile-form').classList.add('was-validated');
 	}
 	
 	function changeExperienceIndex(index) {
@@ -182,5 +187,11 @@
 				    location.reload();
 			  }
 			})
+	}
+	function validaNumericos(event) {
+	    if(event.charCode >= 48 && event.charCode <= 57){
+	      return true;
+	     }
+	     return false;
 	}
 </script>

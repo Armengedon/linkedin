@@ -1,5 +1,5 @@
 <link rel="stylesheet" href="/resources/css/popups.css">
-
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <!-- The Modal -->
 <div id="update-experience-modal" class="modal">
   <!-- Modal content -->
@@ -11,18 +11,20 @@
   		<button class="close-button" onclick="closeUpdateExperience()">&times;</button>
 	</div>
   	<div class="profile-card">
-  		<div class="form-group full-form">
-		    <label for="update_company_name">Empresa <a class="asterisc">*</a></label>
-  			<input type="text" class="form-control" id="update_company_name" placeholder="P. ej. Microsoft" required>
-  		</div>
-  		<div class="form-group full-form">
-		    <label for="update_beginYear">Ano de inicio <a class="asterisc">*</a></label>
-  			<input type="number" class="form-control" id="update_beginYear" placeholder="Ano" required>
-  		</div>
-		<div class="form-group full-form">
-		    <label for="update_title">Titulo <a class="asterisc">*</a></label>
-  			<input type="text" class="form-control" id="update_title" placeholder="P. ej. gerente" required>
-  		</div>
+  		<form class="needs-validation" id="update-experience-form" novalidate>
+	  		<div class="form-group full-form">
+			    <label for="update_company_name">Empresa <a class="asterisc">*</a></label>
+	  			<input type="text" class="form-control" id="update_company_name" placeholder="P. ej. Microsoft" required>
+	  		</div>
+	  		<div class="form-group full-form">
+			    <label for="update_beginYear">Año de inicio <a class="asterisc">*</a></label>
+	  			<input type="number" class="form-control" id="update_beginYear" placeholder="Año" required>
+	  		</div>
+			<div class="form-group full-form">
+			    <label for="update_title">Titulo <a class="asterisc">*</a></label>
+	  			<input type="text" class="form-control" id="update_title" placeholder="P. ej. gerente" required>
+	  		</div>
+  		</form>
 	</div>
 	<div class="bottom-footer">
 		<button type="button" class="btn btn-primary store-button" onclick="storeUpdateExperience()">Guardar</button>
@@ -54,33 +56,43 @@
 	}
 	
 	function storeUpdateExperience() {
-		var update_experience_obj = {};
-
-		var inputCompany = document.getElementById('update_company_name');
-		var inputYear = document.getElementById('update_beginYear');
-		var inputPosition = document.getElementById('update_title');
-		
-		update_experience_obj["company_Name"] = inputCompany.value;
-		update_experience_obj["beginYear"] = inputYear.value;
-		update_experience_obj["title"] = inputPosition.value;
-		update_experience_obj["index"] = experience_index;
-		
-		var update_experience_json = JSON.stringify(update_experience_obj);
-		console.log(update_experience_json);
-		
-		$.ajax({
-			  url:"/users/updateJobExperience",
-			  type:"POST",
-			  data:update_experience_json,
-			  contentType:"application/json; charset=utf-8",
-			  dataType:"json",
-			  success: function(){
-					$.post("/users/updateJobExperience ", update_experience_json, function(data, status) {
-						alert("Data: " + data + "\nStatus: " + status);
-					});
-					update_experience_modal.style.display = "none";
-				    location.reload();
-			  }
-			})
+		if (document.getElementById('update-experience-form').checkValidity() === true) {
+			var update_experience_obj = {};
+	
+			var inputCompany = document.getElementById('update_company_name');
+			var inputYear = document.getElementById('update_beginYear');
+			var inputPosition = document.getElementById('update_title');
+			
+			update_experience_obj["company_Name"] = inputCompany.value;
+			update_experience_obj["beginYear"] = inputYear.value;
+			update_experience_obj["title"] = inputPosition.value;
+			update_experience_obj["index"] = experience_index;
+			
+			var update_experience_json = JSON.stringify(update_experience_obj);
+			console.log(update_experience_json);
+			
+			$.ajax({
+				  url:"/users/updateJobExperience",
+				  type:"POST",
+				  data:update_experience_json,
+				  contentType:"application/json; charset=utf-8",
+				  dataType:"json",
+				  success: function(){
+						$.post("/users/updateJobExperience ", update_experience_json, function(data, status) {
+							alert("Data: " + data + "\nStatus: " + status);
+						});
+						update_experience_modal.style.display = "none";
+					    location.reload();
+				  }
+			});
+		}
+		document.getElementById('update-experience-form').classList.add('was-validated');
+	}
+	
+	function validaNumericos(event) {
+	    if(event.charCode >= 48 && event.charCode <= 57){
+	      return true;
+	     }
+	     return false;
 	}
 </script>

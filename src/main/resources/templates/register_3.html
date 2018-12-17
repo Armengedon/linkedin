@@ -57,10 +57,10 @@
                                         
                                         
                                         <label for="añoInicio">Año de inicio *</label>
-                                        <input type="textregister" id="beginYear" name="beginYear"required>   
+                                        <input type="textregister" id="beginYear" name="beginYear"required onkeypress='return validaNumericos(event)'>   
                                         
                                         <label for="añoFinal">Año de finalización (o previsto) *</label>
-                                        <input type="textregister" id="endYear" name="endYear"required>   
+                                        <input type="textregister" id="endYear" name="endYear"required onkeypress='return validaNumericos(event)'>   
                                             
                                         <button class="button"><a href="/register_31">No soy estudiante</a></button>
                                         
@@ -118,6 +118,13 @@
 			
 		});
 	})();
+	
+	function validaNumericos(event) {
+	    if(event.charCode >= 48 && event.charCode <= 57){
+	      return true;
+	     }
+	     return false;
+	}
 </script>
 
 </html>

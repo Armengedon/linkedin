@@ -295,8 +295,8 @@
                                     </datalist>
                                 
                                     <label for="cp"><b>Código postal</b></label>
-                                    <input type="textregister" id="postalCode" name="postalCode" required>
-                                    <button type="submit" class="btn btn-primary">Siguiente</button>
+                                    <input type="textregister" id="postalCode" name="postalCode" required onkeypress='return validaNumericos(event)'>
+                                    <button type="submit" class="btn btn-primary">Finalizar</button>
                                 </form>    
                             </div>    
                         </div>
@@ -349,6 +349,13 @@
 			
 		});
 	})();
+	
+	function validaNumericos(event) {
+	    if(event.charCode >= 48 && event.charCode <= 57){
+	      return true;
+	     }
+	     return false;
+	}
 </script>
 
 </html>

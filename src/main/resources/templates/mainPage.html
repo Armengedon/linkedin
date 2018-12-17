@@ -242,12 +242,50 @@
 					$.post("/users/addPublication ", json, function (data, status) {
 						alert("Data: " + data + "\nStatus: " + status);
 					});
+					
+					
 					location.reload();
 				}
 			})
+			
+			
 
 		}
 
+	</script>
+	
+	<script type="text/javascript">
+	
+	function changeData(){
+		var listDates = document.getElementsByClassName("date");
+		
+		var s = document.getElementById("date").innerHTML;
+		
+		var days = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+		var months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Setiembre", "Octubre", "Noviembre", "Diciembre"];
+		
+		for (var i=0; i < listDates.length; i++){
+			
+			var d = new Date(listDates[i].innerHTML);
+			
+			textYear = d.getUTCFullYear();
+			numberDay = d.getUTCDate();
+			textDay = days[d.getDay()];
+			numberMonth = d.getMonth()+1
+			textMonth = months[d.getMonth()]
+
+			numberHours = d.getHours()
+			numberMinutes = d.getMinutes()
+			if(numberMinutes<10){ numberMinutes='0'+numberMinutes }
+
+			listDates[i].innerHTML = textDay + " " + numberDay + " de " + textMonth + " a las " + numberHours + ":" + numberMinutes;
+			
+		}
+		
+	}
+	
+	window.onload=changeData;
+	
 	</script>
 
 

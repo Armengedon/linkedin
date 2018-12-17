@@ -1,0 +1,31 @@
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title th:utext="${title}"></title>
+
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+		<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		
+		<link rel="stylesheet" href="/resources/css/navbar.css">
+		<link rel="stylesheet" href="/resources/css/wip.css">
+		
+   </head>
+
+	<body>
+		<header>
+			<th:block th:include="_navbar"></th:block>
+		</header>
+		<body>
+	
+		<div class="container img">
+			<pre class="title">    ESTA SECCIÓN
+ESTA EN CONSTRUCCIÓN</pre>
+  			<img alt="img" src="http://vizion360.xyz/wp-content/uploads/2017/02/P%C3%A1gina-en-construcci%C3%B3n.png">
+		</div>
+	</body>
+	</html>
